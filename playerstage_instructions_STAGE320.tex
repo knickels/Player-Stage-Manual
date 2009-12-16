@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{report}
 \title{How to Use Player/Stage}
 \author{Jennifer Owen}
 
@@ -21,6 +21,9 @@ If you have any questions about using \plst there is a guide to getting help fro
 \begin{center}
 	\url{http://playerstage.sourceforge.net/wiki/Getting_help}
 \end{center}
+This edition of the manual uses Stage version 3.2.X as there are significant differences with the previous versions of Stage and the last edition is now out of date. If you find any problems or errors in this manual then please do email me, although for help with Player/Stage I would strongly recommend the above link. 
+
+I am a research student at the University of York, UK. My university website \url{www.jenny-owen.co.uk} contains a \textit{small} amount of supplementary material to this document but the official Player and Stage manuals are much more helpful.
 
 \newpage
 \tableofcontents
@@ -131,7 +134,7 @@ To start building an empty world we need a .cfg file. First create a document ca
 driver
 (		
       name "stage"
-      plugin "libstageplugin"
+      plugin "stageplugin"
 
       provides ["simulation:0" ]
 
@@ -139,7 +142,7 @@ driver
       worldfile "empty.world"	
 )
 \end{verbatim}
-The configuration file syntax is described in section \ref{sec:WritingConfigurationFile}, but basically what is happening here is that your configuration file is telling \pl that there is a driver called \verb|stage| in the \verb|libstageplugin| library, and this will give \pl data which conforms to the \verb|simulation| interface. To build the simulation \pl needs to look in the worldfile called \verb|empty.world| which is stored in the same folder as this .cfg. If it was stored elsewhere you would have to include a filepath, for example \verb|./worlds/empty.world|. Lines that begin with the hash symbol (\#) are comments.
+The configuration file syntax is described in section \ref{sec:WritingConfigurationFile}, but basically what is happening here is that your configuration file is telling \pl that there is a driver called \verb|stage| in the \verb|stageplugin| library, and this will give \pl data which conforms to the \verb|simulation| interface. To build the simulation \pl needs to look in the worldfile called \verb|empty.world| which is stored in the same folder as this .cfg. If it was stored elsewhere you would have to include a filepath, for example \verb|./worlds/empty.world|. Lines that begin with the hash symbol (\#) are comments.
 When you build a simulation, any simulation, in Stage the above chunk of code should always be the first thing the configuration file says. Obviously the name of the worldfile should be changed depending on what you called it though.
 
 Now a basic configuration file has been written, it is time to tell \plst what to put into this simulation. This is done in the .world file. 
@@ -1755,6 +1758,8 @@ The main advantage of configuring the robot swarm this way is that it allows us 
 
 
 
+\begin{verbatim}
+ 
 
 
 
@@ -1772,7 +1777,7 @@ The main advantage of configuring the robot swarm this way is that it allows us 
 \subsection*{Appendix D. Controlling Code for Bigbob Robot Simulation}\label{app:Dbigbobcode}
 \verbatiminput{./appendices/bigbob.cc}
 
-
+\end{verbatim}
 
 
 
