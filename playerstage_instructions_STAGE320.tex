@@ -23,7 +23,8 @@ If you have any questions about using \plst there is a guide to getting help fro
 \end{center}
 This edition of the manual uses Stage version 3.2.X as there are significant differences with the previous versions of Stage and the previous edition of this manual is now out of date. If you find any problems or errors \emph{in this manual} then please do email me, although for help with Player/Stage I would strongly recommend the above link. 
 
-I am a research student at the University of York, UK. My university website \url{www.jenny-owen.co.uk} contains a \textit{small} amount of supplementary material to this document (including code in this document) but the official Player and Stage manuals are much more helpful.
+The code listings from this document can be downloaded from \url{www.jenny-owen.co.uk}, plus a \textit{small} amount of supplementary material. The official Player and Stage manuals are, however, much more helpful.
+
 
 % \subsection*{Acknowledgements}
 % I would like to thank Susan Stepney, Jon Timmis and Alan Winfield my supervisors for letting me write this instead of what I'm paid to do. I'd also like to thank everyone who gave feedback on the last edition of this manual, including Wenguo Liu, Ritahani Ishmail, Kelvin Lau, Neil Forster, Andrew Turner, 
@@ -46,7 +47,7 @@ Together \pl and Stage are called \plst, and they make a simulation of your robo
 These instructions will be focussing on how to use \plst to make a simulation, but hopefully this will still be a useful resource for anyone just using \pl (which is the same thing but on a real robot, without any simulation software).
 
 \section{A Note on Installing \plst}
-Instructions on how to install \plst onto your computer aren't really the focus of this document. It is very difficult though. If you're lucky the install will work first time but there are a lot of dependencies which may need installing. In Linux there are the install programmes ``synaptic'' or ``aptitude'' which will install a package and also get its dependencies, but these aren't common to all Linux distributions. There is another install program called ``apt-get'' but this won't install dependencies for you. For computers running Ubuntu there is a reasonable set of instructions here:
+Instructions on how to install \plst onto your computer aren't really the focus of this document. It is very difficult though. If you're lucky the install will work first time but there are a lot of dependencies which may need installing. For computers running Ubuntu there is a very good set of instructions here (including a script for downloading the many prerequisites):
 \begin{center}
 \url{http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu}
 \end{center}
@@ -105,7 +106,7 @@ player simple.cfg
 Assuming \plst is installed properly you should now have a window open which looks figure \ref{fig:simpleworldpic}.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{./revised_pics/simpleworld.png}
+	\includegraphics[width=0.8\linewidth]{./pics/simpleworld.png}
 	\caption{The simple.cfg world after being run}
 	\label{fig:simpleworldpic}
 \end{figure}
@@ -121,13 +122,13 @@ To start building an empty world we need a .cfg file. First create a document ca
 \begin{verbatim}
 driver
 (		
-      name "stage"
-      plugin "stageplugin"
+   name "stage"
+   plugin "stageplugin"
 
-      provides ["simulation:0" ]
+   provides ["simulation:0" ]
 
-      # load the named file into the simulator
-      worldfile "empty.world"	
+   # load the named file into the simulator
+   worldfile "empty.world"	
 )
 \end{verbatim}
 The configuration file syntax is described in section \ref{sec:WritingConfigurationFile}, but basically what is happening here is that your configuration file is telling \pl that there is a driver called \verb|stage| in the \verb|stageplugin| library, and this will give \pl data which conforms to the \verb|simulation| interface. To build the simulation \pl needs to look in the worldfile called \verb|empty.world| which is stored in the same folder as this .cfg. If it was stored elsewhere you would have to include a filepath, for example \verb|./worlds/empty.world|. Lines that begin with the hash symbol (\#) are comments.
@@ -140,7 +141,7 @@ A worldfile is basically just a list of models that describes all the stuff in t
 \begin{verbatim}
 define model_name model
 (
-      # parameters
+   # parameters
 )
 \end{verbatim}
 This tells \plst that you are \verb|defining| a \verb|model| which you have called \verb|model_name|, and all the stuff in the round brackets are parameters of the model. To begin to understand \plst model parameters, let's look at the \verb|map.inc| file that comes with Stage, this contains the \verb\floorplan\ model, which is used to describe the basic environment of the simulation (i.e. walls the robots can bump into):
@@ -180,13 +181,13 @@ We can see from the first line that they are defining a \verb|model| called \ver
 	\centering
 	\begin{minipage}[c]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{./pics/emptyWorld/gui_nonose_example.png}
+		\includegraphics[width=\linewidth]{./pics/empty_world/gui_nonose_example.png}
 		
 	\end{minipage}%
 	\hspace{0.05\linewidth}
 	\begin{minipage}[c]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{./pics/emptyWorld/gui_nose_example.png} 
+		\includegraphics[width=\linewidth]{./pics/empty_world/gui_nose_example.png} 
 	\end{minipage}	
 	\caption{The left picture shows an empty map without a nose. The right picture shows the same map with a nose to indicate orientation, this is the horizontal line from the centre of the map to the right, it shows that the map is actually facing to the right.}
 		\label{fig:guinose}
@@ -194,7 +195,7 @@ We can see from the first line that they are defining a \verb|model| called \ver
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{./pics/emptyWorld/gui_nonose_example.png}
+	\includegraphics[width=0.7\linewidth]{./pics/empty_world/gui_nonose_example.png}
 	\caption{An empty map with gui\_grid enabled. With gui\_grid disabled this would just be an empty white square.}
 	\label{fig:guigrid}
 \end{figure}
@@ -207,8 +208,8 @@ This inserts the \verb|map.inc| file into our world file where the include line 
 \begin{verbatim}
 floorplan
 (
-      bitmap "bitmaps/helloworld.png"
-      size [12 5 1]	
+   bitmap "bitmaps/helloworld.png"
+   size [12 5 1]	
 )
 \end{verbatim}
 What this means is that we are using the model ``floorplan'', and making some extra definitions; both ``bitmap'' and ``size'' are parameters of a \plst model. Here we are telling \plst that we defined a bunch of parameters for a type of model called ``floorplan'' (contained in map.inc) and now we're using this ``floorplan'' model definition and adding a few extra parameters.
@@ -221,13 +222,13 @@ What this means is that we are using the model ``floorplan'', and making some ex
 	\centering
 	\begin{minipage}[c]{0.4\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{./pics/emptyWorld/writing.png}
+		\includegraphics[width=\linewidth]{./pics/empty_world/writing.png}
 		
 	\end{minipage}%
 	\hspace{0.05\linewidth}
 	\begin{minipage}[c]{0.5\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{./revised_pics/empty_world/helloworld.png} 
+		\includegraphics[width=\linewidth]{./pics/empty_world/helloworld.png} 
 	\end{minipage}	
 	\caption{The left image is our "helloworld.png" bitmap, the right image is what \plst interprets that bitmap as. The coloured areas are walls, the robot can move everywhere else.}
 		\label{fig:helloWorldBitmap}
@@ -244,7 +245,7 @@ Like a model, a window is an inbuilt, high-level entity with lots of parameters.
 \begin{verbatim}
 window
 (
-      parameters...
+   # parameters...
 )
 \end{verbatim}
 
@@ -258,9 +259,8 @@ A full list of window parameters can be found in the Stage manual under ``WorldG
 
 \subsection{Making a Basic Worldfile}\label{sec:basicWorldfile}
 
-We have already discussed the basics of worldfile building: models and the window. There are just a few more parameters to describe which don't belong in either a model or a window description which should be defined and then the worldfile can be built.
+We have already discussed the basics of worldfile building: models and the window. There are just a few more parameters to describe which don't belong in either a model or a window description, these are optional though, and the defaults are pretty sensible.
 \begin{itemize}
-\item \verb|size|: At this level this represents how big, in metres, the whole simulation environment will be. This is completely separate from the map size because it could be larger and there might be several different maps running in the same simulation (so more than one simulation could be run at once). Generally though this just needs to be the same as the map size. This parameter must be included in the worldfile otherwise the simulation won't work.
 \item \verb|interval_sim|: This is how many simulated milliseconds there are between each update of the simulation window, the default is 100 milliseconds.
 \item \verb|interval_real|: This is how many real milliseconds there are between each update of the simulation window. Balancing this parameter and the \verb|interval\_sim| parameter controls the speed of the simulation. Again, the default value is 100 milliseconds, both these interval parameter defaults are fairly sensible, so it's not always necessary to redefine them.
 \end{itemize}
@@ -269,35 +269,32 @@ Finally, we are able to write a worldfile!
 \begin{verbatim}
 include "map.inc"
 
-# size of the whole simulation
-size [15 15]
-
-
 # configure the GUI window
 window
 ( 
-      size [ 700.0 700.0 ] 
-      # 15/700 rounded up a bit
-	  scale 0.025
+   size [700.000 700.000] 
+   scale 41
 )
 
 
 # load an environment bitmap
-map
+floorplan
 (
-      bitmap "bitmaps/cave.png"
-      size [15 15]	
+   bitmap "bitmaps/cave.png" 
+   size [15 15 0.5]
 )
 \end{verbatim}
 If we save the above code as empty.world (correcting any filepaths if necessary) we can run its corresponding empty.cfg file (see section \ref{sec:emptyWorld}) to get the simulation shown in figure \ref{fig:finalEmptyWorld}.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{./pics/emptyWorld/finalEmptyWorld.png} 
+	\includegraphics[width=0.7\linewidth]{./pics/empty_world/finalEmptyWorld.png} 
 	\caption{Our Empty World.}
 	\label{fig:finalEmptyWorld}
 \end{figure}
 
+% TODO got this far. 17/03/10
+\begin{comment}
 
 \section{Building a Robot} \label{sec:buildingRobot}
 
@@ -305,7 +302,7 @@ In \plst a robot is just a slightly advanced kind of model, all the parameters d
 
 \subsection{Sensors and Devices} \label{sec:robotSensors}
 
-There are six built-in kinds of model that help with building a robot, they are used to define the sensors and actuators that the robot has. These are associated with a set of model parameters which define by which sensors the model can be detected (these are the \verb\_return\s mentioned earlier). Each of these built in models acts as an \emph{interface} (see section \ref{sec:interfaceDriverDevices}) between the simulation and \pl. If your robot has one of these kinds of sensor on it, then you need to use the relevant model to describe the sensor, otherwise Stage and \pl won't be able to pass the data between each other. It is possible to write your own interfaces, but the stuff already included in \plst should be sufficient for most people's needs. A full list of interfaces that \pl supports can be found in the \pl manual\footnote{http://playerstage.sourceforge.net/doc/\pl-2.1.0/player/group\_\_interfaces.html} although only the following are supported by the current distribution of Stage (version 3.0.1). Unless otherwise stated, these models use the \pl interface that shares its name:
+There are six built-in kinds of model that help with building a robot, they are used to define the sensors and actuators that the robot has. These are associated with a set of model parameters which define by which sensors the model can be detected (these are the \verb\_return\s mentioned earlier). Each of these built in models acts as an \emph{interface} (see section \ref{sec:interfaceDriverDevices}) between the simulation and \pl. If your robot has one of these kinds of sensor on it, then you need to use the relevant model to describe the sensor, otherwise Stage and \pl won't be able to pass the data between each other. It is possible to write your own interfaces, but the stuff already included in \plst should be sufficient for most people's needs. A full list of interfaces that \pl supports can be found in the \pl manual\footnote{http://playerstage.sourceforge.net/doc/\pl-2.1.0/player/group\_\_interfaces.html} although only the following are supported by the current distribution of Stage (version 3.2.X). Unless otherwise stated, these models use the \pl interface that shares its name:
 
 \subsubsection{camera}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_camera.html}
 The camera model adds a camera to the robot model and allows your code to interact with the simulated camera. The camera parameters are as follows:
@@ -1238,7 +1235,7 @@ To change a property of an item in the simulation we use the following function:
 \newline\verb\SetProperty(char *item_name, char *property, void *value, size_t value_len)\
 \begin{itemize}
 	\item \verb\item_name\: this is the name that you gave to the object in the worldfile, it could be \emph{any} model that you have described in the worldfile. For example, in section \ref{sec:exampleRobot} in the worldfile we declared a Bigbob type robot which we called ``bob1'' so the \verb\item_name\ for that object is ``bob1''. Similarly in section \ref{sec:otherStuff} we built some models of oranges and called the ``orange1'' to ``orange4'' so the item name for one of these would be ``orange1''. Anything that is a model in your worldfile can be altered by this function, you just need to have named it, no drivers need to be declared in the configuration file for this to work either. We didn't write drivers for the oranges but we could still alter their properties this way.
-	\item \verb\property\: There are only certain properties about a model that you can change. You specify which one you want with a string. Since the properties you can change are fixed then these strings are predefined (see stage.hh):
+	\item \verb\property\: There are only certain properties about a model that you can change. You specify which one you want with a string. Since the properties you can change are fixed then these strings are predefined (see stage.hh\footnote{url{http://playerstage.sourceforge.net/doc/Stage-3.2.1/stage_8hh_source.html}}):
 	\begin{itemize}
 		\item \verb\"_mp_color"\: The colour of the item. 
 		\item \verb\"_mp_watts"\: The number of watts the item needs.
@@ -1744,7 +1741,7 @@ The main advantage of configuring the robot swarm this way is that it allows us 
 \bibliographystyle{plain}
 \bibliography{manualrefs}
 
-
+\end{comment}
 
 \begin{comment}
  

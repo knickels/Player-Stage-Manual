@@ -1,7 +1,0 @@
-include "map.inc"
-
-floorplan
-(
-      bitmap "bitmaps/helloworld.png"
-      size [12 5 1]	
-)
