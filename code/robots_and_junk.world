@@ -1,14 +1,14 @@
 # populated world for Bigbob robot
 # Author: Jennifer Owen
 
-include "bigbob.inc"
 include "map.inc"
+include "bigbob.inc"
 
 
 # configure the GUI window
 window
 ( 
-	size [ 700.000 700.000] 
+	size [700.000 700.000] 
 	scale 35
 )
 
@@ -16,7 +16,7 @@ window
 # load an environment bitmap
 floorplan
 (
-	bitmap "bitmaps/cave.png" 
+	bitmap "./bitmaps/cave.png" 
 	size [15 15 0.5]
 )
 

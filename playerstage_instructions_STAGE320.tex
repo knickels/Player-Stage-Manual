@@ -294,7 +294,7 @@ If we save the above code as empty.world (correcting any filepaths if necessary)
 \end{figure}
 
 % TODO got this far. 17/03/10
-\begin{comment}
+
 
 \section{Building a Robot} \label{sec:buildingRobot}
 
@@ -309,7 +309,7 @@ The camera model adds a camera to the robot model and allows your code to intera
 \begin{itemize}
 \item \verb|resolution [x y]|: the resolution, in pixels, of the camera's image.
 \item \verb|range [min max]|: the minimum and maximum range that the camera can detect
-\item \verb|fov [x y]|: the field of view of the camera in degrees.
+\item \verb|fov [x y]|: the field of view of the camera \emph{in DEGREES}.
 \item \verb|pantilt [pan tilt]|: the horizontal angle the camera can move through (pan) and the vertical angle (tilt). So for instance \verb\pantilt [90 20]\ allows the camera to move $45^\circ$ left and $45^\circ$ right and $10^\circ$ up and $10^\circ$ down.
 \end{itemize}
 
@@ -322,27 +322,16 @@ This simulates colour detection software that can be run on the image from the r
 \item \verb|range <float>|: The maximum range that the camera can detect, in metres.
 \item \verb|fov <float>|: field of view of the blobfinder \emph{in RADIANS}.
 \end{itemize}
-It is important to note that the syntax for the blobfinder model is different in Stage versions 2.X.X and 3.X.X. The above parameters are specific to Stage 3.X.X, in Stage 2.X.X they have different names but do the same thing:
-\begin{itemize}
-\item \verb|channel_count <int>|: same as colors\_count.
-\item \verb|channels [ ]|: same as colors [ ].
-\item \verb|image [x y]|: same as in Stage 3.X.X.
-\item \verb|range_max <float>|: same as range
-\item \verb|ptz [pan_angle tilt_angle zoom_angle]|: controls the areas that the camera can look at. This works like \verb\pantilt\ of the camera model, the \verb\zoom_angle\ is the field of view \emph{in DEGREES}.
-\end{itemize}
-Additionally, in Stage 2.X.X blobfinder is a child of a deprecated model called ptz. All this basically means is that when you define your blobfinder model you need to use this syntax instead:
-\begin{verbatim}
-define model_name ptz
-(
-      blobfinder
-      (
-            # parameters
-      )
-)
-\end{verbatim}
 
-\subsubsection{fiducialfinder}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_fiducial.html}
-A fiducial is a fixed point in an image, so the fiducial finder simulates image processing software that locates fixed points in an image. The fiducialfinder is able to locate objects in the simulation whose \verb|fiducial_return| parameter is set to true. Stage also allows you to specify different types of fiducial using the \verb|fiducial_key| parameter of a model. This means that you can make the robots able to tell the difference between different fiducials by what key they transmit. The fiducial finder and the concept of \verb|fiducial_key|s is properly explained in the Stage manual.
+\subsubsection{fiducial}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_fiducial.html}
+A fiducial is a fixed point in an image, so the fiducial finder simulates image processing software that locates fixed points in an image. The fiducialfinder is able to locate objects in the simulation whose \verb|fiducial_return| parameter is set to true. Stage also allows you to specify different types of fiducial using the \verb|fiducial_key| parameter of a model. This means that you can make the robots able to tell the difference between different fiducials by what key they transmit. The fiducial finder and the concept of \verb|fiducial_key|s is properly explained in the Stage manual. The fiducial sensors parameters are:
+\begin{itemize}
+\item \verb\range_min\: The minimum range at which a fiducial can be detected, in metres.
+\item \verb\range_max\: The maximum range at which a fiducial can be detected, in metres.
+\item \verb\range_max_id\: The maximum range at which a fiducial's key can be accurately identified. If a fiducial is closer that \verb\range_max\ but further away than \verb\range_max_id\ then it detects that there is a fiducial but can't identify it.
+\item \verb\fov\: The field of view of the fiducial finder \emph{in RADIANS}.
+\end{itemize}
+
 
 \subsubsection{ranger}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_ranger.html}\label{sec:ranger}
 This simulates any kind of obstacle detection device (e.g. sonars or infra-red sensors). These can locate models whose \verb|ranger_return| is true. Using a ranger model you can define any number of ranger devices and apply them all to a single robot. Unlike the other types of model this doesn't use the interface with its name but instead the \verb\sonar\ interface, there is more about this in section \ref{sec:finishConfigs}. The parameters for the \verb\ranger\ model and their inputs are described in the Stage manual, but basically:
@@ -350,22 +339,23 @@ This simulates any kind of obstacle detection device (e.g. sonars or infra-red s
 \item \verb|scount <int>|: The number of ranger sensors in this ranger model
 \item \verb|spose[ranger_number] [x y yaw]|: Tells the simulator where the rangers are placed around the robot. How to write the \verb|[x y yaw]| data is explained in section \ref{sec:examplerobotsensors}.
 \item \verb|ssize [x y]|: how big the sensors are.
-\item \verb|sview [min max fov]|: defines the maximum and minimum distances that can be sensed and also the field of view in degrees.
+\item \verb|sview [min max fov]|: defines the maximum and minimum distances that can be sensed and also the field of view \emph{in DEGREES}.
 \end{itemize}
 
 \subsubsection{laser}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_laser.html}
-A laser is a special case of ranger sensor which only allows one ranger (so there's none of the \verb|scount|, \verb|spose| stuff), but it has a very large field of view. If a model has its \verb|laser_return| parameter enabled then a laser can detect it. Details about laser parameters can be found in the Stage manual, however the most useful parameters are:
+A laser is a special case of ranger sensor which only allows one ranger (so there's none of the \verb|scount|, \verb|spose| stuff), but it has a very large field of view. 
+If a model has its \verb|laser_return| parameter enabled then a laser can detect it. Details about laser parameters can be found in the Stage manual, however the most useful parameters are:
 \begin{itemize}
-\item \verb|range_min|: The minimum range of the laser.
+\item \verb\samples\: The number of ranger readings the laser takes. The laser model behaves like a large number of rangers sensors all with the same $x$ and $y$ coordinates relative to the robot's centre, each of these rangers has a slightly different yaw. The rangers are spaced so that there are \verb\samples\ number of rangers distributed evenly to give the laser's field of view. So if the field of view is $180^\circ$ and there are 180 samples the rangers are $1^\circ$ apart.
 \item \verb|range_max|: the maximum range of the laser.
-\item \verb|fov|: the field of view of the laser. In Stage 3.X.X this is in radians, in Stage 2.X.X it is in degrees.
+\item \verb|fov|: the field of view of the laser \emph{in RADIANS}.
 \end{itemize}
 
-\subsubsection{gripper}\footnote{http://playerstage.sourceforge.net/doc/Stage-2.0.0/group\_\_model\_\_gripper.html}\label{sec:gripper}
+\subsubsection{gripper}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_gripper.html}\label{sec:gripper}
 The gripper model is a simulation of the gripper you get on a Pioneer robot.\footnote{The Pioneer grippers looks like a big block on the front of the robot with two big sliders that close around an object.} If you put a gripper on your robot model it means that your robot is able to pick up objects and move them around within the simulation. The online Stage manual says that grippers are deprecated in Stage 3.X.X, however this is not actually the case and grippers are very useful if you want your robot to be able to manipulate and move items. The parameters you can use to customise the gripper model are:
 \begin{itemize}
-	\item \verb\size [x y]\: The x and y dimensions of the gripper.
-	\item \verb\pose [x y yaw]\: Where the gripper is placed on the robot.  
+	\item \verb\size [x y z]\: The x and y dimensions of the gripper.
+	\item \verb\pose [x y z yaw]\: Where the gripper is placed on the robot, relative to the robot's geometric centre. The pose parameter is decribed properly in section \ref{sec:examplerobotsensors}.
 \end{itemize}
 
 \subsubsection{position}\footnote{http://playerstage.sourceforge.net/doc/Stage-3.2.1/group\_\_model\_\_position.html}\label{sec:position}
@@ -375,16 +365,16 @@ The most useful parameters of the position model are:
 \item \verb|drive|: Tells the odometry how the robot is driven. This is usually ``diff'' which means the robot is controlled by changing the speeds of the left and right wheels independently. Other possible values are ``car'' which means the robot uses a velocity and a steering angle, or ``omni'' which means it can control how it moves along the $x$ and $y$ axes of the simulation.
 \item \verb|localization|: tells the model how it should record the odometry ``odom'' if the robot calculates it as it moves along or ``gps'' for the robot to have perfect knowledge about where it is in the simulation. 
 \item \verb|odom_error [x y angle]|: The amount of error that the robot will make in the odometry recordings.
-\item \verb|mass <int>|: How heavy the robot is.
+% \item \verb|mass <int>|: How heavy the robot is.
 \end{itemize}
 
 
 \subsection{An Example Robot} \label{sec:exampleRobot}
 
-To demonstrate how to build a model of a robot in \plst we will build our own example. First we will describe the physical properties of the robot, such as size, shape and mass. Then we will add sensors onto it so that it can interact with its environment.
+To demonstrate how to build a model of a robot in \plst we will build our own example. First we will describe the physical properties of the robot, such as size and shape. Then we will add sensors onto it so that it can interact with its environment.
 
 \subsubsection{The Robot's Body}
-Let's say we want to model a rubbish collecting robot called ``Bigbob''. The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure \ref{fig:basicbigbob} shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the \verb|polygons| model parameter\footnote{In this example we're using polygons with the position model type but we could equally use it with other model types.}:
+Let's say we want to model a rubbish collecting robot called ``Bigbob''. The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure \ref{fig:basicbigbob} shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the \verb|block| model parameter\footnote{In this example we're using blocks with the position model type but we could equally use it with other model types.}:
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{./pics/robot_building/bigbob1.png} 
@@ -394,54 +384,23 @@ Let's say we want to model a rubbish collecting robot called ``Bigbob''. The fir
 
 \begin{verbatim}
 define bigbob position
-(
-      # the shape of Bigbob
-      polygons 1
-      polygon[0].points 6
-      polygon[0].point[0] [0 0]
-      polygon[0].point[1] [0 1]
-      polygon[0].point[2] [0.75 1]
-      polygon[0].point[3] [1 0.75]
-      polygon[0].point[4] [1 0.25]
-      polygon[0].point[5] [0.75 0]
+
+      block
+      (
+            points 6
+            point[5] [0 0]
+            point[4] [0 1]
+            point[3] [0.75 1]
+            point[2] [1 0.75]
+            point[1] [1 0.25]
+            point[0] [0.75 0]
+            z [0 1]
+      )
 )
 \end{verbatim}
-In the first line of this code we state that we are defining a \verb|position| model called \verb|bigbob|. Next \verb|polygons 1| says that this model will be built out of one polygon. The following lines go on to describe the shape of this polygon;  \verb|polygon[0].points 6| says that the polygon has 6 corners and \verb|polygon[number].point[number] [x y]| gives the coordinates of each corner of the polygon in turn. It is important to go around the robot doing each corner in turn (either clockwise or anti-clockwise) otherwise \plst won't properly render the polygon. \newline
-Now in the same way as we built the body we can add on some teeth for Bigbob to collect rubbish between:
-\begin{verbatim}
-define bigbob position
-(
-      # actual size
-      size [1.25 1]
-
-      # the shape of Bigbob
-      polygons 3
-      
-      # body
-      polygon[0].points 6
-      polygon[0].point[0] [0 0]
-      polygon[0].point[1] [0 1]
-      polygon[0].point[2] [0.75 1]
-      polygon[0].point[3] [1 0.75]
-      polygon[0].point[4] [1 0.25]
-      polygon[0].point[5] [0.75 0]
-
-      # first tooth
-      polygon[1].points 4
-      polygon[1].point[0] [1 0.75]
-      polygon[1].point[1] [1.25 0.75]
-      polygon[1].point[2] [1.25 0.625]
-      polygon[1].point[3] [1 0.625]
-
-      # second tooth
-      polygon[2].points 4
-      polygon[2].point[0] [1 0.375]
-      polygon[2].point[1] [1.25 0.375]
-      polygon[2].point[2] [1.25 0.25]
-      polygon[2].point[3] [1 0.25]
-)
-\end{verbatim}
-
+In the first line of this code we state that we are defining a \verb|position| model called \verb|bigbob|. Next \verb|block| declares that this \verb\position\ model contains a block.
+The following lines go on to describe the shape of the block;  \verb|points 6| says that the block has 6 corners and \verb|point[number] [x y]| gives the coordinates of each corner of the polygon in turn. It is important to go around the robot doing each corner in turn going \emph{anti-clockwise} around the robot, otherwise \plst won't properly render the block. Finally, the \verb\z [height_from height_to]\ states how tall the robot should be, the first parameter being a lower coordinate in the $z$ plane, and the second parameter being the upper coordinate in the $z$ plane. In this example we are saying that the block describing Bigbob's body is on the ground (i.e. its lower $z$ coordinate is at 0) and it is 1 metre tall. If I wanted it to be from 50cm off the ground to 1m then I could use \verb\z [0.5 1]\.\newline
+Now in the same way as we built the body we can add on some teeth for Bigbob to collect rubbish between. Figure \ref{fig:bigbobteeth} shows Bigbob with teeth plotted onto a cartesian grid:
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\linewidth]{./pics/robot_building/bigbob2.png} 
@@ -449,8 +408,51 @@ define bigbob position
 	\label{fig:bigbobteeth}
 \end{figure}
 
-To declare the size of the robot you use the \verb|size [width height]| parameter, this will cause the polygon described to be scaled to fit into a box which is \verb|width x height| in size. The default size is 1 x 1 metre, so because the addition of rubbish-collecting teeth made Bigbob longer, the size parameter was needed to stop \plst from making the robot smaller than it should be. In this way we could have specified the polygon coordinates to be 4 times the distance apart and then declared its size to be \verb|1.25 x 1| metres, and we would have got a robot the size we wanted. For a robot as large as Bigbob this is not really important, but it could be useful when building models of very small robots. 
-It should be noted that it doesn't actually matter where in the cartesian coordinate system you place the polygon, instead of starting at \verb|(0, 0)| it could just as easily have started at \verb|(-1000, 12345)|. With the polygon parameter we just describe the \emph{shape} of the robot, not its size or location in the map. \newline
+\begin{verbatim}
+define bigbob position
+(
+      size [1.25 1 1]
+
+      # the shape of Bigbob
+ 
+      block
+      (
+            points 6
+            point[5] [0 0]
+            point[4] [0 1]
+            point[3] [0.75 1]
+            point[2] [1 0.75]
+            point[1] [1 0.25]
+            point[0] [0.75 0]
+            z [0 1]
+      )
+
+      block
+      (
+            points 4
+            point[3] [1 0.75]
+            point[2] [1.25 0.75]
+            point[1] [1.25 0.625]
+            point[0] [1 0.625]
+            z [0 0.5]
+      )
+
+      block
+      (
+            points 4
+            point[3] [1 0.375]
+            point[2] [1.25 0.375]
+            point[1] [1.25 0.25]
+            point[0] [1 0.25]
+            z [0 0.5]
+      )
+)
+\end{verbatim}
+
+
+
+To declare the size of the robot you use the \verb|size [x y z]| parameter, this will cause the polygon described to be scaled to fit into a box which is \verb|x| by \verb\y\ in size and \verb\z\ metres tall. The default size is 1 x 1 x 1 metres, so because the addition of rubbish-collecting teeth made Bigbob longer, the size parameter was needed to stop \plst from making the robot smaller than it should be. In this way we could have specified the polygon coordinates to be 4 times the distance apart and then declared its size to be \verb|1.25 x 1 x 1| metres, and we would have got a robot the size we wanted. For a robot as large as Bigbob this is not really important, but it could be useful when building models of very small robots. 
+It should be noted that it doesn't actually matter where in the cartesian coordinate system you place the polygon, instead of starting at \verb|(0, 0)| it could just as easily have started at \verb|(-1000, 12345)|. With the \verb\block\ parameter we just describe the \emph{shape} of the robot, not its size or location in the map. \newline
 You may have noticed that in figures \ref{fig:basicbigbob} and \ref{fig:bigbobteeth} Bigbob is facing to the right of the grid. When you place any item in a \plst simulation they are, by default, facing to the right hand side of the simulation. Figure \ref{fig:guigrid} shows that the grids use a typical Cartesian coordinate system, and so if you want to alter the direction an object in the simulation is pointing (its ``yaw'') any angles you give use the x-axis as a reference, just like vectors in a Cartesian coordinate system (see figure \ref{fig:emptycartgrid}) and so the default yaw is $0^{\circ}$. This is also why in section \ref{sec:emptyWorld} the \verb|gui_nose| shows the map is facing to the right. Figure \ref{fig:yaws} shows a few examples of robots with different yaws.
 
 \begin{figure}
@@ -467,43 +469,43 @@ You may have noticed that in figures \ref{fig:basicbigbob} and \ref{fig:bigbobte
 	\label{fig:yaws}
 \end{figure}
 
-By default, \plst assumes the robot's centre of rotation is at its geometric centre based on what values are given to the robot's \verb|size| parameter. Bigbob's \verb|size| is \verb|1.25 x 1| so \plst will place its centre at \verb|(0.625, 0.5)|, which means that Bigbob's wheels would be closer to its teeth. Instead let's say that Bigbob's centre of rotation is in the middle of its main body (shown in figure \ref{fig:basicbigbob}) which puts the centre of rotation at \verb|(0.5, 0.5)|. To change this in robot model you use the \verb|origin [x-offset y-offset z-offset]| command:
+By default, \plst assumes the robot's centre of rotation is at its geometric centre based on what values are given to the robot's \verb|size| parameter. Bigbob's \verb|size| is \verb|1.25 x 1 x 1| so \plst will place its centre at \verb|(0.625, 0.5, 0.5)|, which means that Bigbob's wheels would be closer to its teeth. Instead let's say that Bigbob's centre of rotation is in the middle of its main body (shown in figure \ref{fig:basicbigbob}) which puts the centre of rotation at \verb|(0.5, 0.5, 0.5)|. To change this in robot model you use the \verb|origin [x-offset y-offset z-offset]| command:
 \begin{verbatim}
 define bigbob position
 (
       # actual size
-      size [1.25 1]
+      size [1.25 1 1]
       # centre of rotation offset
       origin [0.125 0 0]
 
       # the shape of Bigbob
-      polygons 3
-      ...
-      ...
-      ...
+      block
+            ...
+            ...
+            ...
 )
 \end{verbatim}
 
-Finally we will specify the \verb|mass| and \verb|drive| of Bigbob, these are both parameters of the \verb|position| model and have been described earlier.
+Finally we will specify the \verb|drive| of Bigbob, this is a parameter of the \verb|position| model and has been described earlier.
 \begin{verbatim}
 define bigbob position
 (
       # actual size
-      size [1.25 1]
+      size [1.25 1 1]
       # centre of rotation offset
       origin [0.125 0 0]
 
       # the shape of Bigbob
-      polygons 3
-      ...
-      ...
-      ...
+      block
+            ...
+            ...
+            ...
       
       # positonal things
-      mass 10.0
       drive "diff"
 )
 \end{verbatim}
+
 
 \subsubsection{The Robot's Sensors}\label{sec:examplerobotsensors}
 Now that Bigbob's body has been built let's move on to the sensors. We will put sonar and blobfinding sensors onto Bigbob so that it can detect walls and see coloured blobs it can interpret as rubbish to collect. We will also put a laser between Bigbob's teeth so that it can detect when an item passes in between them.
@@ -534,10 +536,10 @@ define bigbobs_sonars ranger
       scount 4
 
       # define the pose of each transducer [xpos ypos heading]
-      spose[0] [ 0.75 0.1875 0 ]	#fr left tooth
-      spose[1] [ 0.75 -0.1875 0 ]	#fr right tooth
-      spose[2] [ 0.25 0.5 30]		# left corner
-      spose[3] [ 0.25 -0.5 -30]		# right corner
+      spose[0] [ 0.75 0.1875 0 ]     #fr left tooth
+      spose[1] [ 0.75 -0.1875 0 ]    #fr right tooth
+      spose[2] [ 0.25 0.5 30]        # left corner
+      spose[3] [ 0.25 -0.5 -30]      # right corner
 
 )
 \end{verbatim}
@@ -550,10 +552,10 @@ define bigbobs_sonars ranger
       scount 4
 
       # define the pose of each transducer [xpos ypos heading]
-      spose[0] [ 0.75 0.1875 0 ]	#fr left tooth
-      spose[1] [ 0.75 -0.1875 0 ]	#fr right tooth
-      spose[2] [ 0.25 0.5 30]		# left corner
-      spose[3] [ 0.25 -0.5 -30]		# right corner
+      spose[0] [ 0.75 0.1875 0 ]     #fr left tooth
+      spose[1] [ 0.75 -0.1875 0 ]    #fr right tooth
+      spose[2] [ 0.25 0.5 30]        # left corner
+      spose[3] [ 0.25 -0.5 -30]      # right corner
       
       # define the field of view of each transducer 
       # [range_min range_max view_angle]
@@ -563,6 +565,7 @@ define bigbobs_sonars ranger
       ssize [0.01 0.05]
 )
 \end{verbatim}
+
 
 Now that Bigbob's sonars are done we will attached a blobfinder:
 \begin{verbatim}
@@ -596,30 +599,12 @@ define bigbobs_eyes blobfinder
       # camera parameters
       image [160 120]		#resolution
       range 5.00
-      fov 3.14159/3	# 60 degrees = pi/3 radians
-)
-\end{verbatim}
-In Stage 2.X.X the following code should be used instead:
-\begin{verbatim}
-# bigbob's blobfinder
-define bigbobs_eyes ptz
-(
-      blobfinder
-      (
-            # number of colours to look for
-            channels_count 2
-
-            # which colours to look for
-            channels ["orange" "DarkBlue"]
-	
-            # camera parameters
-            image [160 120]		#resolution
-            range_max 5.00
-            ptz [0 0 60]
-      )
+      fov 1.047196667	# 60 degrees = pi/3 radians
 )
 \end{verbatim}
 
+% TODO got here 14/04/10
+\begin{comment}
 The last sensor that needs adding to Bigbob is the laser, which will be used to detect whenever a piece of rubbish has been collected. Following the same principles as for our previous sensor models we can create a description of this laser:
 \begin{verbatim}
 define bigbobs_laser laser

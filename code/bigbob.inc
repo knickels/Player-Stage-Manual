@@ -34,6 +34,8 @@ define bigbobs_eyes blobfinder
 
 	# camera parameters
 	image [160 120]		#resolution
+      range 5.00
+      fov 1.047196667	# 60 degrees = pi/3 radians
 )
 
 # bigbob's laser
@@ -62,9 +64,6 @@ define bigbob position
       # Bigbob's centre of rotation is offset from its centre of area
     #  origin [0.125 0 0 0]
 
-      # estimated mass in KG
-      mass 15.0 
-	
       # the shape of Bigbob
  
 	block
