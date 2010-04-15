@@ -34,30 +34,26 @@ define orange model
 	bitmap "bitmaps/circle.png"
 	size [0.15 0.15 0.15]
 	color "orange"
-	
-	gui_outline 0
-	gripper_return 1
 )
 
 define carton model
 (
 	# a carton is retangular
 	# so make a square shape and use size[]
-	
 	block
 	(
 		points 4
-		point[3] [0 0]
-		point[2] [0 1]
-		point[1] [1 1]
 		point[0] [1 0]
+		point[1] [1 1]
+		point[2] [0 1]
+		point[3] [0 0]
+		z [0 1]
 	)
 	
 	# average litre carton size is ~ 20cm x 10cm x 5cm
-	size [0.1 0.2 1]
+	size [0.1 0.2 0.2]
 	
 	color "DarkBlue"
-	gripper_return 1
 )
 
 orange(name "orange1" pose [-1 -5 0 0])

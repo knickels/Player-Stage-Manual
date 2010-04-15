@@ -388,12 +388,12 @@ define bigbob position
       block
       (
             points 6
-            point[5] [0 0]
-            point[4] [0 1]
-            point[3] [0.75 1]
-            point[2] [1 0.75]
-            point[1] [1 0.25]
             point[0] [0.75 0]
+            point[1] [1 0.25]
+            point[2] [1 0.75]
+            point[3] [0.75 1]
+            point[4] [0 1]
+            point[5] [0 0]
             z [0 1]
       )
 )
@@ -604,24 +604,22 @@ define bigbobs_eyes blobfinder
 \end{verbatim}
 
 % TODO got here 14/04/10
-\begin{comment}
-The last sensor that needs adding to Bigbob is the laser, which will be used to detect whenever a piece of rubbish has been collected. Following the same principles as for our previous sensor models we can create a description of this laser:
+
+The last sensor that needs adding to Bigbob is the laser, which will be used to detect whenever a piece of rubbish has been collected, the laser's location on the robot is shown in figure \ref{fig:laserdrawing}. Following the same principles as for our previous sensor models we can create a description of this laser:
 \begin{verbatim}
 define bigbobs_laser laser
 (
-      range_min 0.0
-	
       # distance between teeth in metres
       range_max 0.25
 	
-      fov 3.14159/9	# 20 degrees = pi/9 radians
-      # fov 20	# use this line instead of above if using stage 2.X.X
-      
-      pose [0.625 0.125 270]
-      size [0.025 0.025]
+      # does not need to be big
+      fov 20
+	
+      pose [0.625 0.125 -0.975 270]
+      size [0.025 0.025 0.025]
 )
 \end{verbatim}
-With this laser we've set its maximum range to be the distance between teeth, and the field of view is arbitrarily set to $20^{\circ}$. We have calculated the laser's \verb|pose| in exactly the same way as the sonars \verb|spose|, by measuring the distance from the laser's centre to the robot's centre of rotation, the laser's yaw is set to $270^{\circ}$ so that it points across Bigbob's teeth. We also set the size of the laser to be 2.5cm square so that it doesn't obstruct the gap between Bigbob's teeth.
+With this laser we've set its maximum range to be the distance between teeth, and the field of view is arbitrarily set to $20^{\circ}$. We have calculated the laser's \verb|pose| in exactly the same way as the sonars \verb|spose|, by measuring the distance from the laser's centre to the robot's origin (which we set with the \verb\origin\ parameter earlier). The $z$ coordinate of the pose parameter when describing parts of the robot is relative to the very top of the robot. In this case the robot is 1 metre tall so we put the laser at $-0.975$ so that it is on the ground. The laser's yaw is set to $270^{\circ}$ so that it points across Bigbob's teeth. We also set the size of the laser to be 2.5cm cube so that it doesn't obstruct the gap between Bigbob's teeth.
 
 
 \begin{figure}
@@ -637,18 +635,17 @@ Now that we have a robot body and sensor models all we need to do is put them to
 define bigbob position
 (
       # actual size
-      size [1.25 1]
+      size [1.25 1 1]
       # centre of rotation offset
       origin [0.125 0 0]
 
       # the shape of Bigbob
-      polygons 3
-      ...
-      ...
-      ...
+      block
+            ...
+            ...
+            ...
       
       # positonal things
-      mass 10.0
       drive "diff"
       
       # sensors attached to bigbob
@@ -657,7 +654,9 @@ define bigbob position
       bigbobs_laser()
 )
 \end{verbatim}
-The extra line \verb|bigbobs_sonars()| adds the sonar model called \verb|bigbobs_sonars()| onto the \verb|bigbob| model, likewise for \verb|bigbobs_eyes()| and \verb|bigbobs_laser()|. After this final step we now have a complete model of our robot bigbob, the full code for which can be found in appendix A. At this point it's worthwhile to copy this into a .inc file, so that the model could be used again in other simulations or worlds.\newline
+The extra line \verb|bigbobs_sonars()| adds the sonar model called \verb|bigbobs_sonars()| onto the \verb|bigbob| model, likewise for \verb|bigbobs_eyes()| and \verb|bigbobs_laser()|. After this final step we now have a complete model of our robot bigbob, the full code for which can be found in appendix A. At this point it's worthwhile to copy this into a .inc file, so that the model could be used again in other simulations or worlds.
+% TODO find some way of dynamically labelling the appendices
+
 To put our Bigbob model into our empty world (see section \ref{sec:basicWorldfile}) we need to add the robot to our worldfile empty.world:
 \begin{verbatim}
 include "map.inc"
@@ -671,22 +670,22 @@ size [15 15]
 window
 ( 
       size [ 700.000 700.000 ] 
-      scale 0.025
+      scale 35
 )
 
 
 # load an environment bitmap
-map
+floorplan
 (
       bitmap "bitmaps/cave.png"
-      size [15 15]	
+      size [15 15 0.5]
 )
 
 bigbob
 (
       name "bob1"
-      pose [-5 -6 45]
-      color "red"
+      pose [-5 -6 0 45]
+      color "green"
 )
 \end{verbatim}
 Here we've put all the stuff that describes Bigbob into a .inc file \verb|bigbob.inc|, and when we include this, all the code from the .inc file is inserted into the .world file. The section here is where we put a version of the bigbob model into our world:
@@ -694,14 +693,13 @@ Here we've put all the stuff that describes Bigbob into a .inc file \verb|bigbob
 bigbob
 (
       name "bob1"
-      pose [-5 -6 45]
+      pose [-5 -6 0 45]
       color "green"
 )
 \end{verbatim}
 Bigbob is a model description, by not including any \verb|define| stuff in the top line there it means that we are making an instantiation of that model, with the name \verb|bob1|. Using an object-oriented programming analogy, \verb|bigbob| is our class, and \verb|bob1| is our object of class \verb|bigbob|. The \verb|pose [x y yaw]| parameter works in the same was as \verb|spose [x y yaw]| does. The only differences are that the coordinates use the centre of the simulation as a reference point and \verb|pose| lets us specify the initial position and heading of the entire \verb\bob1\ model, not just one sensor within that model.
 Finally we specify what colour \verb|bob1| should be, by default this is red. The \verb|pose| and \verb|color| parameters could have been specified in our bigbob model but by leaving them out it allows us to vary the colour and position of the robots for each different robot of type \verb|bigbob|, so we could declare multiple robots which are the same size, shape and have the same sensors, but are rendered by \plst in different colours and are initialised at different points in the map.\newline
-When we run the new empty.world with \plst we see our Bigbob robot is occupying the world, as shown in figure \ref{fig:finalRobotBuild}. The dark mark on top of the robot is the blobfinder camera.
-
+When we run the new empty.world with \plst we see our Bigbob robot is occupying the world, as shown in figure \ref{fig:finalRobotBuild}. 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{./pics/robot_building/final_robot_build.png} 
@@ -720,7 +718,7 @@ define orange model
       # parameters...
 )
 \end{verbatim}
-The first thing to define is the shape of the orange. The \verb|polygons| parameter is one way of doing this, which we can use to build a blocky approximation of a circle. An alternative to this is to use \verb|bitmap| which we previously saw being used to create a map. What the bitmap command actually does is take in a picture, and turn it into a series of polygons which are connected together to make a model the same shape as the picture. This is illustrated in figure \ref{fig:ghosts}. To get rid of the blocks' outlines add \verb|gui_outline 0| to the model description, with the large ghost in figure \ref{fig:ghosts} it's not so much of a problem, but with smaller models, like an orange, the black outlines prevent the model's colour from being visible.
+The first thing to define is the shape of the orange. The \verb|block| parameter is one way of doing this, which we can use to build a blocky approximation of a circle. An alternative to this is to use \verb|bitmap| which we previously saw being used to create a map. What the bitmap command actually does is take in a picture, and turn it into a series of blocks which are connected together to make a model the same shape as the picture. This is illustrated in figure \ref{fig:ghosts}. 
 
 \begin{figure}
 	\centering
@@ -738,18 +736,6 @@ The first thing to define is the shape of the orange. The \verb|polygons| parame
 		\label{fig:ghosts}
 \end{figure}
 
-\begin{verbatim}
-define orange model
-(
-      bitmap "bitmaps/circle.png"
-      size [0.15 0.15]
-      color "orange"
-      
-      gui_outline 0
-      gripper_return 1
-)
-\end{verbatim}
-In this code we describe a model called \verb|orange| which uses a bitmap to define its shape and represents an object which is 15cm by 15cm and coloured orange. The \verb|gripper_return| parameter is a special type of \_return because it means that the model can be grabbed by a robot's gripper but it \emph{also} means the object can be pushed a little bit in the simulation. We want our orange model to be pushable so, even though Bigbob has no gripper, the orange's \verb|gripper_return| parameter is set to true. Figure \ref{fig:orangeandbob} shows our orange model next to Bigbob.
 \begin{figure}
 	\centering
 	\begin{minipage}[c]{0.2\linewidth}
@@ -767,64 +753,78 @@ In this code we describe a model called \verb|orange| which uses a bitmap to def
 	\end{minipage}	
 \end{figure}
 
+
+\begin{verbatim}
+define orange model
+(
+      bitmap "bitmaps/circle.png"
+      size [0.15 0.15 0.15]
+      color "orange"
+)
+\end{verbatim}
+In this bit of code we describe a model called \verb|orange| which uses a bitmap to define its shape and represents an object which is $15cm$ x $15cm$ x $15cm$ and is coloured orange. Figure \ref{fig:orangeandbob} shows our orange model next to Bigbob.
+
 Building a juice carton model is similarly quite easy:
+
 \begin{verbatim}
 define carton model
 (
       # a carton is retangular
       # so make a square shape and use size[]
-      polygons 1
-      polygon[0].points 4
-      polygon[0].point[0] [0 0]
-      polygon[0].point[1] [0 1]
-      polygon[0].point[2] [1 1]
-      polygon[0].point[3] [1 0]
-	
-      # average carton size is ~ 20cm x 10cm x 5cm
-      size [0.1 0.2]
-	
+      block
+      (
+            points 4
+            point[0] [1 0]
+            point[1] [1 1]
+            point[2] [0 1]
+            point[3] [0 0]
+            z [0 1]
+      )
+
+      # average litre carton size is ~ 20cm x 10cm x 5cm ish
+      size [0.1 0.2 0.2]
+
       color "DarkBlue"
-      gripper_return 1
 )
 \end{verbatim}
 
-We can use the \verb|polygons| command since juice cartons are boxy, with boxy things it's slightly easier to describe the shape with \verb|polygon| than drawing a bitmap and using that.\newline
+We can use the \verb|block| command since juice cartons are boxy, with boxy things it's slightly easier to describe the shape with \verb|block| than drawing a bitmap and using that. In the above code I used \verb\block\ to describe a metre cube (since that's something that can be done pretty easily without needing to draw a carton on a grid) and then resized it to the size I wanted using \verb\size\.
 
 Now that we have described basic \verb|orange| and \verb|carton| models it's time to put some oranges and cartons into the simulation. This is done in the same way as our example robot was put into the world:
 \begin{verbatim}
 orange
 (
       name "orange1" 
-      pose [-2 -5 0]
+      pose [-2 -5 0 0]
 )
 
 carton
 (
       name "carton1" 
-      pose [-3 -5 0]
+      pose [-3 -5 0 0]
 )
 \end{verbatim}
 We created models of oranges and cartons, and now we are declaring that there will be an instance of these models (called \verb|orange1| and \verb|carton1| respectively) at the given positions. Unlike with the robot, we declared the \verb|color| of the models in the description so we don't need to do that here. If we did have different colours for each orange or carton then it would mess up the blobfinding on Bigbob because the robot is only searching for orange and dark blue.
 At this point it would be useful if we could have more than just one orange or carton in the world (Bigbob would not be very busy if there wasn't much to pick up), it turns out that this is also pretty easy:
 \begin{verbatim}
-orange(name "orange1" pose [-1 -5 0])
-orange(name "orange2" pose [-2 -5 0])
-orange(name "orange3" pose [-3 -5 0])
-orange(name "orange4" pose [-4 -5 0])
+orange(name "orange1" pose [-1 -5 0 0])
+orange(name "orange2" pose [-2 -5 0 0])
+orange(name "orange3" pose [-3 -5 0 0])
+orange(name "orange4" pose [-4 -5 0 0])
 
-carton(name "carton1" pose [-2 -4 0])
-carton(name "carton2" pose [-2 -3 0])
-carton(name "carton3" pose [-2 -2 0])
-carton(name "carton4" pose [-2 -1 0])
+carton(name "carton1" pose [-2 -4 0 0])
+carton(name "carton2" pose [-2 -3 0 0])
+carton(name "carton3" pose [-2 -2 0 0])
+carton(name "carton4" pose [-2 -1 0 0])
 \end{verbatim}
 
-Up until now we have been describing models with each parameter on a new line, this is just a way of making it more readable for the programmer -- especially if there are a lot of parameters. If there are only a few parameters or you want to repeat the code (as we've done here) it can all be put onto one line. Here we declare that there will be four \verb|orange| models in the simulation with the names \verb|orange1| to \verb|orange4|, we also need to specify different poses for the models so they aren't all on top of each other. Properties that the orange models have in common (such as shape, colour or size) should all be in the model definition. 
+Up until now we have been describing models with each parameter on a new line, this is just a way of making it more readable for the programmer -- especially if there are a lot of parameters. If there are only a few parameters or you want to be able to comment it out easily, it can all be put onto one line. Here we declare that there will be four \verb|orange| models in the simulation with the names \verb|orange1| to \verb|orange4|, we also need to specify different poses for the models so they aren't all on top of each other. Properties that the orange models have in common (such as shape, colour or size) should all be in the model definition. 
 
 The full worldfile is included in appendix B, this includes the orange and carton models as well as the code for putting them in the simulation. Figure \ref{fig:finalRobotandStuff} shows the populated \plst simulation.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{./pics/oranges_box/final_robot_and_stuff.png} 
+	\includegraphics[width=0.8\linewidth]{./pics/oranges_box/final_robot_and_stuff.png} 
 	\caption{The Bigbob robot placed in the simulation along with junk for it to pick up.}
 	\label{fig:finalRobotandStuff}
 \end{figure}
@@ -861,7 +861,7 @@ The remaining driver parameters are \verb|requires| and \verb|plugin|. The \verb
 driver
 (		
       name "stage"
-      plugin "libstageplugin"
+      plugin "stageplugin"
 
       provides ["simulation:0" ]
 
@@ -869,7 +869,7 @@ driver
       worldfile "empty.world"	
 )
 \end{verbatim}
-This has to be done at the beginning of the configuration file because it tells \pl that there is a driver called \verb|"stage"| that we're going to use and the code for dealing with this driver can be found in the \verb|libstageplugin| plugin. This needs to be specified for Stage because Stage is an add-on for \pl, for drivers that are built into \pl by default the \verb|plugin| doesn't need to be specified.
+This has to be done at the beginning of the configuration file because it tells \pl that there is a driver called \verb|"stage"| that we're going to use and the code for dealing with this driver can be found in the \verb|stageplugin| plugin. This needs to be specified for Stage because Stage is an add-on for \pl, for drivers that are built into \pl by default the \verb|plugin| doesn't need to be specified.
 
 \section{Device Addresses - key:host:robot:interface:index} \label{sec:deviceAddress}
 
@@ -900,11 +900,11 @@ driver
       name "stage"
 )
 \end{verbatim}
-The Bigbob robot uses \verb|position|, \verb|laser|, \verb|blobfinder| and \verb|ranger| sensors. These correspond to the \verb|position2d|, \verb|laser|, \verb|blobfinder| and  interfaces respectively. The \verb|ranger| sensor is a special case because the ranger interface has not currently been implemented (for versions Stage 3.0.1 or earlier). To work around this you'll need to use the \verb\sonar\ interfaces instead (there is apparently an IR interface which could be used instead of \verb\ranger\, but it doesn't seem to work on either Stage 2 or Stage 3). 
+The Bigbob robot uses \verb|position|, \verb|laser|, \verb|blobfinder| and \verb|ranger| sensors. These correspond to the \verb|position2d|, \verb|laser|, \verb|blobfinder| and  interfaces respectively. The \verb|ranger| sensor is a special case because the ranger interface has not currently been implemented (for at least version Stage 3.2.2 or earlier). To work around this you'll need to use the \verb\sonar\ interfaces instead (there is apparently an IR interface which could be used instead of \verb\ranger\, but it doesn't seem to work on either Stage 2 or Stage 3). 
 
 We want our code to be able to read from these sensors, so we need to declare interfaces for them and tell \pl where to find each device's data, for this we use the configuration file's \verb\provides\ parameter. This requires that we construct device addresses for each sensor; to remind ourselves, this is in the key:host:robot:interface:index format. We aren't using any fancy drivers, so we don't need to specify a key. We are running our robot in a simulation on the same computer as our \pl sever, so the host name is \verb\localhost\ which is the default, so we also don't need to specify a host. The robot is a TCP port to receive robot information over, picking which port to use is pretty arbitrary but what usually happens is that the first robot uses the default port 6665 and subsequent robots use 6666, 6667, 6668 etc. There is only one robot in our simulation so we will use port 6665 for all our sensor information from this robot. 
 We only have one sensor of each type, so our devices don't need separate indices. What would happen if we did have several sensors of the same type (like say two cameras) is that we put the first device at index 0 and subsequent devices using the same interface have index 1, then 2, then 3 and so on.\footnote{There are lots of ranger sensors in our model but when we created the robot's sensors in section \ref{sec:examplerobotsensors} we put them all into the same ranger model. So as far as the configuration file is concerned there is only one raging device using either the sonar or IR interface, because all the separate ranger devices are lumped together into this one model. We don't need to declare each ranger on an index of its own.}  
-Finally we use interfaces appropriate to the sensors the robot has, so in our example these are the \verb|position|, \verb|laser|, \verb|blobfinder| interfaces and for our \verb\ranger\ devices we will use \verb\sonar\.
+Finally we use interfaces appropriate to the sensors the robot has, so in our example these are the \verb|position2d|, \verb|laser|, \verb|blobfinder| interfaces and for our \verb\ranger\ devices we will use \verb\sonar\.
 
 Putting all this together under the \verb\provides\ parameter gives us:
 \begin{verbatim}
@@ -950,12 +950,12 @@ A driver of this kind can be built for any model that is in the worldfile, not j
 driver
 (		
       name "stage"
-      plugin "libstageplugin"
+      plugin "stageplugin"
 
       provides ["simulation:0" ]
 
       # load the named file into the simulator
-      worldfile "worldfile_name.world"	
+      worldfile "worldfile_name.world"
 )      
 
 driver
@@ -1042,7 +1042,7 @@ For an example of how to connect to the \pl sever and device proxies we will use
 driver
 (		
       name "stage"
-      plugin "libstageplugin"
+      plugin "stageplugin"
 
       provides ["simulation:0" ]
 
@@ -1212,15 +1212,24 @@ The GripperProxy allows you to control the gripper, once the gripper is holding 
 	\item \verb\Close\: Tells the gripper to close. This will cause it to pick up anything between its teeth.
 \end{itemize}
 
-
+% TODO fix simulation proxy!!
 \subsection{SimulationProxy}
 The simulation proxy allows your code to interact with and change aspects of the simulation, such as an item's pose or its colour. 
+
+\subsubsection{Get/Set Pose}
+The item's pose is a special case of the Get/SetProperty function, because it is likely that someone would want to move an item in the world they created a special function to do it.\newline
+\verb\SetPose2d(char *item_name, double x, double y, double yaw)\\newline
+In this case \verb\item_name\ is as with Get/SetProperty, but we can directly specify its new coordinates and yaw (coordinates and yaws are given with reference to the map's origin).\newline
+\verb\GetPose2d(char *item_name, double &x, double &y, double &yaw)\\newline
+This is like SetPose2d only this time it writes the coordinates and yaw to the given addresses in memory.
+
 \subsubsection{Get/Set Property}
+In version 3.2.2 of Stage the Get/SetProperty simulation proxy functions are unimplemented and \emph{will not work}. Hopefully this will be rectified in future releases, but if you desperately need this functionality you can use an earlier release of Stage, and the previous edition of this manual describes how to get and set a model's property 
 To change a property of an item in the simulation we use the following function:
 \newline\verb\SetProperty(char *item_name, char *property, void *value, size_t value_len)\
 \begin{itemize}
 	\item \verb\item_name\: this is the name that you gave to the object in the worldfile, it could be \emph{any} model that you have described in the worldfile. For example, in section \ref{sec:exampleRobot} in the worldfile we declared a Bigbob type robot which we called ``bob1'' so the \verb\item_name\ for that object is ``bob1''. Similarly in section \ref{sec:otherStuff} we built some models of oranges and called the ``orange1'' to ``orange4'' so the item name for one of these would be ``orange1''. Anything that is a model in your worldfile can be altered by this function, you just need to have named it, no drivers need to be declared in the configuration file for this to work either. We didn't write drivers for the oranges but we could still alter their properties this way.
-	\item \verb\property\: There are only certain properties about a model that you can change. You specify which one you want with a string. Since the properties you can change are fixed then these strings are predefined (see stage.hh\footnote{url{http://playerstage.sourceforge.net/doc/Stage-3.2.1/stage_8hh_source.html}}):
+	\item \verb\property\: There are only certain properties about a model that you can change. You specify which one you want with a string. Since the properties you can change are fixed then these strings are predefined (see stage.hh\footnote{\url{http://playerstage.sourceforge.net/doc/Stage-3.2.1/stage_8hh_source.html}}):
 	\begin{itemize}
 		\item \verb\"_mp_color"\: The colour of the item. 
 		\item \verb\"_mp_watts"\: The number of watts the item needs.
@@ -1237,13 +1246,6 @@ To change a property of an item in the simulation we use the following function:
 Similarly the following function can be used to get property information:\newline
 \verb\GetProperty(char *item_name, char *property, void *value, size_t value_len)\
 Instead of setting the given property of the item, this will write it to the memory block pointed to by \verb\*value\.
-
-\subsubsection{Get/Set Pose}
-The item's pose is a special case of the Get/SetProperty function, because it is likely that someone would want to move an item in the world they created a special function to do it.\newline
-\verb\SetPose2d(char *item_name, double x, double y, double yaw)\\newline
-In this case \verb\item_name\ is as with Get/SetProperty, but we can directly specify its new coordinates and yaw (coordinates and yaws are given with reference to the map's origin).\newline
-\verb\GetPose2d(char *item_name, double &x, double &y, double &yaw)\\newline
-This is like SetPose2d only this time it writes the coordinates and yaw to the given addresses in memory.
 
 \subsection{General Useful Commands}
 
@@ -1726,7 +1728,6 @@ The main advantage of configuring the robot swarm this way is that it allows us 
 \bibliographystyle{plain}
 \bibliography{manualrefs}
 
-\end{comment}
 
 \begin{comment}
  

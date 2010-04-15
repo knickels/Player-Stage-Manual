@@ -41,17 +41,14 @@ define bigbobs_eyes blobfinder
 # bigbob's laser
 define bigbobs_laser laser
 (
-#      range_min 0.0
-	
       # distance between teeth in metres
       range_max 0.25
 	
       # does not need to be big
       fov 20
 	
-      pose [0.625 0.125 -0.98 270]
-      size [0.025 0.025 0.01]
-      #size [0.5 0.5 0.5]
+      pose [0.625 0.125 -0.975 270]
+      size [0.025 0.025 0.025]
 )
 
 
