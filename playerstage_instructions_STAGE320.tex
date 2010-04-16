@@ -1,5 +1,5 @@
 \documentclass[a4paper]{report}
-\title{How to Use Player/Stage}
+\title{How to Use Player/Stage\\ 2nd Edition}
 \author{Jennifer Owen}
 
 \usepackage{xspace}
@@ -17,22 +17,23 @@
 
 This document is intended as a guide for anyone learning \plst for the first time. It explains the process of setting up a new simulation environment and how to then make your simulation do something, using a case study along the way. Whilst it is aimed at \plst users, those just wishing to use \pl on their robot may also find sections of this document useful (particularly the parts about coding with Player).
 
-If you have any questions about using \plst there is a guide to getting help from the \pl comunity here:
+If you have any questions about using \plst there is a guide to getting help from the \pl community here:
 \begin{center}
 	\url{http://playerstage.sourceforge.net/wiki/Getting_help}
 \end{center}
-This edition of the manual uses Stage version 3.2.X as there are significant differences with the previous versions of Stage and the previous edition of this manual is now out of date. If you find any problems or errors \emph{in this manual} then please do email me, although for help with Player/Stage I would strongly recommend the above link. 
+This edition of the manual uses Stage version 3.2.X as there are significant differences with the previous versions of Stage and the previous edition of this manual is now out of date. 
+% If you find any problems or errors \emph{in this manual} then please do email me, although for help with Player/Stage I would strongly recommend the above link. 
 
-The code listings from this document can be downloaded from \url{www.jenny-owen.co.uk}, plus a \textit{small} amount of supplementary material. The official Player and Stage manuals are, however, much more helpful.
+% The code listings from this document can be downloaded from \url{www.jenny-owen.co.uk}, plus a \textit{small} amount of supplementary material. The official Player and Stage manuals are, however, much more helpful.
 
 
 % \subsection*{Acknowledgements}
 % I would like to thank Susan Stepney, Jon Timmis and Alan Winfield my supervisors for letting me write this instead of what I'm paid to do. I'd also like to thank everyone who gave feedback on the last edition of this manual, including Wenguo Liu, Ritahani Ishmail, Kelvin Lau, Neil Forster, Andrew Turner, 
 
-\newpage
+% \newpage
 \tableofcontents
 
-\newpage
+
 \chapter{Introduction}
 \plst is a robot simulation tool, it comprises of one program, \pl, which is a \emph{Hardware Abstraction Layer}. That means that it talks to the bits of hardware on the robot (like a claw or a camera) and lets you control them with your code, meaning you don't need to worry about how the various parts of the robot work. Stage is a plugin to \pl which listens to what \pl is telling it to do and turns these instructions into a simulation of your robot. It also simulates sensor data and sends this to \pl which in turn makes the sensor data available to your code.
 
