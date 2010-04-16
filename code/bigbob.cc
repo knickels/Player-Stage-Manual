@@ -1,3 +1,7 @@
+// Desc: Bigbob code for controlling a junk finding robot.
+// Author:  Jennifer Owen
+// Date: 16/04/2010
+
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
@@ -214,7 +218,20 @@ the robot's teeth. If no item is found then this will return -1.
 */
 int FindItem(item_t *itemList, int listLength, SimulationProxy &sim)
 {
+	/*
+		This function works by creating a search area just
+		in front of the robot's teeth. The search circle is a
+		fixed distance in front of the robot, and has a 
+		fixed radius.
+		This function finds objects within this search circle
+		and then deletes the closest one.
+	*/
+	
+	//radius of the search circle
       double radius = 0.375;
+      
+      //The distance from the centre of the robot to 
+      //the centre of the search circle
       double distBotToCircle = 0.625;
       double robotX, robotY, robotYaw;
       double circleX, circleY;
@@ -248,20 +265,28 @@ int FindItem(item_t *itemList, int listLength, SimulationProxy &sim)
       for(i=0; i<listLength; i++)
       {
             double x, y, dist; 
+            
+            // get manhattan distance from circle centre to item
             x = circleX - itemList[i].x;
             y = circleY - itemList[i].y;
             
-            //find euclidian distance
+            //find euclidian distance from circle centre to item
             dist = (x*x) + (y*y);
             dist = sqrt(dist);
-            
+                        
             if(dist < smallestDist)
             {
                   smallestDist = dist;
                   closestItem = i;
             }
       }
-      
+ 
+      if(smallestDist > (radius + distBotToCircle))
+      {
+      	printf("no objects were close enough, false alarm!\n");
+      	return -1;
+      }   
+        
       return closestItem;
 }
 
@@ -317,15 +342,20 @@ int main(int argc, char *argv[])
                   MoveToItem(&forwardSpeed, &turnSpeed, blobProxy);
             }
       	
+      	
             if(laserProxy[90] < 0.25)
             {
                   int destroyThis;
 
                   destroyThis = FindItem(itemList, 8, simProxy);
-                  //move it out of the simulation
-                  printf("collecting item\n");
-                  simProxy.SetPose2d(itemList[destroyThis].name, -10, -10, 0);
-                  RefreshItemList(itemList, simProxy);
+                  
+                  if(destroyThis != -1)
+                  {
+		            //move it out of the simulation
+		            printf("collecting item\n");
+		            simProxy.SetPose2d(itemList[destroyThis].name, -10, -10, 0);
+		            RefreshItemList(itemList, simProxy);
+		      }
             }
             //avoid obstacles
             AvoidObstacles(&forwardSpeed, &turnSpeed, sonarProxy);

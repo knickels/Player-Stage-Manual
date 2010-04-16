@@ -1,6 +1,7 @@
 # bigbob.inc
 # model for the robot "Bigbob"
 # Author: Jennifer Owen
+# Date: 16/04/2010
 
 #Bigbob's sonars
 define bigbobs_sonars ranger
@@ -46,6 +47,9 @@ define bigbobs_laser laser
 	
       # does not need to be big
       fov 20
+      
+      #number of ranges measured
+      samples 180
 	
       pose [0.625 0.125 -0.975 270]
       size [0.025 0.025 0.025]

@@ -614,7 +614,10 @@ define bigbobs_laser laser
 	
       # does not need to be big
       fov 20
-	
+
+      #number of ranges measured
+      samples 180
+
       pose [0.625 0.125 -0.975 270]
       size [0.025 0.025 0.025]
 )
@@ -1224,7 +1227,9 @@ In this case \verb\item_name\ is as with Get/SetProperty, but we can directly sp
 This is like SetPose2d only this time it writes the coordinates and yaw to the given addresses in memory.
 
 \subsubsection{Get/Set Property}
-In version 3.2.2 of Stage the Get/SetProperty simulation proxy functions are unimplemented and \emph{will not work}. Hopefully this will be rectified in future releases, but if you desperately need this functionality you can use an earlier release of Stage, and the previous edition of this manual describes how to get and set a model's property 
+In version 3.2.2 of Stage the Get/SetProperty simulation proxy functions are unimplemented and \emph{will not work}. Hopefully this will be rectified in future releases, but if you desperately need this functionality you can use an earlier release of Stage, and the previous edition of this manual describes how to get and set a model's property in those distributions.
+In this edition of the manual I will try and describe how I think these functions will work in future versions of Stage based on the Stage 3.2.2 source code and how the previous version of these functions worked.
+
 To change a property of an item in the simulation we use the following function:
 \newline\verb\SetProperty(char *item_name, char *property, void *value, size_t value_len)\
 \begin{itemize}
@@ -1238,11 +1243,19 @@ To change a property of an item in the simulation we use the following function:
 		\item \verb\"_mp_laser_return"\: sets whether the item is detectable to the laser on a robot.
 		\item \verb\"_mp_obstacle_return"\: sets whether the robot can collide with the item.
 		\item \verb\"_mp_ranger_return"\: sets whether the item is detectable to the rangers on a robot.
-		\item \verb\"_mp_gripper_return"\: sets whether the item can be gripped by a gripper or jostled by the robot colliding with it.
+		\item \verb\"_mp_gripper_return"\: sets whether the item can be gripped by a gripper.
 	\end{itemize}
-	\item \verb\value\: The value you want to assign to the property. For the return parameters this can simply be a 0 or a 1, for the watts and mass it can be a numerical value. For the colour of the item this is a \verb\uint32_t\ 8 digit long hexadecimal number. The first 2 digits are the alpha value of the colour, the second two are its red value, the next two are its green value and the final two are the blue colour value. So red, for instance, would be  uint32\_t red = 0xffff0000, green would be 0xff00ff00 and blue is 0xff0000ff. A nice shade of yellow might be 0xffffcc11.
+	\item \verb\value\: The value you want to assign to the property.
 	\item \verb\value_len\: is the size of the value you gave in bytes. This can easily be found with the C or C++ \verb\sizeof()\ operator.
 \end{itemize}
+The \verb\value\ parameter is dependant on which \verb\property\ you want to set.
+\begin{itemize}
+		\item \verb\"_mp_color"\: This requires an array of four \verb\float\ values, scaled between 0 and 1. The first index of the array is the red component of the colour, the second is the green, third is blue and fourth is alpha (how light or dark the colour is, usually 1). For example if we want a nice shade of green, which has RGB components 171/224/110 we scale these between 0 and 1 by dividing by 255 to get 0.67/0.88/0.43 we can now put this into a float array with the line \verb\float green[]={0.67, 0.88, 0.43, 1};\. This array can then be passed into our \verb\SetProperty\ function like so:\newline
+		\verb\SetProperty("model_name", "_mp_color", (void*)green, sizeof(float)*4 );\
+		\item \verb\"_mp_watts"\ and \verb\"_mp_mass"\: These both require a \verb\double\ as their value.
+		\item \verb\"_mp_X_return"\: All the return properties require an \verb\int\ as their value.
+	\end{itemize}
+
 Similarly the following function can be used to get property information:\newline
 \verb\GetProperty(char *item_name, char *property, void *value, size_t value_len)\
 Instead of setting the given property of the item, this will write it to the memory block pointed to by \verb\*value\.
@@ -1369,7 +1382,7 @@ while(true)
       p2dProxy.SetSpeed(forwardSpeed, dtor(turnSpeed));
 }
 \end{verbatim}
-
+The \verb\dtor()\ function is a \pl function that turns a number in degrees into a number in radians. Our calculations have been done in degrees but \verb\SetSpeed\ requires radians, so this function is used to convert between the two.
 At present the motors are being updated every time this control loop executes, and this leads to some erratic behaviour from the robot. Using the \verb\sleep()\\footnote{sleep() is a standard C function and is included in the unistd.h header.} command we will tell the control loop to wait one second between each execution. At this point we should also seed the random number generator with the current time so that the wander behaviour isn't exactly the same each time. For the sleep command we will need to include \verb\unistd.h\ and to seed the random number generator with the current system time we will need to include \verb\time.h\.
 \begin{verbatim}
 #include <stdio.h>
@@ -1475,18 +1488,20 @@ void MoveToItem(double *forwardSpeed, double *turnSpeed, \
       BlobfinderProxy &bfp)
 {
       int i, centre;
+      //how many blobs are there?
       int noBlobs = bfp.GetCount();
       playerc_blobfinder_blob_t blob;
       int turningSpeed = 10;
       
       /*number of pixels away from the image centre a blob
-      can be to be in front of the robot*/
+      can be, to be in front of the robot. This is 
+      essentially the margin of error.*/
       int margin = 10;
-      
+
+      //find the largest blob      
       int biggestBlobArea = 0;
       int biggestBlob = 0;
       
-      //find the largest blob
       for(i=0; i<noBlobs; i++)
       {
             //get blob from proxy
@@ -1550,7 +1565,7 @@ else
 This behaviour will be the most difficult to code because Stage doesn't support pushable objects (the required physics is far too complex), what happens instead is that the robot runs over the object and just jostles it a bit. 
 As a work-around to this problem we will have to somehow find out which item is between Bigbob's teeth so that we can find its ``name'' and then change that item's pose (for which we need the item's name) so that it is no longer in the simulation. In essence, instead of having our robot eat rubbish and store it within its body, what we are doing is making the laser zap the rubbish out of existence.
 
-We can find the name of an item between Bigbob's teeth by cross referencing the robot's pose with the locations of the items in the world to find out which item is nearest the robot's laser. The first step is to create a list of all the items in the world, their names and their poses at initialisation. Since we know the names of the items are ``orange1'' to ``orange4'' and ``carton1'' to ``carton4'', we can find their poses with a simple call to a simulation proxy. We'll have to connect to the simulation proxy with our code first using the line \verb\SimulationProxy simProxy(&robot,0);\, then we can access this information and put it into a struct.
+We can find the name of an item between Bigbob's teeth by cross referencing the robot's pose with the poses of the items in the world to find out which item is nearest the robot's laser. The first step is to create a list of all the items in the world, their names and their poses at initialisation. Since we know the names of the items are ``orange1'' to ``orange4'' and ``carton1'' to ``carton4'', we can find their poses with a simple call to a simulation proxy. We'll have to connect to the simulation proxy with our code first using the line \verb\SimulationProxy simProxy(&robot,0);\, then we can access this information and put it into a struct.
 \begin{verbatim}
 struct Item
 {
@@ -1590,14 +1605,14 @@ void RefreshItemList(item_t *itemList, SimulationProxy &simProxy)
       return;
 }
 \end{verbatim}
-Where \verb\itemList\ is an \verb\item_t\ array of length 8. 
+Here we are making a string of the item names, for example orange1 and storing that in the item's name. We then use this string as an input into the \verb\GetPose2d\ function so that we can also get the item's location in the simulation.
 
 Next we can begin the ``Collect Item'' behaviour, which will be triggered by something breaking the laser beam. When this happens we will check the area around Bigbob's teeth, as indicated by figure \ref{fig:bigboblaserradius}. We know the distance from the centre of this search circle to Bigbob's origin (0.625m) and the radius of the search circle (0.375m), we can get the robot's exact pose with the following code.
 \begin{verbatim}
 double x, y, yaw;
 simProxy.GetPose2d("bob1", x, y, yaw);
 \end{verbatim}
-Cross referencing the robot's position with the item positions is a matter of trigonometry, we won't reproduce the code here, but the full and final code developed for the Bigbob rubbish collecting robot is included in appendix D. The method we used is to find the Euclidian distance of the items to the circle centre, and the smallest distance is the item we want to destroy. We made a subfunction called \verb\FindItem\ that returns the index of the item to be destroyed.
+Cross referencing the robot's position with the item positions is a matter of trigonometry, so isn't particularly relevant to a manual on \plst. We won't reproduce the code here, but the full and final code developed for the Bigbob rubbish collecting robot is included in appendix D. The method we used is to find the Euclidian distance of the items to the circle centre, and the smallest distance is the item we want to destroy. We made a subfunction called \verb\FindItem\ that returns the index of the item to be destroyed.
 
 \begin{figure}
 	\centering
@@ -1623,7 +1638,7 @@ if(laserProxy[90] < 0.25)
       RefreshItemList(itemList, simProxy);
 }
 \end{verbatim}
-The laser has 180 points, so point number 90 is the one which is perpendicular to Bigbob's teeth. This point returns a maximum of 0.25, so if its range was to fall below this then something has passed through the laser beam. We then find the item closest to the robot's teeth and move that item to coordinate $(-10, -10)$ so it is no longer visible or accessible.
+The laser has 180 samples, so sample number 90 is the one which is perpendicular to Bigbob's teeth. This point returns a maximum of 0.25, so if its range was to fall below this then something has passed through the laser beam. We then find the item closest to the robot's teeth and move that item to coordinate $(-10, -10)$ so it is no longer visible or accessible.
 \newline
 Finally we have a working simulation of a rubbish collecting robot! The full code listing is included in appendix D, the simulation world and configuration files are in appendices B and C respectively.
 
@@ -1700,7 +1715,7 @@ SonarProxy sprox2(&robot,1);
 //shared Simultion proxy...
 SimulationProxy sim(&robot,0);
 \end{verbatim}
-The main advantage of configuring the robot swarm this way is that it allows us to only have one simulation proxy which is shared by all robots. This is good since there is only ever one simulation window that you can interact with and so multiple simulation proxies are unnecessary.
+The main advantage of configuring the robot swarm this way is that it allows us to only have one simulation proxy which is used by all robots. This is good since there is only ever one simulation window that you can interact with and so multiple simulation proxies are unnecessary.
 
 \chapter{Useful Links}
 
@@ -1729,26 +1744,24 @@ The main advantage of configuring the robot swarm this way is that it allows us 
 \bibliography{manualrefs}
 
 
-\begin{comment}
  
 
 
 
 \chapter{Appendices}
 
-\section*{Appendix A. General Stage Model of Bigbob}\label{app:Abigbob.inc}
-\verbatiminput{./appendices/bigbob.inc}
+\section{A. General Stage Model of Bigbob}\label{app:Abigbob.inc}
+\verbatiminput{./code/bigbob.inc}
 
-\section*{Appendix B. Worldfile, Containing Robot and Items in World}\label{app:Brobotsjunkworld}
-\verbatiminput{./appendices/robots_and_junk.world}
+\section{B. Worldfile, Containing Robot and Items in World}\label{app:Brobotsjunkworld}
+\verbatiminput{./code/robots_and_junk.world}
 
-\section*{Appendix C. Configuration file for Bigbob World}\label{app:Cconfig}
-\verbatiminput{./appendices/test1.cfg}
+\section{C. Configuration file for Bigbob World}\label{app:Cconfig}
+\verbatiminput{./code/bigbob.cfg}
 
-\section*{Appendix D. Controlling Code for Bigbob Robot Simulation}\label{app:Dbigbobcode}
-\verbatiminput{./appendices/bigbob.cc}
+\section{D. Controlling Code for Bigbob Robot Simulation}\label{app:Dbigbobcode}
+\verbatiminput{./code/bigbob.cc}
 
-\end{comment}
 
 
 

@@ -10,10 +10,10 @@
 TARGET = bigbob
 
 # the code files you want to compile
-CFILES = bigbob2.cc
+CFILES = bigbob.cc
 
 # the directory where all your code is stored
-MAIN_DIR = /n/staff/jowen/player/instructions/revised_code
+MAIN_DIR =.
 
 # the folder where header files are stored
 HEADERS = $(MAIN_DIR)
