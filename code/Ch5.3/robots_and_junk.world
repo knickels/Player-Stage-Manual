@@ -17,8 +17,8 @@ window
 # load an environment bitmap
 floorplan
 (
-	bitmap "./bitmaps/cave.png" 
-	size [15 15 0.5]
+	bitmap "../bitmaps/cave.png" 
+	size [15 15 1.5]
 )
 
 bigbob
@@ -32,7 +32,7 @@ bigbob
 define orange model
 (
 	# this is a picture of a black circle
-	bitmap "bitmaps/circle.png"
+	bitmap "../bitmaps/circle.png"
 	size [0.15 0.15 0.15]
 	color "orange"
 )
