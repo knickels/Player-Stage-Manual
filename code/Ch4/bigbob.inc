@@ -15,6 +15,8 @@ define bigbobs_sonar sensor
     fov 10
     # define the color that ranges are drawn in the gui
     color_rgba [ 0 1 0 0.5] 
+    # how many rays in a beam
+    samples 180
 )
 
 define bigbobs_sonars ranger

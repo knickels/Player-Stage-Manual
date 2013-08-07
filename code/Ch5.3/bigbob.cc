@@ -1,6 +1,7 @@
 // Desc: Bigbob code for controlling a junk finding robot.
 // Author:  Jennifer Owen
 // Date: 16/04/2010
+// Updates (Stage4) Kevin Nickels 7 Aug 2013
 
 #include <stdio.h>
 #include <unistd.h>
@@ -121,21 +122,18 @@ void MoveToItem(double *forwardSpeed, double *turnSpeed, \
       
       int biggestBlobArea = 0;
       int biggestBlob = 0;
-      int currBlobArea = 0;
       
       //find the largest blob
       for(i=0; i<noBlobs; i++)
       {
             //get blob from proxy
             playerc_blobfinder_blob_t currBlob = bfp[i];
-            // currBlob.area not correct??? kmn 7/26/13
-            currBlobArea = (currBlob.right - currBlob.left)*(currBlob.bottom-currBlob.top);
-            //printf("blob %i has area %d\n",i,currBlobArea);
             
-            if(currBlobArea > biggestBlobArea)
+            // (.area is a negative cast into an unsigned int! oops.)
+            if( abs((int)currBlob.area) > biggestBlobArea)
             {
                   biggestBlob = i;
-                  biggestBlobArea = currBlobArea;
+                  biggestBlobArea = abs((int)currBlob.area);
             }
       }
       blob = bfp[biggestBlob];
@@ -330,10 +328,8 @@ int main(int argc, char *argv[])
       p2dProxy.RequestGeom();
       sonarProxy.RequestGeom();
       laserProxy.RequestGeom();
+      laserProxy.RequestConfigure();
       //blobfinder doesn't have geometry
-	
-      /*here so that laserProxy[90] doesn't segfault on first loop*/
-      //robot.Read();
 	
       while(true)
       {		
@@ -354,7 +350,7 @@ int main(int argc, char *argv[])
             }
       	
       	
-            if(laserProxy.GetRangeCount() && laserProxy[90] < 0.25)
+            if(laserProxy.GetRangeCount() >= 90 && laserProxy[90] < 0.25)
             {
                   int destroyThis;
 

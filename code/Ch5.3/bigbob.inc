@@ -1,4 +1,9 @@
-# bigbob.inc - full model of bigbob robot
+# bigbob.inc
+# model for the robot "Bigbob"
+# Author: Jennifer Owen
+# Date: 16/04/2010
+# Updated for Stage4 KNickels 1 Aug 2013
+
 
 define bigbobs_sonar sensor
 (
@@ -10,6 +15,8 @@ define bigbobs_sonar sensor
     fov 10
     # define the color that ranges are drawn in the gui
     color_rgba [ 0 1 0 0.5] 
+    # how many rays in a beam
+    samples 180
 )
 
 define bigbobs_sonars ranger

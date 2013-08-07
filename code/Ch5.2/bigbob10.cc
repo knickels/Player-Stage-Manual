@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         //blob = bfp[0];
         cout << "BLOB "<<i<<" -----------" <<endl;
         cout << "color = " << hex << blob.color << dec << endl;
-        cout << "area = " << blob.area << endl;
+        cout << "area = " << (int)blob.area << endl;
         cout << "(x,y) = (" << blob.x << ", " << blob.y << ")"<< endl;
         cout << "box =     " << blob.top << endl;
         cout << "       " << blob.left << "       "<<blob.right<<endl;
