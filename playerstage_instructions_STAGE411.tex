@@ -1,5 +1,8 @@
 \documentclass[a4paper]{report}
-\title{How to Use Player/Stage\\ 3nd Edition}
+
+\title{How to Use Player/Stage\\ 
+\large 4th Edition \\
+\small Using Player 3.0.2 and Stage 4.1.1}
 \author{Jennifer Owen \& Kevin Nickels}
 
 
@@ -89,10 +92,12 @@ Alternatively, you could try the suggestions on the \pl ``getting help'' page:
 	\url{http://playerstage.sourceforge.net/wiki/Getting_help}
 \end{center}
 
-\section{A note about TRY IT OUT boxes}
+\section{A Note about TRY IT OUT boxes}
 There will be boxes scattered throughout this tutorial labeled TRY IT OUT
-that explain how to run examples. You'll need to download
-\url{tutorial-4.1.1-src.zip} from the place where you got this document,
+that explain how to run examples. You'll need to download the example code
+\url{tutorial-4-src.zip} from the place where you got this
+document\footnote{or from
+\url{http://www-users.cs.york.ac.uk/jowen/player/tutorial-4-src.zip}},
 which will contain the files. In these boxes, you'll be given commands to
 type in a terminal
 window (or bash shell). They'll be shown prefixed with a carrot {\tt ">"} For
@@ -103,6 +108,24 @@ the {\tt >} character, then hit return.
 
 In many cases, you'll need two windows, since the first command (player
 configfile.cfg) doesn't quit till player is done.  
+
+\tiobox{First, you'll need to extract the sample code.  To do this, open a
+terminal and cd to the directory where you put the file {\tt
+tutorial-4-src.zip}, then extract using zip\footnote{Yes, there are
+GUI-based ways to do this too.  I won't cover them here.}: \\
+\\
+{\tt > mkdir \$HOME/tutorial-4}\footnote{I'll assume that you put this directory
+in your home directory.  If not, just replace the commands given with the
+appropriate directory.} \\
+{\tt > cd \$HOME/tutorial-4} \\
+{\tt > unzip \$HOME/Downloads/tutorial-4-src.zip}\footnote{Again, your specific path may differ.} \\
+{\tt > cd code} \\
+{\tt > ls} \\
+\\
+At this point, you should see five directories, {\tt Ch3 Ch4 Ch5.1 Ch5.2
+Ch5.3} which contain the code examples for the respective chapters, and
+one, {\tt bitmaps} that has pictures used in several different examples.}
+
 
 \tiobox{
 First we will run a world and configuration file that comes bundled with
@@ -520,8 +543,10 @@ define bigbob position
 )
 \end{verbatim}
 
-
-\tiobox{\tt > stage bigbob1.world }
+\tiobox{
+{ \tt cd \$HOME/tutorial-4/code/Ch3} \\
+{ \tt > stage bigbob1.world}
+}
 
 
 In the first line of this code we state that we are defining a \verb|position| model called \verb|bigbob|. Next \verb|block| declares that this \verb\position\ model contains a block.
@@ -824,7 +849,14 @@ define bigbob position
       bigbobs_laser()
 )
 \end{verbatim}
-The extra line \verb|bigbobs_sonars()| adds the sonar model called \verb|bigbobs_sonars()| onto the \verb|bigbob| model, likewise for \verb|bigbobs_eyes()| and \verb|bigbobs_laser()|. After this final step we now have a complete model of our robot bigbob, the full code for which can be found in appendix A. At this point it's worthwhile to copy this into a .inc file, so that the model could be used again in other simulations or worlds.
+The extra line \verb|bigbobs_sonars()| adds the sonar model called
+\verb|bigbobs_sonars()| onto the \verb|bigbob| model, likewise for
+\verb|bigbobs_eyes()| and \verb|bigbobs_laser()|. After this final step we
+now have a complete model of our robot bigbob, the full code for which can
+be found in appendix \label{app:Abigbob.inc}.
+At this point it's worthwhile to copy this into a .inc file, so that the
+model could be used again in other simulations or worlds.  This file can
+also be found in the example code in {\tt code/Ch5.3/bigbob.inc}.
 
 To put our Bigbob model into our empty world (see Section \ref{sec:BuildingAWorld:EmptyWorld:BasicWorldfile}) we need to add the robot to our worldfile empty.world:
 \begin{verbatim}
@@ -1187,6 +1219,7 @@ driver
 \end{verbatim}
 
 \tiobox{
+{ \tt cd \$HOME/tutorial-4/code/Ch4} \\
 {\tt > player bigbob8.cfg (in one terminal window)}\\
 {\tt > playerv --position2d:0} \\(in another terminal window)\\
 {\tt > playerv -p 6666 -position2d:0} \\(in yet another terminal window)
@@ -1257,6 +1290,7 @@ program will search for {\tt file.cc} and {\tt file.c} and ``do the right
 thing''.
 
 \tiobox{
+{ \tt cd \$HOME/tutorial-4/code/Ch5.1} \\
 {\tt > player simple.cfg}
 {\tt > make example0}
 {\tt > ./example0}
@@ -1401,6 +1435,7 @@ This function interacts with the robot's odometry. It allows you to monitor wher
 \end{itemize}
 
 \tiobox{
+{ \tt cd \$HOME/tutorial-4/code/Ch5.2} \\
 {\tt > player bigbob7.cfg} \\
 {\tt > make bigbob8} \\
 {\tt > ./bigbob8}
@@ -1998,7 +2033,18 @@ if(laserProxy[90] < 0.25)
 \end{verbatim}
 The laser has 180 samples, so sample number 90 is the one which is perpendicular to Bigbob's teeth. This point returns a maximum of 0.25, so if its range was to fall below this then something has passed through the laser beam. We then find the item closest to the robot's teeth and move that item to coordinate $(-10, -10)$ so it is no longer visible or accessible.
 \newline
-Finally we have a working simulation of a rubbish collecting robot! The full code listing is included in appendix D, the simulation world and configuration files are in appendices B and C respectively.
+Finally we have a working simulation of a rubbish collecting robot! 
+The full code listing is included in Appendix \ref{app:Dbigbobcode}, 
+the simulation world and configuration files are in appendices 
+\ref{app:Brobotsjunkworld} and \ref{app:Cconfig} respectively.
+
+\tiobox{
+{\tt > player bigbob11.cfg} \\
+{\tt > make bigbob13} \\
+{\tt > ./bigbob13}
+}
+
+
 
 \section{Simulating Multiple Robots}
 Our robot simulation case study only shows how to simulate a single robot in a \plst environment. It's highly likely that a simulation might want more than one robot in it. In this situation you will need to build a model of every robot you need in the worldfile, and then its associated driver in the configuration file. Let's take a look at our worldfile for the case study, we'll add a new model of a new Bigbob robot called ``bob2'':
@@ -2139,14 +2185,11 @@ interact with and so multiple simulation proxies are unnecessary.
 \bibliographystyle{IEEEtran}
 \bibliography{manual}
 
-
-
 %\chapter{Appendices}
 
 \appendix
-\chapter{The most illustrutive Code}
-In this section, I present the hilights of the developed code.  In the
-sequel, I present absolutely all the code used in this manual.
+\chapter{Code Examples}
+In this section, I present the highlights of the developed code.  
 
 \section{General Stage Model of Bigbob}\label{app:Abigbob.inc}
 \verbatiminput{./code/Ch5.3/bigbob.inc}
@@ -2160,6 +2203,8 @@ sequel, I present absolutely all the code used in this manual.
 \section{Controlling Code for Bigbob Robot Simulation}\label{app:Dbigbobcode}
 \verbatiminput{./code/Ch5.3/bigbob.cc}
 
+
+\comment{
 
 \chapter{Code for examples in Chapter 3}
 \section{code/Ch3/bigbob1.world}
@@ -2254,6 +2299,17 @@ sequel, I present absolutely all the code used in this manual.
 \verbatiminput{code/Ch5.3/bigbob.inc}
 \section{code/Ch5.3/robots\_and\_junk.world}
 \verbatiminput{code/Ch5.3/robots_and_junk.world}
+}
+
+\chapter{Change Log}
+\begin{itemize}
+\item Manual Version 4 - Kevin Nickels - Covers Stage 4.1.1 and Player 
+3.2.0 - August 7 2013
+\item Update to Player 3.2.0 - Jenny Owen - ??
+\item Manual Version 2 - Jenny Owen - Covers Stage 3.2.1 and Player 2.1.1
+- April 2010
+\item Manual Version 1 - Jenny Owen - Covers Stage 2.1.1 and 3.1.0 - July 10, 2009
+\end{itemize}
 
 \end{document}
 
