@@ -928,7 +928,18 @@ define orange model
       # parameters...
 )
 \end{verbatim}
-The first thing to define is the shape of the orange. The \verb|block| parameter is one way of doing this, which we can use to build a blocky approximation of a circle. An alternative to this is to use \verb|bitmap| which we previously saw being used to create a map. What the bitmap command actually does is take in a picture, and turn it into a series of blocks which are connected together to make a model the same shape as the picture. This is illustrated in Figure \ref{fig:BuildingAWorld:OtherStuff:Ghosts}. 
+
+The first thing to define is the shape of the orange. The \verb|block|
+parameter is one way of doing this, which we can use to build a blocky
+approximation of a circle. An alternative to this is to use \verb|bitmap|
+which we previously saw being used to create a map. What the bitmap command
+actually does is take in a picture, and turn it into a series of blocks
+which are connected together to make a model the same shape as the picture,
+as illustrated in Figure \ref{fig:BuildingAWorld:OtherStuff:Ghosts} for an
+alien bitmap.
+In our code, we don't want an alien, we want a simple circular shape (see
+Figure \ref{fig:circle.png}), so we'll point to a
+circular bitmap.
 
 \begin{figure}
 	\centering
@@ -967,11 +978,12 @@ The first thing to define is the shape of the orange. The \verb|block| parameter
 \begin{verbatim}
 define orange model
 (
-      bitmap "bitmaps/space_invader.png"
+      bitmap "bitmaps/circle.png"
       size [0.15 0.15 0.15]
       color "orange"
 )
 \end{verbatim}
+
 In this bit of code we describe a model called \verb|orange| which uses a bitmap to define its shape and represents an object which is $15cm$ x $15cm$ x $15cm$ and is coloured orange. Figure \ref{fig:BuildingAWorld:OtherStuff:OrangeAndBob} shows our orange model next to Bigbob.
 
 Building a juice carton model is similarly quite easy:
