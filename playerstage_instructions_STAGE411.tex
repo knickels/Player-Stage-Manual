@@ -61,7 +61,7 @@ If you have any questions about using \plst there is a guide to getting help fro
 \begin{center}
 	\url{http://playerstage.sourceforge.net/wiki/Getting_help}
 \end{center}
-This edition of the manual uses Stage version 4.1.1 as there are significant differences with the previous versions of Stage and the previous edition of this manual is now out of date. 
+This edition of the manual uses Stage version 4.1.1.  As there are significant differences with the previous versions of Stage and the previous edition of this manual is now out of date. 
 
 \tableofcontents
 
@@ -95,9 +95,9 @@ Alternatively, you could try the suggestions on the \pl ``getting help'' page:
 \section{A Note about TRY IT OUT boxes}
 There will be boxes scattered throughout this tutorial labeled TRY IT OUT
 that explain how to run examples. You'll need to download the example code
-\url{tutorial-4-src.zip} from the place where you got this
+\url{tutorial\_code.zip} from the place where you got this
 document\footnote{or from
-\url{http://www-users.cs.york.ac.uk/jowen/player/tutorial-4-src.zip}},
+\url{https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip}}
 which will contain the files. In these boxes, you'll be given commands to
 type in a terminal
 window (or bash shell). They'll be shown prefixed with a carrot {\tt ">"} For
@@ -111,15 +111,15 @@ configfile.cfg) doesn't quit till player is done.
 
 \tiobox{First, you'll need to extract the sample code.  To do this, open a
 terminal and cd to the directory where you put the file {\tt
-tutorial-4-src.zip}, then extract using zip\footnote{Yes, there are
+tutorial\_code.zip}, then extract using zip\footnote{Yes, there are
 GUI-based ways to do this too.  I won't cover them here.}: \\
 \\
-{\tt > mkdir \$HOME/tutorial-4}\footnote{I'll assume that you put this directory
+{\tt > cd \$HOME}\footnote{I'll assume that you put this directory
 in your home directory.  If not, just replace the commands given with the
 appropriate directory.} \\
-{\tt > cd \$HOME/tutorial-4} \\
-{\tt > unzip \$HOME/Downloads/tutorial-4-src.zip}\footnote{Again, your specific path may differ.} \\
-{\tt > cd code} \\
+{\tt > unzip \$HOME/Downloads/Player-Stage-Manual-master.zip}\footnote{Again, your specific path may differ.} \\
+{\tt > cd \$HOME/Player-Stage-Manual-master/code}\footnote{From here on out, I'll
+just say {\tt <source\_code> } for brevity and generality}.\\
 {\tt > ls} \\
 \\
 At this point, you should see five directories, {\tt Ch3 Ch4 Ch5.1 Ch5.2
@@ -130,12 +130,11 @@ one, {\tt bitmaps} that has pictures used in several different examples.}
 \tiobox{
 First we will run a world and configuration file that comes bundled with
 Stage. In your bash shell navigate to the Stage/worlds folder, by default
-(in Linux at least) this is /usr/local/share/stage/worlds. Once in the
-correct folder type the following command to run the ``simple world'' that
+(in Linux at least) this is /usr/local/share/stage/worlds. Type the
+following commands to run the ``simple world'' that
 comes with \plst: \\
-{\tt 
-> player simple.cfg
-}
+{\tt > cd /usr/local/share/stage/worlds} \\
+{\tt > player simple.cfg }
 
 Assuming \plst is installed properly you should now have a window open
 which looks like Figure \ref{fig:BuildingAWorld:SimpleWorld}.  Congratulations,
@@ -544,7 +543,7 @@ define bigbob position
 \end{verbatim}
 
 \tiobox{
-{ \tt cd \$HOME/tutorial-4/code/Ch3} \\
+{ \tt > cd <source\_code>/Ch3} \\
 { \tt > stage bigbob1.world}
 }
 
@@ -600,7 +599,10 @@ define bigbob position
 )
 \end{verbatim}
 
-\tiobox{\tt > stage bigbob2.world }
+\tiobox{
+{\tt > cd <source\_code>/Ch3} \\
+{\tt > stage bigbob2.world}
+}
 
 To declare the size of the robot you use the \verb|size [x y z]| parameter, this will cause the polygon described to be scaled to fit into a box which is \verb|x| by \verb\y\ in size and \verb\z\ metres tall. The default size is 0.4 x 0.4 x 1 m, so because the addition of rubbish-collecting teeth made Bigbob longer, the size parameter was needed to stop \plst from making the robot smaller than it should be. In this way we could have specified the polygon coordinates to be 4 times the distance apart and then declared its size to be \verb|1.25 x 1 x 1| metres, and we would have got a robot the size we wanted. For a robot as large as Bigbob this is not really important, but it could be useful when building models of very small robots. 
 It should be noted that it doesn't actually matter where in the cartesian coordinate system you place the polygon, instead of starting at \verb|(0, 0)| it could just as easily have started at \verb|(-1000, 12345)|. With the \verb\block\ parameter we just describe the \emph{shape} of the robot, not its size or location in the map. \newline
@@ -647,8 +649,8 @@ define bigbob position
 
 
 \tiobox{
-{\tt 
-> stage bigbob3.world} \\
+{\tt > cd <source\_code>/Ch3} \\
+{\tt > stage bigbob3.world} \\
 Click on the robot, and it should hilight.  Click and hold down the right
 (secondary) mouse button, and move the mouse to rotate bigbob.}
 
@@ -732,6 +734,7 @@ define bigbobs_sonars ranger
 
 
 \tiobox{
+{\tt > cd <source\_code>/Ch3} \\
 {\tt > player bigbob4.cfg}  (in one terminal window)\\
 {\tt > playerv --ranger:0}  (in another terminal window)\\
 \\
@@ -778,6 +781,7 @@ define bigbobs_eyes blobfinder
 \end{verbatim}
 
 \tiobox{
+{\tt > cd <source\_code>/Ch3} \\
 {\tt > player bigbob5.cfg} \\
 {\tt > playerv --blobfinder:0} \\
 }
@@ -853,7 +857,7 @@ The extra line \verb|bigbobs_sonars()| adds the sonar model called
 \verb|bigbobs_sonars()| onto the \verb|bigbob| model, likewise for
 \verb|bigbobs_eyes()| and \verb|bigbobs_laser()|. After this final step we
 now have a complete model of our robot bigbob, the full code for which can
-be found in appendix \label{app:Abigbob.inc}.
+be found in appendix \ref{app:Abigbob.inc}.
 At this point it's worthwhile to copy this into a .inc file, so that the
 model could be used again in other simulations or worlds.  This file can
 also be found in the example code in {\tt code/Ch5.3/bigbob.inc}.
@@ -913,6 +917,7 @@ occupying the world, as shown in Figure
 \end{figure}
 
 \tiobox{
+{\tt > cd <source\_code>/Ch3} \\
 {\tt > player bigbob6.cfg} \\
 {\tt > playerv --ranger:0 --ranger:1} \\
 }
@@ -1043,6 +1048,7 @@ carton(name "carton4" pose [-2 -1 0 0])
 Up until now we have been describing models with each parameter on a new line, this is just a way of making it more readable for the programmer -- especially if there are a lot of parameters. If there are only a few parameters or you want to be able to comment it out easily, it can all be put onto one line. Here we declare that there will be four \verb|orange| models in the simulation with the names \verb|orange1| to \verb|orange4|, we also need to specify different poses for the models so they aren't all on top of each other. Properties that the orange models have in common (such as shape, colour or size) should all be in the model definition. 
 
 \tiobox{
+{ \tt cd <source\_code>/Ch3} \\
 {\tt > player bigbob7.cfg} \\
 {\tt > playerv --ranger:0 --ranger:1 --blobfinder:0} \\
 }
@@ -1231,7 +1237,7 @@ driver
 \end{verbatim}
 
 \tiobox{
-{ \tt cd \$HOME/tutorial-4/code/Ch4} \\
+{ \tt cd <source\_code>/Ch4} \\
 {\tt > player bigbob8.cfg (in one terminal window)}\\
 {\tt > playerv --position2d:0} \\(in another terminal window)\\
 {\tt > playerv -p 6666 -position2d:0} \\(in yet another terminal window)
@@ -1302,16 +1308,17 @@ program will search for {\tt file.cc} and {\tt file.c} and ``do the right
 thing''.
 
 \tiobox{
-{ \tt cd \$HOME/tutorial-4/code/Ch5.1} \\
-{\tt > player simple.cfg}
-{\tt > make example0}
-{\tt > ./example0}
+{\tt > cd <source\_code>/Ch5.1} \\
+{\tt > player simple.cfg} \\
+{\tt > make example0} \\
+{\tt > ./example0} \\
 }
 
 \tiobox{
-{\tt > player simple.cfg}
-{\tt > make simple}
-{\tt > ./simple}
+{ \tt > cd <source\_code>/Ch5.1} \\
+{\tt > player simple.cfg} \\
+{\tt > make simple} \\
+{\tt > ./simple} \\
 }
 
 
@@ -1447,7 +1454,7 @@ This function interacts with the robot's odometry. It allows you to monitor wher
 \end{itemize}
 
 \tiobox{
-{ \tt cd \$HOME/tutorial-4/code/Ch5.2} \\
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob7.cfg} \\
 {\tt > make bigbob8} \\
 {\tt > ./bigbob8}
@@ -1535,6 +1542,7 @@ Angles are given with reference to the laser's centre front (see Figure
 \end{figure} 
 
 \tiobox{
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob7.cfg} \\
 {\tt > make bigbob9} \\
 {\tt > ./bigbob9}
@@ -1574,6 +1582,7 @@ Once we receive the blob structure from the proxy we can extract data we need. T
 \end{figure} 
 
 \tiobox{
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob7.cfg} \\
 {\tt > make bigbob10} \\
 {\tt > ./bigbob10}
@@ -1589,6 +1598,7 @@ The GripperProxy allows you to control the gripper, once the gripper is holding 
 \end{itemize}
 
 \tiobox{
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob11.cfg} \\
 {\tt > make bigbob11} \\
 {\tt > ./bigbob11}
@@ -1608,6 +1618,7 @@ In this case \verb\item_name\ is as with Get/SetProperty, but we can directly sp
 This is like SetPose2d only this time it writes the coordinates and yaw to the given addresses in memory.
 
 \tiobox{
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob11.cfg} \\
 {\tt > make bigbob12} \\
 {\tt > ./bigbob12}
@@ -1646,6 +1657,7 @@ The \verb\value\ parameter is dependant on which \verb\property\ you want to set
 \end{itemize}
 
 \tiobox{
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob11.cfg} \\
 {\tt > make bigbob13} \\
 {\tt > ./bigbob13}
@@ -2051,6 +2063,7 @@ the simulation world and configuration files are in appendices
 \ref{app:Brobotsjunkworld} and \ref{app:Cconfig} respectively.
 
 \tiobox{
+{ \tt > cd <source\_code>/Ch5.2} \\
 {\tt > player bigbob11.cfg} \\
 {\tt > make bigbob13} \\
 {\tt > ./bigbob13}
@@ -2215,109 +2228,12 @@ In this section, I present the highlights of the developed code.
 \section{Controlling Code for Bigbob Robot Simulation}\label{app:Dbigbobcode}
 \verbatiminput{./code/Ch5.3/bigbob.cc}
 
-
-\comment{
-
-\chapter{Code for examples in Chapter 3}
-\section{code/Ch3/bigbob1.world}
-\verbatiminput{code/Ch3/bigbob1.world}
-\section{code/Ch3/bigbob2.world}
-\verbatiminput{code/Ch3/bigbob2.world}
-\section{code/Ch3/bigbob3.world}
-\verbatiminput{code/Ch3/bigbob3.world}
-\section{code/Ch3/bigbob4.cfg}
-\verbatiminput{code/Ch3/bigbob4.cfg}
-\section{code/Ch3/bigbob4.world}
-\verbatiminput{code/Ch3/bigbob4.world}
-\section{code/Ch3/bigbob4\_camera.cfg}
-\verbatiminput{code/Ch3/bigbob4_camera.cfg}
-\section{code/Ch3/bigbob4\_camera.world}
-\verbatiminput{code/Ch3/bigbob4_camera.world}
-\section{code/Ch3/bigbob4\_fiducial.cfg}
-\verbatiminput{code/Ch3/bigbob4_fiducial.cfg}
-\section{code/Ch3/bigbob4\_fiducial.world}
-\verbatiminput{code/Ch3/bigbob4_fiducial.world}
-\section{code/Ch3/bigbob4\_gripper.cfg}
-\verbatiminput{code/Ch3/bigbob4_gripper.cfg}
-\section{code/Ch3/bigbob4\_gripper.world}
-\verbatiminput{code/Ch3/bigbob4_gripper.world}
-\section{code/Ch3/bigbob5.cfg}
-\verbatiminput{code/Ch3/bigbob5.cfg}
-\section{code/Ch3/bigbob5.world}
-\verbatiminput{code/Ch3/bigbob5.world}
-\section{code/Ch3/bigbob6.cfg}
-\verbatiminput{code/Ch3/bigbob6.cfg}
-\section{code/Ch3/bigbob6.world}
-\verbatiminput{code/Ch3/bigbob6.world}
-\section{code/Ch3/bigbob7.cfg}
-\verbatiminput{code/Ch3/bigbob7.cfg}
-\section{code/Ch3/bigbob7.world}
-\verbatiminput{code/Ch3/bigbob7.world}
-\section{code/Ch3/empty.cfg}
-\verbatiminput{code/Ch3/empty.cfg}
-\section{code/Ch3/empty.world}
-\verbatiminput{code/Ch3/empty.world}
-\section{code/Ch4/bigbob.inc}
-\chapter{Code for examples in Chapter 4}
-\verbatiminput{code/Ch4/bigbob.inc}
-\section{code/Ch4/bigbob8.cfg}
-\verbatiminput{code/Ch4/bigbob8.cfg}
-\section{code/Ch4/bigbob8.world}
-\verbatiminput{code/Ch4/bigbob8.world}
-\section{code/Ch4/map.inc}
-\verbatiminput{code/Ch4/map.inc}
-\chapter{Code for examples in Chapter 5.1}
-\section{code/Ch5.1/Makefile}
-\verbatiminput{code/Ch5.1/Makefile}
-\section{code/Ch5.1/example0.cc}
-\verbatiminput{code/Ch5.1/example0.cc}
-\section{code/Ch5.1/simple.c}
-\verbatiminput{code/Ch5.1/simple.c}
-\section{code/Ch5.1/simple.cfg}
-\verbatiminput{code/Ch5.1/simple.cfg}
-\section{code/Ch5.1/simple.world}
-\verbatiminput{code/Ch5.1/simple.world}
-\chapter{Code for examples in Chapter 5.2}
-\section{code/Ch5.2/Makefile}
-\verbatiminput{code/Ch5.2/Makefile}
-\section{code/Ch5.2/bigbob10.cc}
-\verbatiminput{code/Ch5.2/bigbob10.cc}
-\section{code/Ch5.2/bigbob11.cc}
-\verbatiminput{code/Ch5.2/bigbob11.cc}
-\section{code/Ch5.2/bigbob11.cfg}
-\verbatiminput{code/Ch5.2/bigbob11.cfg}
-\section{code/Ch5.2/bigbob11.world}
-\verbatiminput{code/Ch5.2/bigbob11.world}
-\section{code/Ch5.2/bigbob12.cc}
-\verbatiminput{code/Ch5.2/bigbob12.cc}
-\section{code/Ch5.2/bigbob13.cc}
-\verbatiminput{code/Ch5.2/bigbob13.cc}
-\section{code/Ch5.2/bigbob7.cfg}
-\verbatiminput{code/Ch5.2/bigbob7.cfg}
-\section{code/Ch5.2/bigbob7.world}
-\verbatiminput{code/Ch5.2/bigbob7.world}
-\section{code/Ch5.2/bigbob8.cc}
-\verbatiminput{code/Ch5.2/bigbob8.cc}
-\section{code/Ch5.2/bigbob9.cc}
-\verbatiminput{code/Ch5.2/bigbob9.cc}
-\chapter{Code for examples in Chapter 5.3}
-\section{code/Ch5.3/Makefile}
-\verbatiminput{code/Ch5.3/Makefile}
-\section{code/Ch5.3/bigbob.cc}
-\verbatiminput{code/Ch5.3/bigbob.cc}
-\section{code/Ch5.3/bigbob.cfg}
-\verbatiminput{code/Ch5.3/bigbob.cfg}
-\section{code/Ch5.3/bigbob.inc}
-\verbatiminput{code/Ch5.3/bigbob.inc}
-\section{code/Ch5.3/robots\_and\_junk.world}
-\verbatiminput{code/Ch5.3/robots_and_junk.world}
-}
-
 \chapter{Change Log}
 \begin{itemize}
 \item Manual Version 4 - Kevin Nickels - Covers Stage 4.1.1 and Player 
 3.2.0 - August 7 2013
-\item Update to Player 3.2.0 - Jenny Owen - ??
+\item Update to Player 3.2.0 - Jenny Owen - see
+\url{http://yorkroboticist.blogspot.co.uk/2009/11/update-of-manual-code-from-stage-211-to.html}
 \item Manual Version 2 - Jenny Owen - Covers Stage 3.2.1 and Player 2.1.1
 - April 2010
 \item Manual Version 1 - Jenny Owen - Covers Stage 2.1.1 and 3.1.0 - July 10, 2009
