@@ -92,13 +92,16 @@ Alternatively, you could try the suggestions on the \pl ``getting help'' page:
 	\url{http://playerstage.sourceforge.net/wiki/Getting_help}
 \end{center}
 
+Even after it's installed, you may need to do some per-user setup on your
+system.  For example, on our system, the following two lines needed to be
+added to each user's {\tt \$HOME/.bashrc} file (or to the system-wide one): \\
+{\tt ~~~~export LD\_LIBRARY\_PATH=/usr/local/lib64:\$LD\_LIBRARY\_PATH}\\
+{\tt ~~~~export PKG\_CONFIG\_PATH=/usr/local/lib64/pkgconfig:\$PKG\_CONFIG\_PATH}
+
 \section{A Note about TRY IT OUT boxes}
 There will be boxes scattered throughout this tutorial labeled TRY IT OUT
 that explain how to run examples. You'll need to download the example code
-\url{tutorial\_code.zip} from the place where you got this
-document\footnote{or from
-\url{https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip}}
-which will contain the files. In these boxes, you'll be given commands to
+from \url{https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip} which will contain the files. In these boxes, you'll be given commands to
 type in a terminal
 window (or bash shell). They'll be shown prefixed with a carrot {\tt ">"} For
 example, \\
