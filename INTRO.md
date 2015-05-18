@@ -45,17 +45,18 @@ from
 (https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip) 
 which will contain the files. In these sections, you'll be given commands to
 type in a terminal
-window (or bash shell). They'll be shown prefixed with a carrot `>`. For
-example, 
-```> ls```
+window (or bash shell). They'll be shown prefixed with a carrot `>` and
+typeset in monospace font. For example, 
+```
+> ls
+```
 means to go to a terminal window and type the command given (ls), without
 the `>` character, then hit return.
 
 In many cases, you'll need two windows, since the first command (player
 configfile.cfg) doesn't quit till player is done.  
 
-> ## TRY IT OUT
-> 
+## TRY IT OUT
 > First, you'll need to extract the sample code.  To do this, open a
 > terminal and cd to the directory where you put the file
 > `tutorial_code.zip`, then extract using zip (Yes, there are
@@ -72,7 +73,7 @@ configfile.cfg) doesn't quit till player is done.
 > one, `bitmaps`, that has pictures used in several different examples.
 
 
-> ## TRY IT OUT
+## TRY IT OUT
 > First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
 > * `> cd /usr/local/share/stage/worlds` 
 > * `> player simple.cfg`
