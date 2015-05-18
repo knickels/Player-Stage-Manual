@@ -54,7 +54,7 @@ the `>` character, then hit return.
 In many cases, you'll need two windows, since the first command (player
 configfile.cfg) doesn't quit till player is done.  
 
-> TRYITOUTBOX
+> ## TRYITOUTBOX - using quotes
 > 
 > First, you'll need to extract the sample code.  To do this, open a
 > terminal and cd to the directory where you put the file
@@ -74,7 +74,24 @@ configfile.cfg) doesn't quit till player is done.
 > / TRYITOUTBOX
 
 
-TRYITOUTBOX
+## TRYITOUTBOX - using table
+
+| TRY IT OUT |   |
+|---|---|
+|   | Some text more text  |
+
+|   |
+
+
+
+----------------------- ------------------------------------
+![Tip](images/tip.png)\ Table multiline text bla bla bla bla
+                        bla bla bla bla bla bla bla ... the
+                        blank line below is important 
+
+----------------------------------------------------------------
+
+
 
 First we will run a world and configuration file that comes bundled with
 Stage. In your bash shell navigate to the Stage/worlds folder, by default
@@ -88,7 +105,6 @@ Assuming Player/Stage is installed properly you should now have a window open
 which looks like Figure \ref{fig:BuildingAWorld:SimpleWorld}.  Congratulations,
 you can now build Player/Stage simulations! 
 
-/TRYITOUTBOX
-
+| -----------------------------------------------------------|
 
 
