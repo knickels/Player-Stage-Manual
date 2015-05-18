@@ -60,10 +60,10 @@ configfile.cfg) doesn't quit till player is done.
 > terminal and cd to the directory where you put the file
 > `tutorial_code.zip`, then extract using zip (Yes, there are
 > GUI-based ways to do this too.  I won't cover them here.)
-> * `> cd \$HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
-> * `> unzip \$HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
+> * `> cd $HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
+> * `> unzip $HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
 > your specific path may differ.
-> * `> cd \$HOME/Player-Stage-Manual-master/code` (From here on out, I'll
+> * `> cd $HOME/Player-Stage-Manual-master/code` (From here on out, I'll
 > just say `<source_code>` for brevity and generality.)
 > * `> ls` 
 
@@ -77,4 +77,5 @@ configfile.cfg) doesn't quit till player is done.
 > * `> cd /usr/local/share/stage/worlds` 
 > * `> player simple.cfg`
 > Assuming Player/Stage is installed properly you should now have a window open which looks like Figure XX.  Congratulations,you can now build Player/Stage simulations!
+> ![The simple.cfg world after being run](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/simpleworld.png)
 
