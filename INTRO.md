@@ -21,22 +21,20 @@ simulation, but hopefully this will still be a useful resource for anyone
 just using Player (which is the same thing but on a real robot, without any simulation software).
 
 ## A Note on Installing Player/Stage
-Instructions on how to install Player/Stage onto your computer aren't really the focus of this document. It is very difficult though. If you're lucky the install will work first time but there are a lot of dependencies which may need installing. For computers running Ubuntu there is a very good set of instructions here (including a script for downloading the many prerequisites):
-[http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu](http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu)
-
-For OSX users you might find the following install instructions useful:
+Instructions on how to install Player/Stage onto your computer aren't really the focus of this document. It is very difficult though. If you're lucky the install will work first time but there are a lot of dependencies which may need installing. 
+* For computers running Ubuntu there is a very good set of instructions here (including a script for downloading the many prerequisites): [http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu](http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu)
+* For OSX users you might find the following install instructions useful:
 [http://alanwinfield.blogspot.com/2009/07/installing-playerstage-on-os-x-with.html](http://alanwinfield.blogspot.com/2009/07/installing-playerstage-on-os-x-with.html)
-
-Alternatively, you could try the suggestions on the Player ``getting help'' page:
-
+* Alternatively, you could try the suggestions on the Player ``getting help'' page:
 [http://playerstage.sourceforge.net/wiki/Getting_help](http://playerstage.sourceforge.net/wiki/Getting_help)
 
 Even after it's installed, you may need to do some per-user setup on your
-system.  For example, on our system, the following two lines needed to be
+system.  For example, on our system, the following two lines (adapted as
+needed to your particular system) need to be
 added to each user's `$HOME/.bashrc` file (or to the system-wide one): 
 ```
-export LD\_LIBRARY\_PATH=/usr/local/lib64:\$LD\_LIBRARY\_PATH}\\
-export PKG\_CONFIG\_PATH=/usr/local/lib64/pkgconfig:\$PKG\_CONFIG\_PATH}
+export LD_LIBRARY_PATH=/usr/local/lib64:$LD_LIBRARY_PATH}
+export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:$PKG_CONFIG_PATH}
 ```
 
 ## A Note about TRY IT OUT boxes
@@ -56,24 +54,24 @@ the `>` character, then hit return.
 In many cases, you'll need two windows, since the first command (player
 configfile.cfg) doesn't quit till player is done.  
 
-TRYITOUTBOX
+> TRYITOUTBOX
+> 
+> First, you'll need to extract the sample code.  To do this, open a
+> terminal and cd to the directory where you put the file
+> `tutorial_code.zip`, then extract using zip (Yes, there are
+> GUI-based ways to do this too.  I won't cover them here.)
+> * `> cd \$HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
+> * `> unzip \$HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
+> your specific path may differ.
+> * `> cd \$HOME/Player-Stage-Manual-master/code` (From here on out, I'll
+> just say `<source\_code>` for brevity and generality.)
+> * `> ls` 
 
-First, you'll need to extract the sample code.  To do this, open a
-terminal and cd to the directory where you put the file
-`tutorial_code.zip`, then extract using zip (Yes, there are
-GUI-based ways to do this too.  I won't cover them here.)
-* `> cd \$HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
-* `> unzip \$HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
-your specific path may differ.
-* `> cd \$HOME/Player-Stage-Manual-master/code` (From here on out, I'll
-just say `<source\_code>` for brevity and generality.)
-* `> ls` 
-
-At this point, you should see five directories, `Ch3 Ch4 Ch5.1 Ch5.2
-Ch5.3` which contain the code examples for the respective chapters, and
-one, `bitmaps` that has pictures used in several different examples.
-
-/ TRYITOUTBOX
+> At this point, you should see five directories, `Ch3 Ch4 Ch5.1 Ch5.2
+> Ch5.3` which contain the code examples for the respective chapters, and
+> one, `bitmaps` that has pictures used in several different examples.
+> 
+> / TRYITOUTBOX
 
 
 TRYITOUTBOX
