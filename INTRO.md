@@ -37,13 +37,13 @@ export LD_LIBRARY_PATH=/usr/local/lib64:$LD_LIBRARY_PATH}
 export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:$PKG_CONFIG_PATH}
 ```
 
-## A Note about TRY IT OUT boxes
-There will be boxes scattered throughout this tutorial labeled TRY IT OUT
+## A Note about TRY IT OUT sections
+There will be sections scattered throughout this tutorial labeled **TRY IT OUT**
 that explain how to run examples. You'll need to download the example code
 from 
 [https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip]
 (https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip) 
-which will contain the files. In these boxes, you'll be given commands to
+which will contain the files. In these sections, you'll be given commands to
 type in a terminal
 window (or bash shell). They'll be shown prefixed with a carrot `>`. For
 example, 
@@ -54,7 +54,7 @@ the `>` character, then hit return.
 In many cases, you'll need two windows, since the first command (player
 configfile.cfg) doesn't quit till player is done.  
 
-> ## TRYITOUTBOX - using quotes
+> ## TRY IT OUT
 > 
 > First, you'll need to extract the sample code.  To do this, open a
 > terminal and cd to the directory where you put the file
@@ -70,14 +70,11 @@ configfile.cfg) doesn't quit till player is done.
 > At this point, you should see five directories, `Ch3 Ch4 Ch5.1 Ch5.2
 > Ch5.3` which contain the code examples for the respective chapters, and
 > one, `bitmaps` that has pictures used in several different examples.
-> 
-> / TRYITOUTBOX
 
 
-## TRYITOUTBOX - using table
-
-| TRY IT OUT    |
-| ------        |
-| First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage <BR> `> cd /usr/local/share/stage/worlds` <BR>`> player simple.cfg`<BR>
-Assuming Player/Stage is installed properly you should now have a window openwhich looks like Figure \ref{fig:BuildingAWorld:SimpleWorld}.  Congratulations,you can now build Player/Stage simulations!  |
+## TRY IT OUT
+> First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
+> `> cd /usr/local/share/stage/worlds` 
+> `> player simple.cfg`<BR>
+> Assuming Player/Stage is installed properly you should now have a window open which looks like Figure XX.  Congratulations,you can now build Player/Stage simulations!
 
