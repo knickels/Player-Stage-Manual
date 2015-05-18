@@ -68,14 +68,17 @@ configfile.cfg) doesn't quit till player is done.
 > * `> ls` 
 
 > At this point, you should see five directories, `Ch3 Ch4 Ch5.1 Ch5.2
-> Ch5.3` which contain the code examples for the respective chapters, and
-> one, `bitmaps` that has pictures used in several different examples.
+> Ch5.3`, which contain the C++ code examples for the respective chapters, and
+> one, `bitmaps`, that has pictures used in several different examples.
 
 
-## TRY IT OUT
+> ## TRY IT OUT
 > First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
 > * `> cd /usr/local/share/stage/worlds` 
 > * `> player simple.cfg`
 > Assuming Player/Stage is installed properly you should now have a window open which looks like the figure below.  Congratulations,you can now build Player/Stage simulations!
 > ![The simple.cfg world after being run](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/simpleworld.png)
 
+Up: [README](README.md)
+
+Next: [The Basics](BASICS.md)
