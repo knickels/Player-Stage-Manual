@@ -76,35 +76,15 @@ configfile.cfg) doesn't quit till player is done.
 
 ## TRYITOUTBOX - using table
 
-| TRY IT OUT |   |
-|---|---|
-|   | Some text more text  |
-
-|   |
-
-
-
------------------------ ------------------------------------
-![Tip](images/tip.png)\ Table multiline text bla bla bla bla
-                        bla bla bla bla bla bla bla ... the
-                        blank line below is important 
-
-----------------------------------------------------------------
-
-
-
-First we will run a world and configuration file that comes bundled with
-Stage. In your bash shell navigate to the Stage/worlds folder, by default
-(in Linux at least) this is `/usr/local/share/stage/worlds`. Type the
-following commands to run the ``simple world'' that
-comes with Player/Stage: 
-* `> cd /usr/local/share/stage/worlds
-* `> player simple.cfg
-
+| TRY IT OUT    |
+|------|
+|   Some text more text Some text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more textSome text more text |
+| |
+| First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
+* `> cd /usr/local/share/stage/worlds`
+* `> player simple.cfg`
 Assuming Player/Stage is installed properly you should now have a window open
 which looks like Figure \ref{fig:BuildingAWorld:SimpleWorld}.  Congratulations,
 you can now build Player/Stage simulations! 
-
-| -----------------------------------------------------------|
-
+|
 
