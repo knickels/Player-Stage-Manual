@@ -3,7 +3,14 @@
 
 A user manual for the Player/Stage robot simulator.
 
-This manual covers Player version 3.0.2 and Stage version 4.1.1. These are not the most recent versions of either software, so be aware that some of the information is out of date. That said, if you find something that is wrong in the manual or source code please feel free to update it!
+This manual covers Player version 3.0.2 and Stage version 4.1.1. These are
+not the most recent versions of either software, so be aware that some of
+the information is out of date. That said, if you find something that is
+wrong in the manual or source code please feel free to update it!
+
+# TABLE OF CONTENTS
+[INTRO.md](Introduction)
+
 
 # TO DO
 --------------
