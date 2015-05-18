@@ -9,7 +9,7 @@ the information is out of date. That said, if you find something that is
 wrong in the manual or source code please feel free to update it!
 
 # TABLE OF CONTENTS
-[INTRO.md](Introduction)
+[Introduction](INTRO.md)
 
 
 # TO DO
