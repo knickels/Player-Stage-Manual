@@ -64,7 +64,7 @@ configfile.cfg) doesn't quit till player is done.
 > * `> unzip \$HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
 > your specific path may differ.
 > * `> cd \$HOME/Player-Stage-Manual-master/code` (From here on out, I'll
-> just say `<source\_code>` for brevity and generality.)
+> just say `<source_code>` for brevity and generality.)
 > * `> ls` 
 
 > At this point, you should see five directories, `Ch3 Ch4 Ch5.1 Ch5.2
@@ -74,7 +74,7 @@ configfile.cfg) doesn't quit till player is done.
 
 ## TRY IT OUT
 > First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
-> `> cd /usr/local/share/stage/worlds` 
-> `> player simple.cfg`<BR>
+> * `> cd /usr/local/share/stage/worlds` 
+> * `> player simple.cfg`
 > Assuming Player/Stage is installed properly you should now have a window open which looks like Figure XX.  Congratulations,you can now build Player/Stage simulations!
 
