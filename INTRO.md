@@ -47,8 +47,8 @@ which will contain the files. In these sections, you'll be given commands to
 type in a terminal
 window (or bash shell). They'll be shown prefixed with a carrot `>`. For
 example, 
-`> ls`
-Means to go to a terminal window and type the command given (ls), without
+```> ls```
+means to go to a terminal window and type the command given (ls), without
 the `>` character, then hit return.
 
 In many cases, you'll need two windows, since the first command (player
