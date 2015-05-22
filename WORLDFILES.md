@@ -105,7 +105,7 @@ We can see from the first line that they are defining a `model` called `floorpla
 * `fiducial_return`: any parameter of the form
   some_sensor_return describes how that kind of sensor should react to the
   model. "Fiducial" is a kind of robot sensor which will be described later
-  in [Section](#sec:BuildingAWorld:BuildingRobot:RobotSensors). Setting
+  in [Section](#sec_BuildingAWorld_BuildingRobot_RobotSensors). Setting
   `fiducial_return` to 0 means that the map cannot be detected by a
   fiducial sensor.
 * `ranger_return`: Setting `ranger_return` to a negative
@@ -255,7 +255,7 @@ Our Empty World.
 
 In Player/Stage a robot is just a slightly advanced kind of model, all the parameters described in Section [sec:BuildingAWorld:EmptyWorld:Models] can still be applied. 
 
-###Sensors and Devices <a name="sec:BuildingAWorld:BuildingRobot:RobotSensors"></a>
+###Sensors and Devices <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors"></a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
