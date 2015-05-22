@@ -255,7 +255,7 @@ Our Empty World.
 
 In Player/Stage a robot is just a slightly advanced kind of model, all the parameters described in Section [sec:BuildingAWorld:EmptyWorld:Models] can still be applied. 
 
-###Sensors and Devices <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors"></a>
+###Sensors and Devices <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
