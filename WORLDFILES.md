@@ -14,6 +14,10 @@ open which looks like the figure below.
 
 <center>![The simple.cfg world after being run](pics/simpleworld.png)<BR>The simple.cfg world after being run</center>
 
+<center>![Alt
+test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png)<BR>Caption</center>
+
+
 Congratulations, you can now build Player/Stage simulations! 
 
 ## Building an Empty World
