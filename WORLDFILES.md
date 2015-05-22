@@ -174,9 +174,9 @@ few extra parameters.
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
-| <img src="pics/empty_world/writing.png" width="90%"> | <img src="pics/empty_world/helloworld.png" width="90%"> |
+| <img src="pics/empty_world/writing.png" width="40%"> | <img src="pics/empty_world/helloworld.png" width="90%"> |
 
-Figure 3: The first image is our "helloworld.png" bitmap, the second image is
+Figure 4: The first image is our "helloworld.png" bitmap, the second image is
 what Player/Stage interprets that bitmap as. The coloured areas are walls,
 the robot can move everywhere else.
 		
@@ -399,9 +399,6 @@ To demonstrate how to build a model of a robot in Player/Stage we will build our
 
 ####The Robot's Body
 Let's say we want to model a rubbish collecting robot called "Bigbob". The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob] shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the `block` model parameter[In this example we're using blocks with the position model type but we could equally use it with other model types.]:
-
-![Basic Shape](pics/robot_building/bigbob1.png)
-The basic shape we want to make Bigbob, the units on the axes are in metres.
 
 <!--- Figure --->
 | |
@@ -886,7 +883,7 @@ circular bitmap.
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
-| <img src="pics/oranges_box/ghost_original.png" width="10%"> | <img src="pics/oranges_box/ghost_woutline.png" width="90%"> |
+| <img src="pics/oranges_box/ghost_original.png" width="50%"> | <img src="pics/oranges_box/ghost_woutline.png" width="50%"> |
 
 Figure 13: The left image is the original picture, the right image is its Stage interpretation.
 		
