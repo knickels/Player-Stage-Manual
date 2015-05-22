@@ -12,8 +12,7 @@ open which looks like the figure below.
 
 ![The simple.cfg world after being run](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/simpleworld.png)
 
-<center>![The simple.cfg world after being run](../pics/simpleworld.png)<BR>The simple.cfg world after being run</center>
-
+<center>![The simple.cfg world after being run](pics/simpleworld.png)<BR>The simple.cfg world after being run</center>
 
 Congratulations, you can now build Player/Stage simulations! 
 
