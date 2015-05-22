@@ -105,7 +105,7 @@ We can see from the first line that they are defining a `model` called `floorpla
 * `fiducial_return`: any parameter of the form
   some_sensor_return describes how that kind of sensor should react to the
   model. "Fiducial" is a kind of robot sensor which will be described later
-  in [Section](sec:BuildingAWorld:BuildingRobot:RobotSensors). Setting
+  in [Section](#sec:BuildingAWorld:BuildingRobot:RobotSensors). Setting
   `fiducial_return` to 0 means that the map cannot be detected by a
   fiducial sensor.
 * `ranger_return`: Setting `ranger_return` to a negative
