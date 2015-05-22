@@ -714,7 +714,7 @@ teeth. We also set the size of the laser to be 2.5cm cube so that it
 doesn't obstruct the gap between Bigbob's teeth.
 
 
-![Laser](pics/roobt_building/bibbob_laser.png)
+![Laser](pics/robot_building/bibbob_laser.png)
 The position of Bigbob's laser (in red) and its distance, in metres, relative to its origin (marked with a cross).
 
 
@@ -809,8 +809,8 @@ When we run the new bigbob6.world with Player/Stage we see our Bigbob robot is
 occupying the world, as shown in Figure
 [fig_BuildingAWorld_BuildingRobot_RobotSensors_FinalRobot]. 
 
-![bob1 robot](pics/roobt_building/final_robot_build.png)
-![bob1 robot](pics/roobt_building/final_robot_build_wsensors.png)
+![bob1 robot](pics/robot_building/final_robot_build.png)
+![bob1 robot](pics/robot_building/final_robot_build_wsensors.png)
 Our bob1 robot placed in the simple world, showing the range and field of view of the ranger sensors.
 	
 ## TRY IT OUT
