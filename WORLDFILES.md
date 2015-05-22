@@ -10,9 +10,7 @@ correct folder type the following command to run the "simple world" that comes w
 Assuming Player/Stage is installed properly you should now have a window
 open which looks like the figure below.
 
-<center>![The simple.cfg world after being run](pics/simpleworld.png)<BR>The simple.cfg world after being run</center>
-
-
+<!--- Figure --->
 | |
 | :---------------:| 
 | ![The simple.cfg world after being run](pics/simpleworld.png)       |
