@@ -11,7 +11,7 @@ In Player/Stage there are 3 kinds of file that you need to understand to get goi
 The .world file tells Player/Stage what things are available to put in the
 world. In this file you describe your robot, any items which populate the
 world and the layout of the world. The .inc file follows the same syntax
-and format of a .world file but it can be **included**. So if there is an
+and format of a .world file but it can be *included*. So if there is an
 object in your world that you might want to use in other worlds, such as a
 model of a robot, putting the robot description in a .inc file just makes
 it easier to copy over, it also means that if you ever want to change your
@@ -46,7 +46,7 @@ and drivers, which will be discussed in the following section.
   an ``interface''.
 * Interfaces are a set way for a driver to send and receive information
   from Player. Like drivers, interfaces are also built in to Player and
-  there is a big list of them in the (Player manual)[http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html].
+  there is a big list of them in the [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html).
   They specify the syntax and semantics of how drivers and Player interact.
 * A device is a driver that is bound to an interface so that Player can
   talk to it directly. This means that if you are working on a real robot
@@ -54,9 +54,8 @@ and drivers, which will be discussed in the following section.
   the real robot, in a simulated robot you can interact with their
   simulations. 
 
-The (official
-documentation)[http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__interfaces.html]
-actually describes these three things quite well with an (example)[http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__devices.html].
+The [official documentation](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__interfaces.html)
+actually describes these three things quite well with an [example](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__devices.html).
 (Actually, the official documentation still refers to the depreciated laser
 interface, but I've updated all the references in this manual to use the
 new ranger interface.)
