@@ -890,7 +890,7 @@ Figure 13: The left image is the original picture, the right image is its Stage 
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
-| <img src="pics/oranges_box/circle.png" width=50 >| <img src="pics/oranges_box/orange_and_bob.png" width="60%"> |
+| <img src="pics/oranges_box/circle.png" width=50 >| <img src="pics/oranges_box/orange_and_bob.png" width="80%"> |
 
 Figure 14: The orange model rendered in the same Stage window as Bigbob.
 		
