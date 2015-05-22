@@ -14,11 +14,11 @@ open which looks like the figure below.
 | |
 | :---------------:| 
 | ![The simple.cfg world after being run](pics/simpleworld.png)       |
-| The `simple.cfg` world after being run | 
+| Figure 1: The `simple.cfg` world after being run | 
 
 Congratulations, you can now build Player/Stage simulations! 
 
-## Building an Empty World
+## Building an Empty World <a id="sec:BuildingAWorld:EmptyWorld"></a>
 
 As you can see above, when we tell Player to build a world we only give it
 the .cfg file as an input. This .cfg file needs to tell us where to find
@@ -59,7 +59,7 @@ Now a basic configuration file has been written, it is time to tell
 Player/Stage what to put into this simulation. This is done in the .world
 file. 
 
-### Models  
+### Models  <a id="sec:BuildingAWorld:EmptyWorld:Models">
 A worldfile is basically just a list of models that describes all the stuff
 in the simulation. This includes the basic environment, robots and other
 objects. The basic type of model is called "model", and you define a model using the following syntax:
@@ -171,7 +171,7 @@ there are a few other types of model which are relevant to building
 simulations of robots, these will be described later in Section
 [sec:BuildingAWorld:BuildingRobot].
 
-###Describing the Player/Stage Window 
+###Describing the Player/Stage Window <a id="sec:BuildingAWorld:EmptyWorld:PLSTWindow"></a>
 
 The worldfile also can be used to describe the simulation window that
 Player/Stage creates. Player/Stage will automatically make a window for the
@@ -206,7 +206,7 @@ The two most important parameters for the window are `size` and `scale`.
 A full list of window parameters can be found in [the Stage manual under
 "WorldGUI"](http://rtv.github.com/Stage/group__worldgui.html)
 
-###Making a Basic Worldfile
+###Making a Basic Worldfile <a id="sec:BuildingAWorld:EmptyWorld:BasicWorldfile"></a>
 
 We have already discussed the basics of worldfile building: models and the
 window. There are just a few more parameters to describe which don't belong
@@ -242,14 +242,11 @@ If we save the above code as empty.world (correcting any filepaths if necessary)
 ![Empty World](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world/finalEmptyWorld.png)
 Our Empty World.
 	
-
-
-
-##Building a Robot 
+##Building a Robot <a id="sec:BuildingAWorld:BuildingRobot"></a>
 
 In Player/Stage a robot is just a slightly advanced kind of model, all the parameters described in Section [sec:BuildingAWorld:EmptyWorld:Models] can still be applied. 
 
-###Sensors and Devices 
+###Sensors and Devices <a id="sec:BuildingAWorld:BuildingRobot:RobotSensors"></a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
@@ -322,10 +319,10 @@ simulates image processing software that locates fixed points in an image. The f
 * `range_max_id`: The maximum range at which a fiducial's key can be
 accurately identified. If a fiducial is closer that `range_max\ but further
 away than `range_max_id\ then it detects that there is a fiducial but can't identify it.
-* `fov\: The field of view of the fiducial finder *in DEGREES*.
+* `fov`: The field of view of the fiducial finder *in DEGREES*.
 
 
-####ranger sensor 
+####ranger sensor <a id="sec:BuildingAWorld:BuildingRobot:RobotSensors:Ranger Sensor"></a>
 This[URL](http://rtv.github.com/Stage/group__model__ranger.html)
 simulates any kind of obstacle detection device (e.g. sonars, lasers, or
 infrared sensors). These can locate models whose ` ranger_return` is
