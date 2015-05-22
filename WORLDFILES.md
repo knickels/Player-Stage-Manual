@@ -18,7 +18,7 @@ open which looks like the figure below.
 
 Congratulations, you can now build Player/Stage simulations! 
 
-## Building an Empty World <a name="sec:BuildingAWorld:EmptyWorld"></a>
+## Building an Empty World <a name="sec_BuildingAWorld_EmptyWorld"></a>
 
 As you can see above, when we tell Player to build a world we only give it
 the .cfg file as an input. This .cfg file needs to tell us where to find
@@ -42,7 +42,7 @@ driver
 ```
 
 The configuration file syntax is described in Section
-[sec:ConfigurationFile], but basically what is happening here is that
+[sec_ConfigurationFile], but basically what is happening here is that
 your configuration file is telling Player that there is a driver called
 `stage` in the `stageplugin` library, and this will give Player
 data which conforms to the `simulation` interface. To build the
@@ -59,7 +59,7 @@ Now a basic configuration file has been written, it is time to tell
 Player/Stage what to put into this simulation. This is done in the .world
 file. 
 
-### Models  <a name="sec:BuildingAWorld:EmptyWorld:Models">
+### Models  <a name="sec_BuildingAWorld_EmptyWorld_Models">
 A worldfile is basically just a list of models that describes all the stuff
 in the simulation. This includes the basic environment, robots and other
 objects. The basic type of model is called "model", and you define a model using the following syntax:
@@ -92,11 +92,11 @@ We can see from the first line that they are defining a `model` called `floorpla
 
 * `color`: Tells Player/Stage what colour to render this model, in this case it is going to be a shade of grey. 
 * boundary: Whether or not there is a bounding box around the model. This is an example of a binary parameter, which means the if the number next to it is 0 then it is false, if it is 1 or over then it's true. So here we DO have a bounding box around our "map" model so the robot can't wander out of our map.
-* `gui_nose`: this tells Player/Stage that it should indicate which way the model is facing. Figure [fig:BuildingAWorld:EmptyWorld:Models:GUINose] shows the difference between a map with a nose and one without.
-* `gui_grid`: this will superimpose a grid over the model. Figure [fig:BuildingAWorld:EmptyWorld:Models:GUIGrid] shows a map with a grid.
+* `gui_nose`: this tells Player/Stage that it should indicate which way the model is facing. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUINose] shows the difference between a map with a nose and one without.
+* `gui_grid`: this will superimpose a grid over the model. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows a map with a grid.
 * `gui_move`: this indicates whether it should be possible to drag and drop
   the model. Here it is 0, so you cannot move the map model once
-  Player/Stage has been run. In [Section [sec:BuildingAWorld] when the
+  Player/Stage has been run. In [Section [sec_BuildingAWorld] when the
   Player/Stage example `simple.cfg` was run it was possible to drag and
   drop the robot because its `gui_move` variable was set to 1.
   `gui_outline`: indicates whether or not the model should be outlined.
@@ -114,7 +114,7 @@ We can see from the first line that they are defining a `model` called `floorpla
       (inclusive) (Note: this means that `ranger_return 0`
       **will allow** a ranger sensor to see the object --- the 
       *range* will get set, it'll just set the *intensity* of that return
-      to zero.)  See Section [sec:Coding:InteractingWithProxies:ranger]
+      to zero.)  See Section [sec_Coding_InteractingWithProxies_ranger]
       for more details.
       controls the intensity of the return seen by a ranger sensor.
 * `gripper_return`: Like `fiducial_return`, `gripper_return` tells Player/Stage that your model can be detected by the relevant sensor, i.e. it can be gripped by a gripper. Here `gripper_return` is set to 0 so the map cannot be gripped by a gripper. 
@@ -154,7 +154,7 @@ few extra parameters.
 * `bitmap`: this is the filepath to a bitmap, which can be type bmp, jpeg,
   gif or png. Black areas in the bitmap tell the model what shape to be,
   non-black areas are not rendered, this is illustrated in Figure
-  [fig:BuildingAWorld:EmptyWorld:Models:HelloWorld]. In the map.inc file
+  [fig_BuildingAWorld_EmptyWorld_Models_HelloWorld]. In the map.inc file
   we told the map that its "color" would be grey. This parameter does not
   affect how the bitmaps are read, Player/Stage will always look for black
   in the bitmap, the `color` parameter just alters what colour the map is
@@ -178,9 +178,9 @@ official Stage manual[URL](http://rtv.github.com/Stage/group__model.html)
 Most of the useful parameters have already been described here, however
 there are a few other types of model which are relevant to building
 simulations of robots, these will be described later in Section
-[sec:BuildingAWorld:BuildingRobot].
+[sec_BuildingAWorld_BuildingRobot].
 
-###Describing the Player/Stage Window <a name="sec:BuildingAWorld:EmptyWorld:PLSTWindow"></a>
+###Describing the Player/Stage Window <a name="sec_BuildingAWorld_EmptyWorld_PLSTWindow"></a>
 
 The worldfile also can be used to describe the simulation window that
 Player/Stage creates. Player/Stage will automatically make a window for the
@@ -215,7 +215,7 @@ The two most important parameters for the window are `size` and `scale`.
 A full list of window parameters can be found in [the Stage manual under
 "WorldGUI"](http://rtv.github.com/Stage/group__worldgui.html)
 
-###Making a Basic Worldfile <a name="sec:BuildingAWorld:EmptyWorld:BasicWorldfile"></a>
+###Making a Basic Worldfile <a name="sec_BuildingAWorld_EmptyWorld_BasicWorldfile"></a>
 
 We have already discussed the basics of worldfile building: models and the
 window. There are just a few more parameters to describe which don't belong
@@ -246,23 +246,23 @@ floorplan
    size [15 15 0.5]
 )
 ```
-If we save the above code as empty.world (correcting any filepaths if necessary) we can run its corresponding empty.cfg file (see Section [sec:BuildingAWorld:EmptyWorld]) to get the simulation shown in Figure [fig:BuildingAWorld:EmptyWorld:BasicWorldfile:FinalEmptyWorld].
+If we save the above code as empty.world (correcting any filepaths if necessary) we can run its corresponding empty.cfg file (see Section [sec_BuildingAWorld_EmptyWorld]) to get the simulation shown in Figure [fig_BuildingAWorld_EmptyWorld_BasicWorldfile_FinalEmptyWorld].
 
 ![Empty World](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world/finalEmptyWorld.png)
 Our Empty World.
 	
-##Building a Robot <a name="sec:BuildingAWorld:BuildingRobot"></a>
+##Building a Robot <a name="sec_BuildingAWorld_BuildingRobot"></a>
 
-In Player/Stage a robot is just a slightly advanced kind of model, all the parameters described in Section [sec:BuildingAWorld:EmptyWorld:Models] can still be applied. 
+In Player/Stage a robot is just a slightly advanced kind of model, all the parameters described in Section [sec_BuildingAWorld_EmptyWorld_Models] can still be applied. 
 
-###Sensors and Devices <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
+### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
 associated with a set of model parameters which define by which sensors the
 model can be detected (these are the `_return`s mentioned earlier). Each of
 these built in models acts as an *interface* (see Section
-[sec:Basics:InterfaceDriverDevices]) between the simulation and Player. If
+[sec_Basics_InterfaceDriverDevices]) between the simulation and Player. If
 your robot has one of these kinds of sensor on it, then you need to use the
 relevant model to describe the sensor, otherwise Stage and Player won't be
 able to pass the data between each other. It is possible to write your own
@@ -331,7 +331,7 @@ away than `range_max_id\ then it detects that there is a fiducial but can't iden
 * `fov`: The field of view of the fiducial finder *in DEGREES*.
 
 
-####ranger sensor <a name="sec:BuildingAWorld:BuildingRobot:RobotSensors:Ranger Sensor"></a>
+####ranger sensor <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Ranger Sensor"></a>
 This[URL](http://rtv.github.com/Stage/group__model__ranger.html)
 simulates any kind of obstacle detection device (e.g. sonars, lasers, or
 infrared sensors). These can locate models whose ` ranger_return` is
@@ -359,7 +359,7 @@ of ranger sensor which allows only one sensor, and has a very large field
 of view.  For a ranger device, you just provide a list of sensors which
 comprise this device, typically resetting the pose for each.  How to write
 the `[x y yaw]` data is explained in Section
-[sec:BuildingAWorld:BuildingRobot:RobotSensors].
+[sec_BuildingAWorld_BuildingRobot_RobotSensors].
 ```
   sensor_name (pose [x1 y1 z1 yaw1])
   sensor_name (pose [x2 y2 z2 yaw2])
@@ -371,7 +371,7 @@ The gripper model
 is a simulation of the gripper you get on a Pioneer robot.[The Pioneer grippers looks like a big block on the front of the robot with two big sliders that close around an object.] If you put a gripper on your robot model it means that your robot is able to pick up objects and move them around within the simulation. The online Stage manual says that grippers are deprecated in Stage 3.X.X, however this is not actually the case and grippers are very useful if you want your robot to be able to manipulate and move items. The parameters you can use to customise the gripper model are:
 
 	* `size [x y z]\: The x and y dimensions of the gripper.
-	* `pose [x y z yaw]\: Where the gripper is placed on the robot, relative to the robot's geometric centre. The pose parameter is decribed properly in Section [sec:BuildingAWorld:BuildingRobot:RobotSensors].
+	* `pose [x y z yaw]\: Where the gripper is placed on the robot, relative to the robot's geometric centre. The pose parameter is decribed properly in Section [sec_BuildingAWorld_BuildingRobot_RobotSensors].
 
 ####position [URL](http://rtv.github.com/Stage/group__model__position.html)
 The position model simulates the robot's odometry, this is when the robot keeps track of where it is by recording how many times its wheels spin and the angle it turns. This robot model is the most important of all because it allows the robot model to be embodied in the world, meaning it can collide with anything which has its `obstacle_return` parameter set to true. The position model uses the `position2d` interface, which is essential for Player because it tells Player where the robot actually is in the world.
@@ -387,7 +387,7 @@ The most useful parameters of the position model are:
 To demonstrate how to build a model of a robot in Player/Stage we will build our own example. First we will describe the physical properties of the robot, such as size and shape. Then we will add sensors onto it so that it can interact with its environment.
 
 ####The Robot's Body
-Let's say we want to model a rubbish collecting robot called "Bigbob". The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure [fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:BasicBigbob] shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the `block` model parameter[In this example we're using blocks with the position model type but we could equally use it with other model types.]:
+Let's say we want to model a rubbish collecting robot called "Bigbob". The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob] shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the `block` model parameter[In this example we're using blocks with the position model type but we could equally use it with other model types.]:
 
 ![Basic Shape](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/bigbob1.png)
 The basic shape we want to make Bigbob, the units on the axes are in metres.
@@ -430,7 +430,7 @@ be from 50cm off the ground to 1m then I could use `z [0.5
 
 Now in the same way as we built the body we can add on some
 teeth for Bigbob to collect rubbish between. Figure
-[fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:BigbobTeeth] shows
+[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BigbobTeeth] shows
 Bigbob with teeth plotted onto a cartesian grid:
 
 ![New Shape](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/bigbob2.png)
@@ -496,20 +496,20 @@ easily have started at `(-1000, 12345)`. With the `block\ parameter we just
 describe the *shape* of the robot, not its size or location in the map. 
 
 You may have noticed that in Figures
-[fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:BasicBigbob] and
-[fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:BigbobTeeth] Bigbob is
+[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob] and
+[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BigbobTeeth] Bigbob is
 facing to the right of the grid. When you place any item in a Player/Stage
 simulation they are, by default, facing to the right hand side of the
-simulation. Figure [fig:BuildingAWorld:EmptyWorld:Models:GUIGrid] shows
+simulation. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows
 that the grids use a typical Cartesian coordinate system, and so if you
 want to alter the direction an object in the simulation is pointing (its
 "yaw") any angles you give use the x-axis as a reference, just like vectors
 in a Cartesian coordinate system (see Figure
-[fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:EmptyCartGrid]) and so
+[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_EmptyCartGrid]) and so
 the default yaw is *0* degrees. This is also why in Section
-[sec:BuildingAWorld:EmptyWorld] the `gui_nose` shows the map is facing to
+[sec_BuildingAWorld_EmptyWorld] the `gui_nose` shows the map is facing to
 the right. Figure
-[fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:Yaws] shows a few
+[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_Yaws] shows a few
 examples of robots with different yaws.
 
 ![Angles](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/cartesian_grid_wpolars.png)
@@ -525,7 +525,7 @@ parameter. Bigbob's `size` is `1.25 x 1 x 1` so Player/Stage will place
 its centre at `(0.625, 0.5, 0.5)`, which means that Bigbob's wheels
 would be closer to its teeth. Instead let's say that Bigbob's centre of
 rotation is in the middle of its main body (shown in Figure
-[fig:BuildingAWorld:BuildingRobot:ExampleRobot:Body:BasicBigbob]) which
+[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob]) which
 puts the centre of rotation at `(0.5, 0.5, 0.5)`. To change this in
 robot model you use the `origin` \\ `[x-offset y-offset z-offset]` command:
 ```
@@ -589,7 +589,7 @@ define bigbobs_ranger ranger
 ```
 Here we tell Player/Stage that we will `define` a type of sonar sensor called `bigbobs_sonars`.Next, we'll tell Player/Stage to use these sensors in a ranging device. Let's put four sonars on Bigbob, one on the front of each tooth, and one on the front left and the front right corners of its body. 
 
-When building Bigbob's body we were able to use any location on a coordinate grid that we wanted and could declare our shape polygons to be any distance apart we wanted so long as we resized the model with `size`. In contrast, sensors - all sensors not just rangers - must be positioned according to the *robot's* origin and actual size. To work out the distances in metres it helps to do a drawing of where the sensors will go on the robot and their distances from the robot's origin. When we worked out the shape of Bigbob's body we used its actual size, so we can use the same drawings again to work out the distances of the sensors from the origin as shown in Figure [fig:BuildingAWorld:BuildingRobot:RobotSensors:Sonars].
+When building Bigbob's body we were able to use any location on a coordinate grid that we wanted and could declare our shape polygons to be any distance apart we wanted so long as we resized the model with `size`. In contrast, sensors - all sensors not just rangers - must be positioned according to the *robot's* origin and actual size. To work out the distances in metres it helps to do a drawing of where the sensors will go on the robot and their distances from the robot's origin. When we worked out the shape of Bigbob's body we used its actual size, so we can use the same drawings again to work out the distances of the sensors from the origin as shown in Figure [fig_BuildingAWorld_BuildingRobot_RobotSensors_Sonars].
 
 ![Sonar](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/bigbob_sonars.png)
 The position of Bigbob's sonars (in red) relative to its origin. The origin is marked with a cross, some of the distances from the origin to the sensors have been marked. The remaining distances can be done by inspection.
@@ -683,7 +683,7 @@ define bigbobs_eyes blobfinder
 The last sensor that needs adding to Bigbob is the laser, which will be
 used to detect whenever a piece of rubbish has been collected, the laser's
 location on the robot is shown in Figure
-[fig:BuildingAWorld:BuildingRobot:RobotSensors:Laser]. Following the
+[fig_BuildingAWorld_BuildingRobot_RobotSensors_Laser]. Following the
 same principles as for our previous sensor models we can create a
 description of this laser:
 ```
@@ -753,7 +753,7 @@ At this point it's worthwhile to copy this into a .inc file, so that the
 model could be used again in other simulations or worlds.  This file can
 also be found in the example code in ` code/Ch5.3/bigbob.inc].
 
-To put our Bigbob model into our empty world (see Section [sec:BuildingAWorld:EmptyWorld:BasicWorldfile]) we need to add the robot to our worldfile empty.world:
+To put our Bigbob model into our empty world (see Section [sec_BuildingAWorld_EmptyWorld_BasicWorldfile]) we need to add the robot to our worldfile empty.world:
 ```
 include "map.inc"
 include "bigbob.inc"
@@ -807,7 +807,7 @@ Finally we specify what colour `bob1` should be, by default this is red. The `po
 
 When we run the new bigbob6.world with Player/Stage we see our Bigbob robot is
 occupying the world, as shown in Figure
-[fig:BuildingAWorld:BuildingRobot:RobotSensors:FinalRobot]. 
+[fig_BuildingAWorld_BuildingRobot_RobotSensors_FinalRobot]. 
 
 ![bob1 robot](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/roobt_building/final_robot_build.png)
 ![bob1 robot](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/roobt_building/final_robot_build_wsensors.png)
@@ -820,7 +820,7 @@ Our bob1 robot placed in the simple world, showing the range and field of view o
 
 
 ##Building Other Stuff 
-We established in Section [sec:BuildingAWorld:BuildingRobot:RobotSensors]
+We established in Section [sec_BuildingAWorld_BuildingRobot_RobotSensors]
 that Bigbob works in a orange juice factory collecting oranges and juice
 cartons. Now we need to build models to represent the oranges and juice
 cartons so that Bigbob can interact with things.
@@ -839,11 +839,11 @@ approximation of a circle. An alternative to this is to use `bitmap`
 which we previously saw being used to create a map. What the bitmap command
 actually does is take in a picture, and turn it into a series of blocks
 which are connected together to make a model the same shape as the picture,
-as illustrated in Figure [fig:BuildingAWorld:OtherStuff:Ghosts] for an
+as illustrated in Figure [fig_BuildingAWorld_OtherStuff_Ghosts] for an
 alien bitmap.
 
 In our code, we don't want an alien, we want a simple circular shape (see
-Figure [fig:circle.png]), so we'll point to a
+Figure [fig_circle.png]), so we'll point to a
 circular bitmap.
 
 ![Original Picture](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/ghost_original.png)
@@ -866,7 +866,7 @@ define orange model
 )
 ```
 
-In this bit of code we describe a model called `orange` which uses a bitmap to define its shape and represents an object which is $15cm$ x $15cm$ x $15cm$ and is coloured orange. Figure [fig:BuildingAWorld:OtherStuff:OrangeAndBob] shows our orange model next to Bigbob.
+In this bit of code we describe a model called `orange` which uses a bitmap to define its shape and represents an object which is $15cm$ x $15cm$ x $15cm$ and is coloured orange. Figure [fig_BuildingAWorld_OtherStuff_OrangeAndBob] shows our orange model next to Bigbob.
 
 Building a juice carton model is similarly quite easy:
 
@@ -929,7 +929,7 @@ Up until now we have been describing models with each parameter on a new line, t
 >` > player bigbob7.cfg` 
 >` > playerv --ranger:0 --ranger:1 --blobfinder:0`
 
-The full worldfile is included in appendix B, this includes the orange and carton models as well as the code for putting them in the simulation. Figure [fig:BuildingAWorld:OtherStuff:FinalRobotAndStuff] shows the populated Player/Stage simulation.
+The full worldfile is included in appendix B, this includes the orange and carton models as well as the code for putting them in the simulation. Figure [fig_BuildingAWorld_OtherStuff_FinalRobotAndStuff] shows the populated Player/Stage simulation.
 
 ![Final BibBob](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/final_robot_and_stuff.png)
 The Bigbob robot placed in the simulation along with junk for it to pick up.
