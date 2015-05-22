@@ -883,14 +883,14 @@ circular bitmap.
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
-| <img src="pics/oranges_box/ghost_original.png" | <img src="pics/oranges_box/ghost_woutline.png" width="50%"> |
+| <img src="pics/oranges_box/ghost_original.png">| <img src="pics/oranges_box/ghost_woutline.png" width="50%"> |
 
 Figure 13: The left image is the original picture, the right image is its Stage interpretation.
 		
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
-| <img src="pics/oranges_box/circle.png" | <img src="pics/oranges_box/orange_and_bob.png" width="90%"> |
+| <img src="pics/oranges_box/circle.png">| <img src="pics/oranges_box/orange_and_bob.png" width="90%"> |
 
 Figure 14: The orange model rendered in the same Stage window as Bigbob.
 		
