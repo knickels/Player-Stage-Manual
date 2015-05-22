@@ -14,19 +14,13 @@ open which looks like the figure below.
 
 <center>![The simple.cfg world after being run](pics/simpleworld.png)<BR>The simple.cfg world after being run</center>
 
-<center>![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png)<BR>Caption</center> 
-
-| :--- : |
-|  ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) |
-| Caption |
-
-
 | Left-Aligned  | Center Aligned  | Right Aligned |
 | :------------ |:---------------:| -----:|
-| col 3 is      | some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
-| zebra stripes | are neat        |    $1 |
 | xx | ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) | xx |
+
+|  |  |  |
+| :------------ |:---------------:| -----:|
+|  | ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) |  |
 
 Congratulations, you can now build Player/Stage simulations! 
 
