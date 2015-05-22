@@ -123,8 +123,7 @@ We can see from the first line that they are defining a `model` called `floorpla
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
-| <img src="pics/empty_world/gui_nonose_example.png" width="40%"> | 
-  <img src="pics/empty_world/gui_nose_example.png" width="40%"> |
+| <img src="pics/empty_world/gui_nonose_example.png" width="40%"> | <img src="pics/empty_world/gui_nose_example.png" width="40%"> |
 
 Figure 2: The first picture shows an empty map without a nose. The second
 picture shows the same map with a nose to indicate orientation,
