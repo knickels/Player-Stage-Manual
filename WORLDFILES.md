@@ -26,6 +26,7 @@ open which looks like the figure below.
 | col 3 is      | some wordy text | $1600 |
 | col 2 is      | centered        |   $12 |
 | zebra stripes | are neat        |    $1 |
+| xx | ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) | xx |
 
 Congratulations, you can now build Player/Stage simulations! 
 
