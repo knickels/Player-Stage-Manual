@@ -65,18 +65,18 @@ new ranger interface.)
 >
 >Now consider the sicklms200 driver. This driver controls a SICK LMS200, which is particular planar range sensor that is popular in mobile robot applications. The sicklms200 driver knows how to communicate with the SICK LMS200 over a serial line and retrieve range data from it. But you don't want to access the range data in some SICK-specific format. So the driver also knows how to translate the retrieved data to make it conform to the format defined by the ranger interface.
 >
->	The sicklms200 driver can be bound to the ranger interface \ldots to create a device, which might have the following address:
+>	The sicklms200 driver can be bound to the ranger interface ... to create a device, which might have the following address:
 >
 >	`localhost:6665:ranger:0`
 >	
 >The fields in this address correspond to the entries in the
 > `player_devaddr_t` structure: host, robot, interface, and index. The host and robot fields (localhost and 6665) indicate where the device is located. The interface field indicates which interface the device supports, and thus how it can be used. 
->Because you might have more than one laser, the index field allows you to pick among the devices that support the given interface and are located on the given host:robot Other lasers on the same host:robot would be assigned different indexes.
->
->The last paragraph there gets a bit technical, but don't worry. Player talks to parts of the robot using ports (the default port is 6665), if you're using Stage then Player and Stage communicate through these ports (even if they're running on the same computer). 
->All this line does is tell Player which port to listen to and what kind of data to expect. In the example it's laser data which is being transmitted on port 6665 of the computer that Player is running on (localhost). 
->You could just as easily connect to another computer by using its IP
->address instead of ``localhost''. The specifics of writing a device
->address in this way will be described in (Section
->ConfigurationFile)[CFGFILES.md]
+>Because you might have more than one ranger, the index field allows you to pick among the devices that support the given interface and are located on the given host:robot Other lasers on the same host:robot would be assigned different indexes.
+
+The last paragraph there gets a bit technical, but don't worry. Player talks to parts of the robot using ports (the default port is 6665), if you're using Stage then Player and Stage communicate through these ports (even if they're running on the same computer). 
+All this line does is tell Player which port to listen to and what kind of data to expect. In the example it's laser data which is being transmitted on port 6665 of the computer that Player is running on (localhost). 
+You could just as easily connect to another computer by using its IP
+address instead of ``localhost''. The specifics of writing a device
+address in this way will be described in 
+Section [ConfigurationFile](CFGFILES.md)
 
