@@ -119,15 +119,15 @@ We can see from the first line that they are defining a `model` called `floorpla
       controls the intensity of the return seen by a ranger sensor.
 * `gripper_return`: Like `fiducial_return`, `gripper_return` tells Player/Stage that your model can be detected by the relevant sensor, i.e. it can be gripped by a gripper. Here `gripper_return` is set to 0 so the map cannot be gripped by a gripper. 
 
-![Empty map without nose](pics/empty_world_gui_nonose_example.png)
-![Empty map with nose](pics/empty_world_gui_nose_example.png)
+![Empty map without nose](pics/empty_world/gui_nonose_example.png)
+![Empty map with nose](pics/empty_world/gui_nose_example.png)
 
 The first picture shows an empty map without a nose. The second
 picture shows the same map with a nose to indicate orientation,
 this is the horizontal line from the centre of the map to the
 right, it shows that the map is actually facing to the right.
 		
-![Empty map without nose](pics/empty_world_gui_nonose_example.png)
+![Empty map without nose](pics/empty_world/gui_nonose_example.png)
 An empty map with gui_grid enabled. With gui_grid disabled this would just
 be an empty white square.
 	
