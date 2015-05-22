@@ -94,11 +94,20 @@ We can see from the first line that they are defining a `model` called `floorpla
 * boundary: Whether or not there is a bounding box around the model. This is an example of a binary parameter, which means the if the number next to it is 0 then it is false, if it is 1 or over then it's true. So here we DO have a bounding box around our "map" model so the robot can't wander out of our map.
 * `gui_nose`: this tells Player/Stage that it should indicate which way the model is facing. Figure [fig:BuildingAWorld:EmptyWorld:Models:GUINose] shows the difference between a map with a nose and one without.
 * `gui_grid`: this will superimpose a grid over the model. Figure [fig:BuildingAWorld:EmptyWorld:Models:GUIGrid] shows a map with a grid.
-* `gui_move`: this indicates whether it should be possible to drag and drop the model. Here it is 0, so you cannot move the map model once Player/Stage has been run. In Section [sec:BuildingAWorld] when the Player/Stage example `simple.cfg` was run it was possible to drag and drop the robot because its `gui_move` variable was set to 1.
-* `gui_outline`: indicates whether or not the model should be outlined. This makes no difference to a map, but it can be useful when making models of items within the world.
+* `gui_move`: this indicates whether it should be possible to drag and drop
+  the model. Here it is 0, so you cannot move the map model once
+  Player/Stage has been run. In [Section [sec:BuildingAWorld] when the
+  Player/Stage example `simple.cfg` was run it was possible to drag and
+  drop the robot because its `gui_move` variable was set to 1.
+  `gui_outline`: indicates whether or not the model should be outlined.
+  This makes no difference to a map, but it can be useful when making
+  models of items within the world.
 * `fiducial_return`: any parameter of the form
-some_sensor_return describes how that kind of sensor should react to the
-model. "Fiducial" is a kind of robot sensor which will be described later in Section [sec:BuildingAWorld:BuildingRobot:RobotSensors]. Setting `fiducial_return` to 0 means that the map cannot be detected by a fiducial sensor.
+  some_sensor_return describes how that kind of sensor should react to the
+  model. "Fiducial" is a kind of robot sensor which will be described later
+  in [Section](sec:BuildingAWorld:BuildingRobot:RobotSensors). Setting
+  `fiducial_return` to 0 means that the map cannot be detected by a
+  fiducial sensor.
 * `ranger_return`: Setting `ranger_return` to a negative
       number indicates that a model cannot be seen by ranger sensors.
       Setting `ranger_return` to a number between 0 and 1
