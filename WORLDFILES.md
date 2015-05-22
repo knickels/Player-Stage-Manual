@@ -119,15 +119,15 @@ We can see from the first line that they are defining a `model` called `floorpla
       controls the intensity of the return seen by a ranger sensor.
 * `gripper_return`: Like `fiducial_return`, `gripper_return` tells Player/Stage that your model can be detected by the relevant sensor, i.e. it can be gripped by a gripper. Here `gripper_return` is set to 0 so the map cannot be gripped by a gripper. 
 
-![Empty map without nose](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world_gui_nonose_example.png)
-![Empty map with nose](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world_gui_nose_example.png)
+![Empty map without nose](pics/empty_world_gui_nonose_example.png)
+![Empty map with nose](pics/empty_world_gui_nose_example.png)
 
 The first picture shows an empty map without a nose. The second
 picture shows the same map with a nose to indicate orientation,
 this is the horizontal line from the centre of the map to the
 right, it shows that the map is actually facing to the right.
 		
-![Empty map without nose](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world_gui_nonose_example.png)
+![Empty map without nose](pics/empty_world_gui_nonose_example.png)
 An empty map with gui_grid enabled. With gui_grid disabled this would just
 be an empty white square.
 	
@@ -166,8 +166,8 @@ few extra parameters.
   2\]. The first number is the size in the $x$ dimension, the second is the
   $y$ dimension and the third is the $z$ dimension.
 
-![Hellow World text]](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world/writing.png)
-![Hellow World Stage]](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world/helloworld.png)
+![Hellow World text]](pics/empty_world/writing.png)
+![Hellow World Stage]](pics/empty_world/helloworld.png)
 
 The first image is our "helloworld.png" bitmap, the second image is
 what Player/Stage interprets that bitmap as. The coloured areas are walls,
@@ -248,7 +248,7 @@ floorplan
 ```
 If we save the above code as empty.world (correcting any filepaths if necessary) we can run its corresponding empty.cfg file (see Section [sec_BuildingAWorld_EmptyWorld]) to get the simulation shown in Figure [fig_BuildingAWorld_EmptyWorld_BasicWorldfile_FinalEmptyWorld].
 
-![Empty World](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/empty_world/finalEmptyWorld.png)
+![Empty World](pics/empty_world/finalEmptyWorld.png)
 Our Empty World.
 	
 ##Building a Robot <a name="sec_BuildingAWorld_BuildingRobot"></a>
@@ -389,7 +389,7 @@ To demonstrate how to build a model of a robot in Player/Stage we will build our
 ####The Robot's Body
 Let's say we want to model a rubbish collecting robot called "Bigbob". The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob] shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the `block` model parameter[In this example we're using blocks with the position model type but we could equally use it with other model types.]:
 
-![Basic Shape](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/bigbob1.png)
+![Basic Shape](pics/robot_building/bigbob1.png)
 The basic shape we want to make Bigbob, the units on the axes are in metres.
 	
 ```
@@ -433,7 +433,7 @@ teeth for Bigbob to collect rubbish between. Figure
 [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BigbobTeeth] shows
 Bigbob with teeth plotted onto a cartesian grid:
 
-![New Shape](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/bigbob2.png)
+![New Shape](pics/robot_building/bigbob2.png)
 
 ```
 define bigbob position
@@ -512,10 +512,10 @@ the right. Figure
 [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_Yaws] shows a few
 examples of robots with different yaws.
 
-![Angles](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/cartesian_grid_wpolars.png)
+![Angles](pics/robot_building/cartesian_grid_wpolars.png)
 A cartesian grid showing how angles are described.
 
-![Yaw Examples](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/yaw_examples.png)
+![Yaw Examples](pics/robot_building/yaw_examples.png)
 	Starting from the top right robot and working anti-clockwise, the yaws of these robots are 0, 90, -45 and 200.
 	
 
@@ -591,7 +591,7 @@ Here we tell Player/Stage that we will `define` a type of sonar sensor called `b
 
 When building Bigbob's body we were able to use any location on a coordinate grid that we wanted and could declare our shape polygons to be any distance apart we wanted so long as we resized the model with `size`. In contrast, sensors - all sensors not just rangers - must be positioned according to the *robot's* origin and actual size. To work out the distances in metres it helps to do a drawing of where the sensors will go on the robot and their distances from the robot's origin. When we worked out the shape of Bigbob's body we used its actual size, so we can use the same drawings again to work out the distances of the sensors from the origin as shown in Figure [fig_BuildingAWorld_BuildingRobot_RobotSensors_Sonars].
 
-![Sonar](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/robot_building/bigbob_sonars.png)
+![Sonar](pics/robot_building/bigbob_sonars.png)
 The position of Bigbob's sonars (in red) relative to its origin. The origin is marked with a cross, some of the distances from the origin to the sensors have been marked. The remaining distances can be done by inspection.
 
 First, we'll define a single raners (in this case sonar) sensor.
@@ -714,7 +714,7 @@ teeth. We also set the size of the laser to be 2.5cm cube so that it
 doesn't obstruct the gap between Bigbob's teeth.
 
 
-![Laser](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/roobt_building/bibbob_laser.png)
+![Laser](pics/roobt_building/bibbob_laser.png)
 The position of Bigbob's laser (in red) and its distance, in metres, relative to its origin (marked with a cross).
 
 
@@ -809,8 +809,8 @@ When we run the new bigbob6.world with Player/Stage we see our Bigbob robot is
 occupying the world, as shown in Figure
 [fig_BuildingAWorld_BuildingRobot_RobotSensors_FinalRobot]. 
 
-![bob1 robot](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/roobt_building/final_robot_build.png)
-![bob1 robot](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/roobt_building/final_robot_build_wsensors.png)
+![bob1 robot](pics/roobt_building/final_robot_build.png)
+![bob1 robot](pics/roobt_building/final_robot_build_wsensors.png)
 Our bob1 robot placed in the simple world, showing the range and field of view of the ranger sensors.
 	
 ## TRY IT OUT
@@ -846,13 +846,13 @@ In our code, we don't want an alien, we want a simple circular shape (see
 Figure [fig_circle.png]), so we'll point to a
 circular bitmap.
 
-![Original Picture](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/ghost_original.png)
-![Stage Interpretation](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/ghost_woutline.png)
+![Original Picture](pics/oranges_box/ghost_original.png)
+![Stage Interpretation](pics/oranges_box/ghost_woutline.png)
 
 The left image is the original picture, the right image is its Stage interpretation.
 		
-![./bitmaps/circle.png](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/circle.png)
-![Orange and Bob](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/orange_and_bob.png)
+![./bitmaps/circle.png](pics/oranges_box/circle.png)
+![Orange and Bob](pics/oranges_box/orange_and_bob.png)
 The orange model rendered in the same Stage window as Bigbob.
 		
 
@@ -931,5 +931,5 @@ Up until now we have been describing models with each parameter on a new line, t
 
 The full worldfile is included in appendix B, this includes the orange and carton models as well as the code for putting them in the simulation. Figure [fig_BuildingAWorld_OtherStuff_FinalRobotAndStuff] shows the populated Player/Stage simulation.
 
-![Final BibBob](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/oranges_box/final_robot_and_stuff.png)
+![Final BibBob](pics/oranges_box/final_robot_and_stuff.png)
 The Bigbob robot placed in the simulation along with junk for it to pick up.
