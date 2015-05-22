@@ -10,18 +10,13 @@ correct folder type the following command to run the "simple world" that comes w
 Assuming Player/Stage is installed properly you should now have a window
 open which looks like the figure below.
 
-![The simple.cfg world after being run](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/simpleworld.png)
-
 <center>![The simple.cfg world after being run](pics/simpleworld.png)<BR>The simple.cfg world after being run</center>
 
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
-| xx | ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) | xx |
 
 | |
 | :---------------:| 
-| ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) | 
-| Caption | 
+| ![The simple.cfg world after being run](pics/simpleworld.png)       |
+| The `simple.cfg` world after being run | 
 
 Congratulations, you can now build Player/Stage simulations! 
 
