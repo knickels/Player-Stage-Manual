@@ -18,7 +18,6 @@ open which looks like the figure below.
 | :------------ |:---------------:| -----:|
 | xx | ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) | xx |
 
-|  |  |  |
 | :------------ |:---------------:| -----:|
 |  | ![Alt test](http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) |  |
 
