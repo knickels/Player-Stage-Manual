@@ -1,4 +1,4 @@
-# Building a World
+# Building a World <a name="sec_BuildingAWorld"></a>
 
 First we will run a world and configuration file that comes bundled with
 Stage. In your bash shell navigate to the Stage/worlds folder, by default
@@ -8,7 +8,7 @@ correct folder type the following command to run the "simple world" that comes w
 `player simple.cfg`
 
 Assuming Player/Stage is installed properly you should now have a window
-open which looks like the figure below.
+open which looks like Figure 1.
 
 <!--- Figure --->
 | |
@@ -27,7 +27,9 @@ described. To explain how to build a Stage world containing nothing but
 walls we will use an example.
 
 To start building an empty world we need a .cfg file. First create a
-document called `empty.cfg` and copy the following code into it:
+document called `empty.cfg` (i.e. open in your favorite text editor -
+`gedit` is a good starter program if you don't have a favorite) and copy
+the following code into it: 
 ```
 driver
 (		
@@ -41,8 +43,8 @@ driver
 )
 ```
 
-The configuration file syntax is described in Section
-[sec_ConfigurationFile], but basically what is happening here is that
+The configuration file syntax is described in [Chapter 4](CFGFILES.md), 
+but basically what is happening here is that
 your configuration file is telling Player that there is a driver called
 `stage` in the `stageplugin` library, and this will give Player
 data which conforms to the `simulation` interface. To build the
@@ -60,6 +62,7 @@ Player/Stage what to put into this simulation. This is done in the .world
 file. 
 
 ### Models  <a name="sec_BuildingAWorld_EmptyWorld_Models">
+
 A worldfile is basically just a list of models that describes all the stuff
 in the simulation. This includes the basic environment, robots and other
 objects. The basic type of model is called "model", and you define a model using the following syntax:
@@ -90,13 +93,22 @@ define floorplan model
 ```
 We can see from the first line that they are defining a `model` called `floorplan`. 
 
-* `color`: Tells Player/Stage what colour to render this model, in this case it is going to be a shade of grey. 
-* boundary: Whether or not there is a bounding box around the model. This is an example of a binary parameter, which means the if the number next to it is 0 then it is false, if it is 1 or over then it's true. So here we DO have a bounding box around our "map" model so the robot can't wander out of our map.
-* `gui_nose`: this tells Player/Stage that it should indicate which way the model is facing. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUINose] shows the difference between a map with a nose and one without.
-* `gui_grid`: this will superimpose a grid over the model. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows a map with a grid.
+* `color`: Tells Player/Stage what colour to render this model, in this
+  case it is going to be a shade of grey. 
+* `boundary`: Whether or not there is a bounding box around the model. This
+  is an example of a binary parameter, which means the if the number next
+  to it is 0 then it is false, if it is 1 or over then it's true. So here
+  we DO have a bounding box around our "map" model so the robot can't
+  wander out of our map.  
+* `gui_nose`: this tells Player/Stage that it
+  should indicate which way the model is facing. Figure 2
+  shows the difference
+  between a map with a nose and one without.  `gui_grid`: this will
+  superimpose a grid over the model. Figure 3 shows a map with a grid.
 * `gui_move`: this indicates whether it should be possible to drag and drop
   the model. Here it is 0, so you cannot move the map model once
-  Player/Stage has been run. In [Section [sec_BuildingAWorld] when the
+  Player/Stage has been run. In 
+  [Building a World](#sec_BuildingAWorld) when the
   Player/Stage example `simple.cfg` was run it was possible to drag and
   drop the robot because its `gui_move` variable was set to 1.
   `gui_outline`: indicates whether or not the model should be outlined.
@@ -105,19 +117,21 @@ We can see from the first line that they are defining a `model` called `floorpla
 * `fiducial_return`: any parameter of the form
   some_sensor_return describes how that kind of sensor should react to the
   model. "Fiducial" is a kind of robot sensor which will be described later
-  in [Section](#sec_BuildingAWorld_BuildingRobot_RobotSensors). Setting
+  in [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_RobotSensors). Setting
   `fiducial_return` to 0 means that the map cannot be detected by a
   fiducial sensor.
 * `ranger_return`: Setting `ranger_return` to a negative
       number indicates that a model cannot be seen by ranger sensors.
-      Setting `ranger_return` to a number between 0 and 1
-      (inclusive) (Note: this means that `ranger_return 0`
-      **will allow** a ranger sensor to see the object --- the 
-      *range* will get set, it'll just set the *intensity* of that return
-      to zero.)  See Section [sec_Coding_InteractingWithProxies_ranger]
-      for more details.
+      Setting `ranger_return` to a number between 0 and 1 (inclusive)
+      (Note: this means that `ranger_return 0` **will allow** a ranger
+      sensor to see the object --- the *range* will get set, it'll just set
+      the *intensity* of that return to zero.)  See [Interaction with
+      Proxies --- Ranger](sec_Coding_InteractingWithProxies_ranger) for more details.
       controls the intensity of the return seen by a ranger sensor.
-* `gripper_return`: Like `fiducial_return`, `gripper_return` tells Player/Stage that your model can be detected by the relevant sensor, i.e. it can be gripped by a gripper. Here `gripper_return` is set to 0 so the map cannot be gripped by a gripper. 
+* `gripper_return`: Like `fiducial_return`, `gripper_return` tells
+  Player/Stage that your model can be detected by the relevant sensor, i.e.
+  it can be gripped by a gripper. Here `gripper_return` is set to 0 so the
+  map cannot be gripped by a gripper. 
 
 
 <!--- Figure --->
