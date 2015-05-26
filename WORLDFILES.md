@@ -1,4 +1,4 @@
-# Building a World <a name="sec_BuildingAWorld"></a>
+# <a name="sec_BuildingAWorld"> Building a World</a>
 
 First we will run a world and configuration file that comes bundled with
 Stage. In your bash shell navigate to the Stage/worlds folder, by default
@@ -18,7 +18,7 @@ open which looks like Figure 1.
 
 Congratulations, you can now build Player/Stage simulations! 
 
-## Building an Empty World <a name="sec_BuildingAWorld_EmptyWorld"></a>
+## <a name="sec_BuildingAWorld_EmptyWorld"> Building an Empty World </a>
 
 As you can see above, when we tell Player to build a world we only give it
 the .cfg file as an input. This .cfg file needs to tell us where to find
@@ -61,7 +61,7 @@ Now a basic configuration file has been written, it is time to tell
 Player/Stage what to put into this simulation. This is done in the .world
 file. 
 
-### Models  <a name="sec_BuildingAWorld_EmptyWorld_Models">
+### <a name="sec_BuildingAWorld_EmptyWorld_Models"> Models </a>
 
 A worldfile is basically just a list of models that describes all the stuff
 in the simulation. This includes the basic environment, robots and other
@@ -111,7 +111,7 @@ We can see from the first line that they are defining a `model` called `floorpla
   [Building a World](#sec_BuildingAWorld) when the
   Player/Stage example `simple.cfg` was run it was possible to drag and
   drop the robot because its `gui_move` variable was set to 1.
-  `gui_outline`: indicates whether or not the model should be outlined.
+* `gui_outline`: indicates whether or not the model should be outlined.
   This makes no difference to a map, but it can be useful when making
   models of items within the world.
 * `fiducial_return`: any parameter of the form
@@ -126,7 +126,7 @@ We can see from the first line that they are defining a `model` called `floorpla
       (Note: this means that `ranger_return 0` **will allow** a ranger
       sensor to see the object --- the *range* will get set, it'll just set
       the *intensity* of that return to zero.)  See [Interaction with
-      Proxies --- Ranger](sec_Coding_InteractingWithProxies_ranger) for more details.
+      Proxies --- Ranger](CONTROLLERS.md#sec_Coding_InteractingWithProxies_ranger) for more details.
       controls the intensity of the return seen by a ranger sensor.
 * `gripper_return`: Like `fiducial_return`, `gripper_return` tells
   Player/Stage that your model can be detected by the relevant sensor, i.e.
@@ -172,8 +172,8 @@ few extra parameters.
 
 * `bitmap`: this is the filepath to a bitmap, which can be type bmp, jpeg,
   gif or png. Black areas in the bitmap tell the model what shape to be,
-  non-black areas are not rendered, this is illustrated in Figure
-  [fig_BuildingAWorld_EmptyWorld_Models_HelloWorld]. In the map.inc file
+  non-black areas are not rendered, this is illustrated in Figure 4. In the
+  map.inc file
   we told the map that its "color" would be grey. This parameter does not
   affect how the bitmaps are read, Player/Stage will always look for black
   in the bitmap, the `color` parameter just alters what colour the map is
@@ -195,13 +195,13 @@ what Player/Stage interprets that bitmap as. The coloured areas are walls,
 the robot can move everywhere else.
 		
 A full list of model parameters and their descriptions can be found in the
-official Stage manual[URL](http://rtv.github.com/Stage/group__model.html)
+[official Stage manual](http://rtv.github.com/Stage/group__model.html)
 Most of the useful parameters have already been described here, however
 there are a few other types of model which are relevant to building
-simulations of robots, these will be described later in Section
-[sec_BuildingAWorld_BuildingRobot].
+simulations of robots, these will be described later in 
+[Building a Robot](#sec_BuildingAWorld_BuildingRobot).
 
-###Describing the Player/Stage Window <a name="sec_BuildingAWorld_EmptyWorld_PLSTWindow"></a>
+### <a name="sec_BuildingAWorld_EmptyWorld_PLSTWindow"> Describing the Player/Stage Window </a>
 
 The worldfile also can be used to describe the simulation window that
 Player/Stage creates. Player/Stage will automatically make a window for the
@@ -236,7 +236,7 @@ The two most important parameters for the window are `size` and `scale`.
 A full list of window parameters can be found in [the Stage manual under
 "WorldGUI"](http://rtv.github.com/Stage/group__worldgui.html)
 
-###Making a Basic Worldfile <a name="sec_BuildingAWorld_EmptyWorld_BasicWorldfile"></a>
+### <a name="sec_BuildingAWorld_EmptyWorld_BasicWorldfile"> Making a Basic Worldfile </a>
 
 We have already discussed the basics of worldfile building: models and the
 window. There are just a few more parameters to describe which don't belong
@@ -248,6 +248,7 @@ the defaults are pretty sensible.
 
 The Stage manual contains [a list of the high-level worldfile
 parameters](http://rtv.github.com/Stage/group__world.html)
+
 Finally, we are able to write a worldfile!
 ```
 include "map.inc"
@@ -259,7 +260,6 @@ window
    scale 41
 )
 
-
 # load an environment bitmap
 floorplan
 (
@@ -267,18 +267,23 @@ floorplan
    size [15 15 0.5]
 )
 ```
-If we save the above code as empty.world (correcting any filepaths if necessary) we can run its corresponding empty.cfg file (see Section [sec_BuildingAWorld_EmptyWorld]) to get the simulation shown in Figure [fig_BuildingAWorld_EmptyWorld_BasicWorldfile_FinalEmptyWorld].
 
-Our Empty World.
+If we save the above code as empty.world (correcting any filepaths if
+necessary) we can run its corresponding empty.cfg file (see 
+[Empty World](#sec_BuildingAWorld_EmptyWorld)) to get the simulation shown
+in Figure 5.
+
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/empty_world/finalEmptyWorld.png" width="50%">     |
 | Figure 5: Our Empty World | 
 	
-##Building a Robot <a name="sec_BuildingAWorld_BuildingRobot"></a>
+## <a name="sec_BuildingAWorld_BuildingRobot"> Building a Robot </a>
 
-In Player/Stage a robot is just a slightly advanced kind of model, all the parameters described in Section [sec_BuildingAWorld_EmptyWorld_Models] can still be applied. 
+In Player/Stage a robot is just a slightly advanced kind of model, all the
+parameters described in [Models](#sec_BuildingAWorld_EmptyWorld_Models) can
+still be applied. 
 
 ### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
 
@@ -356,7 +361,7 @@ away than `range_max_id\ then it detects that there is a fiducial but can't iden
 * `fov`: The field of view of the fiducial finder *in DEGREES*.
 
 
-####ranger sensor <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Ranger Sensor"></a>
+#### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Ranger Sensor"> ranger sensor </a>
 This[URL](http://rtv.github.com/Stage/group__model__ranger.html)
 simulates any kind of obstacle detection device (e.g. sonars, lasers, or
 infrared sensors). These can locate models whose ` ranger_return` is
