@@ -866,7 +866,7 @@ model could be used again in other simulations or worlds.  This file can
 also be found in the example code in `code/Ch5.3/bigbob.inc`.
 
 To put our Bigbob model into our empty world (see [Making a Basic
-Worldfile](#sec_BuildingAWorld_EmptyWorld_BasicWorldfile]) we need to add
+Worldfile](#sec_BuildingAWorld_EmptyWorld_BasicWorldfile)) we need to add
 the robot to our worldfile `empty.world`:
 ```
 include "map.inc"
