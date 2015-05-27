@@ -182,8 +182,8 @@ few extra parameters.
   simulation. All sizes you give in the world file are in metres, and they
   represent the actual size of things. If you have 3m x 4m robot testing
   arena that is 2m high and you want to simulate it then the `size` is \[3 4
-  2\]. The first number is the size in the $x$ dimension, the second is the
-  $y$ dimension and the third is the $z$ dimension.
+  2\]. The first number is the size in the *x* dimension, the second is the
+  *y* dimension and the third is the *z* dimension.
 
 <!--- Figure --->
 | | |
@@ -393,9 +393,9 @@ yaw]` data is explained in [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_Rob
 
 ####gripper 
 The [gripper model](http://rtv.github.com/Stage/group__model__gripper.html)
-is a simulation of the gripper you get on a Pioneer robot.[The Pioneer
+is a simulation of the gripper you get on a Pioneer robot.  The Pioneer
 grippers looks like a big block on the front of the robot with two big
-sliders that close around an object.] If you put a gripper on your robot
+sliders that close around an object.  If you put a gripper on your robot
 model it means that your robot is able to pick up objects and move them
 around within the simulation. The [online Stage manual](??) says that grippers
 are deprecated in Stage 3.X.X, however this is not actually the case and
@@ -403,16 +403,33 @@ grippers are very useful if you want your robot to be able to manipulate
 and move items. The parameters you can use to customise the gripper model
 are:
 
-	* `size [x y z]\: The x and y dimensions of the gripper.
-	* `pose [x y z yaw]\: Where the gripper is placed on the robot, relative to the robot's geometric centre. The pose parameter is decribed properly in Section [sec_BuildingAWorld_BuildingRobot_RobotSensors].
+* `size [x y z]`: The x and y dimensions of the gripper.
+* `pose [x y z yaw]`: Where the gripper is placed on the robot, relative to
+  the robot's geometric centre. The pose parameter is decribed properly in
+  [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_RobotSensors).
 
-####position [URL](http://rtv.github.com/Stage/group__model__position.html)
-The position model simulates the robot's odometry, this is when the robot keeps track of where it is by recording how many times its wheels spin and the angle it turns. This robot model is the most important of all because it allows the robot model to be embodied in the world, meaning it can collide with anything which has its `obstacle_return` parameter set to true. The position model uses the `position2d` interface, which is essential for Player because it tells Player where the robot actually is in the world.
-The most useful parameters of the position model are:
 
-* `drive`: Tells the odometry how the robot is driven. This is usually "diff" which means the robot is controlled by changing the speeds of the left and right wheels independently. Other possible values are "car" which means the robot uses a velocity and a steering angle, or "omni" which means it can control how it moves along the $x$ and $y$ axes of the simulation.
-* `localization`: tells the model how it should record the odometry "odom" if the robot calculates it as it moves along or "gps" for the robot to have perfect knowledge about where it is in the simulation. 
-* `odom_error [x y angle]`: The amount of error that the robot will make in the odometry recordings.
+####position 
+The [position model](http://rtv.github.com/Stage/group__model__position.html)
+simulates the robot's odometry, this is when the robot keeps track of where
+it is by recording how many times its wheels spin and the angle it turns.
+This robot model is the most important of all because it allows the robot
+model to be embodied in the world, meaning it can collide with anything
+which has its `obstacle_return` parameter set to true. The position model
+uses the `position2d` interface, which is essential for Player because it
+tells Player where the robot actually is in the world.  The most useful
+parameters of the position model are:
+
+* `drive`: Tells the odometry how the robot is driven. This is usually
+  "diff" which means the robot is controlled by changing the speeds of the
+  left and right wheels independently. Other possible values are "car"
+  which means the robot uses a velocity and a steering angle, or "omni"
+  which means it can control how it moves along the *x* and *y* axes of the
+  simulation.  `localization`: tells the model how it should record the
+  odometry "odom" if the robot calculates it as it moves along or "gps" for
+  the robot to have perfect knowledge about where it is in the simulation.
+* `odom_error [x y angle]`: The amount of error that the robot will make in
+  the odometry recordings.
 
 
 ### 3.2.2 - An Example Robot 
@@ -458,10 +475,10 @@ The following lines go on to describe the shape of the block;  `points 6`
 says that the block has 6 corners and `point[number] [x y]` gives the
 coordinates of each corner of the polygon in turn. Finally, the 
 `z [height_from height_to]` states how tall the robot should be, the first
-parameter being a lower coordinate in the $z$ plane, and the second
-parameter being the upper coordinate in the $z$ plane. In this example we
+parameter being a lower coordinate in the *z* plane, and the second
+parameter being the upper coordinate in the *z* plane. In this example we
 are saying that the block describing Bigbob's body is on the ground (i.e.
-its lower $z$ coordinate is at 0) and it is 1 metre tall. If I wanted it to
+its lower *z* coordinate is at 0) and it is 1 metre tall. If I wanted it to
 be from 50cm off the ground to 1m then I could use `z [0.5 1]`.
 
 Now in the same way as we built the body we can add on some
@@ -753,9 +770,9 @@ teeth, and the field of view is arbitrarily set to *20* degrees. We have
 calculated the laser's `pose` in exactly the same way as the sonars
 `pose`, by measuring the distance from the laser's centre to the
 robot's origin (which we set with the `origin\ parameter earlier). The
-$z$ coordinate of the pose parameter when describing parts of the robot is
+*z* coordinate of the pose parameter when describing parts of the robot is
 relative to the very top of the robot. In this case the robot is 1 metre
-tall so we put the laser at $-0.975$ so that it is on the ground. The
+tall so we put the laser at *-0.975* so that it is on the ground. The
 laser's yaw is set to *270* degrees so that it points across Bigbob's
 teeth. We also set the size of the laser to be 2.5cm cube so that it
 doesn't obstruct the gap between Bigbob's teeth.
@@ -925,7 +942,7 @@ define orange model
 )
 ```
 
-In this bit of code we describe a model called `orange` which uses a bitmap to define its shape and represents an object which is $15cm$ x $15cm$ x $15cm$ and is coloured orange. Figure [fig_BuildingAWorld_OtherStuff_OrangeAndBob] shows our orange model next to Bigbob.
+In this bit of code we describe a model called `orange` which uses a bitmap to define its shape and represents an object which is *15cm* x *15cm* x *15cm* and is coloured orange. Figure [fig_BuildingAWorld_OtherStuff_OrangeAndBob] shows our orange model next to Bigbob.
 
 Building a juice carton model is similarly quite easy:
 
