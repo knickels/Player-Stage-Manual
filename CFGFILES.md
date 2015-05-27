@@ -35,17 +35,20 @@ here that you tell Player what interface to use in order to interpret
 information given out by the driver (often this is sensor information from
 a robot), any information that a driver 'provides' can be used by your
 code. For a Stage simulated robot the `"stage"` driver can provide the
-interfaces to the sensors discussed in [Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors}.  Each interface shares
+interfaces to the sensors discussed in [Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors).  Each interface shares
 the same name as the sensor model, so for example a `ranger` model would
 use the `ranger` interface to interact with Player and so on (the only
 exception to this being the `position` model which uses the `position2d`
 interface). 
-The Player manual contains [a list of all the different interfaces that can
-be
+The Player manual contains [a list of all the different interfaces that can be
 used](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html),
 the most useful ones have already been mentioned in [Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors), although there are others too numerable to list here.
 
-The input to the 'provides' parameter is a "device address", which specifies which TCP port an interface to a robot device can be found, Section \ref{sec_ConfigurationFile_DeviceAddress} has more information about device addresses. This uses the key:host:robot:interface:index form separated by white space.
+The input to the 'provides' parameter is a "device address", which
+specifies which TCP port an interface to a robot device can be found,
+[Device Address](#sec_ConfigurationFile_DeviceAddress) has more information
+about device addresses. This uses the `key:host:robot:interface:index` form
+separated by white space.
 
 ```
 provides ["key:host:robot:interface:index" 
@@ -55,7 +58,7 @@ provides ["key:host:robot:interface:index"
 ```
 
 After the two mandatory parameters, the next most useful driver parameter
-is `model'. This is only used if `"stage"' is the driver, it tells Player
+is `model`. This is only used if `"stage"' is the driver, it tells Player
 which particular model in the worldfile is providing the interfaces for
 this particular driver. A different driver is needed for each model that
 you want to use.  Models that aren't required to do anything (such as a
