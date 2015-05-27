@@ -70,7 +70,7 @@ working, just running the examples will not teach you (as) much!
 > `> unzip $HOME/Downloads/Player-Stage-Manual-master.zip` (Again, your specific path may differ.)
 
 > `> cd $HOME/Player-Stage-Manual-master/code` (From here on out, I'll
-> just say \<source_code\> for brevity and generality.)
+> just say `<source_code>` for brevity and generality.)
 
 > `> ls` 
 

@@ -472,7 +472,7 @@ define bigbob position
 ```
 
 #### TRY IT OUT
-> `> cd `\<source_code\>`/Ch3`
+> `> cd <source_code>/Ch3`
 
 > `> stage bigbob1.world`
 
@@ -544,7 +544,7 @@ define bigbob position
 
 #### TRY IT OUT
 
-> `cd `\<source_code\>`/Ch3`
+> `cd <source_code/Ch3`
 
 > `stage bigbob2.world`
 
@@ -616,7 +616,7 @@ define bigbob position
 ```
 
 
-## TRY IT OUT
+> ## TRY IT OUT
 
 >` > cd <source_code>/Ch3` 
 
