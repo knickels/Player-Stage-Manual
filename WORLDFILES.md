@@ -471,7 +471,8 @@ define bigbob position
 )
 ```
 
-#### TRY IT OUT
+> #### TRY IT OUT
+
 > `> cd <source_code>/Ch3`
 
 > `> stage bigbob1.world`
@@ -542,7 +543,7 @@ define bigbob position
 )
 ```
 
-#### TRY IT OUT
+> #### TRY IT OUT
 
 > `cd <source_code/Ch3`
 
@@ -616,7 +617,7 @@ define bigbob position
 ```
 
 
-> ## TRY IT OUT
+> #### TRY IT OUT
 
 >` > cd <source_code>/Ch3` 
 
@@ -703,16 +704,18 @@ define bigbobs_sonars ranger
 ```
 
 
-## TRY IT OUT
+> #### TRY IT OUT
+
 >` > cd <source_code>/Ch3` 
+
 >` > player bigbob4.cfg`  (in one terminal window)
+
 >` > playerv --ranger:0`  (in another terminal window)
->
+
 >**Note:**
 >From now on, in the examples, player should be started in a different window
 >from the other commands given.  For brevity, I won't repeat this in every TRY
 >IT OUT box.
-
 
 Now that Bigbob's sonars are done we will attach a blobfinder:
 ```
