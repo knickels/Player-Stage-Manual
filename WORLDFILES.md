@@ -473,6 +473,7 @@ define bigbob position
 
 #### TRY IT OUT
 > `cd `\<source_code\>`/Ch3`
+> x
 > `stage bigbob1.world`
 
 
