@@ -784,11 +784,13 @@ define bigbobs_eyes blobfinder
 
 > `> playerv --blobfinder:0`
 
+> This will open two windows, one containing the simulation and another
+> containing a "remote control".  See [the playerv documentation](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__util__playerv.html)
+> for details.
 
 The last sensor that needs adding to Bigbob is the laser, which will be
 used to detect whenever a piece of rubbish has been collected, the laser's
-location on the robot is shown in Figure
-[fig_BuildingAWorld_BuildingRobot_RobotSensors_Laser]. Following the
+location on the robot is shown in Figure 11.  Following the
 same principles as for our previous sensor models we can create a
 description of this laser:
 ```
@@ -810,7 +812,7 @@ With this laser we've set its maximum range to be the distance between
 teeth, and the field of view is arbitrarily set to *20* degrees. We have
 calculated the laser's `pose` in exactly the same way as the sonars
 `pose`, by measuring the distance from the laser's centre to the
-robot's origin (which we set with the `origin\ parameter earlier). The
+robot's origin (which we set with the `origin` parameter earlier). The
 *z* coordinate of the pose parameter when describing parts of the robot is
 relative to the very top of the robot. In this case the robot is 1 metre
 tall so we put the laser at *-0.975* so that it is on the ground. The
@@ -856,12 +858,15 @@ The extra line `bigbobs_sonars()` adds the sonar model called
 `bigbobs_sonars()` onto the `bigbob` model, likewise for
 `bigbobs_eyes()` and `bigbobs_laser()`. After this final step we
 now have a complete model of our robot bigbob, the full code for which can
-be found in appendix [app:Abigbob.inc].
+be found [here](code/Ch3/bigbob.inc)
+
 At this point it's worthwhile to copy this into a .inc file, so that the
 model could be used again in other simulations or worlds.  This file can
-also be found in the example code in ` code/Ch5.3/bigbob.inc].
+also be found in the example code in `code/Ch5.3/bigbob.inc`.
 
-To put our Bigbob model into our empty world (see Section [sec_BuildingAWorld_EmptyWorld_BasicWorldfile]) we need to add the robot to our worldfile empty.world:
+To put our Bigbob model into our empty world (see [Making a Basic
+Worldfile](#sec_BuildingAWorld_EmptyWorld_BasicWorldfile]) we need to add
+the robot to our worldfile `empty.world`:
 ```
 include "map.inc"
 include "bigbob.inc"
@@ -908,14 +913,13 @@ with the name `bob1`. Using an object-oriented programming analogy,
 `pose [x y yaw]` parameter works in the same was as `spose [x y yaw]` does.
 The only differences are that the coordinates use the centre of the
 simulation as a reference point and `pose` lets us specify the initial
-position and heading of the entire `bob1\ model, not just one sensor within
+position and heading of the entire `bob1` model, not just one sensor within
 that model.
 
 Finally we specify what colour `bob1` should be, by default this is red. The `pose` and `color` parameters could have been specified in our bigbob model but by leaving them out it allows us to vary the colour and position of the robots for each different robot of type `bigbob`, so we could declare multiple robots which are the same size, shape and have the same sensors, but are rendered by Player/Stage in different colours and are initialised at different points in the map.
 
 When we run the new bigbob6.world with Player/Stage we see our Bigbob robot is
-occupying the world, as shown in Figure
-[fig_BuildingAWorld_BuildingRobot_RobotSensors_FinalRobot]. 
+occupying the world, as shown in Figure 12.
 
 <!--- Figure --->
 | |
@@ -923,9 +927,12 @@ occupying the world, as shown in Figure
 | <img src="pics/robot_building/final_robot_build_wsensors.png" width="50%">     |
 | Figure 12: Our bob1 robot placed in the simple world, showing the range and field of view of the ranger sensors. |
 	
-## TRY IT OUT
+> #### TRY IT OUT
+
 >` > cd <source_code>/Ch3`
+
 >` > player bigbob6.cfg`
+
 >` > playerv --ranger:0 --ranger:1`
 
 
