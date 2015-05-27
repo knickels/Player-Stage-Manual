@@ -19,21 +19,30 @@ driver
       # other parameters... 
 )
 ```
-The `name` and `provides` parameters are mandatory information, without
+The 'name' and 'provides' parameters are mandatory information, without
 them Player won't know which driver to use (given by 'name') and what kind
-of information is coming from the driver (`provides'). The `name' parameter
-is not arbitrary, it must be the name of one of Player's inbuilt
-drivers.  It is also possible to build your own drivers for a
-hardware device but this document won't go into how to do this because it's
-not relevant to Player/Stage. that have been written for Player to interact
-with a robot device. A list of supported driver names is in the [Player
-Manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__drivers.html), although when using Stage the only one that is needed is `"stage"'. 
+of information is coming from the driver ('provides'). The 'name' parameter
+is not arbitrary, it must be the name of one of Player's inbuilt drivers.
+It is also possible to build your own drivers for a hardware device but
+this document won't go into how to do this because it's not relevant to
+Player/Stage. that have been written for Player to interact with a robot
+device. A [list of supported driver names](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__drivers.html),
+is in the Player manual, although when using Stage the only one that is
+needed is `"stage"'. 
 
-The `provides' parameter is a little more complicated than `name'. It is here that you tell Player what interface to use in order to interpret information given out by the driver (often this is sensor information from a robot), any information that a driver `\provides\ can be used by your code. For a Stage simulated robot the `"stage"' driver can provide the interfaces to the sensors discussed in Section \ref{sec:BuildingAWorld:BuildingRobot:RobotSensors}. 
-Each interface shares the same name as the sensor model, so for example a `ranger' model would use the `ranger' interface to interact with Player and so on (the only exception to this being the `position' model which uses the `position2d' interface). 
-The Player manual contains [a list of all the different interfaces that can be used](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html), the most useful ones have already been mentioned in Section \ref{sec:BuildingAWorld:BuildingRobot:RobotSensors}, although there are others too numerable to list here.
+The 'provides' parameter is a little more complicated than 'name'. It is
+here that you tell Player what interface to use in order to interpret
+information given out by the driver (often this is sensor information from
+a robot), any information that a driver 'provides' can be used by your
+code. For a Stage simulated robot the `"stage"' driver can provide the
+interfaces to the sensors discussed in [Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors}.  Each interface shares
+the same name as the sensor model, so for example a `ranger' model would
+use the `ranger' interface to interact with Player and so on (the only
+exception to this being the `position' model which uses the `position2d'
+interface). 
+The Player manual contains [a list of all the different interfaces that can be used](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html), the most useful ones have already been mentioned in Section \ref{sec_BuildingAWorld_BuildingRobot_RobotSensors}, although there are others too numerable to list here.
 
-The input to the `provides' parameter is a ``device address'', which specifies which TCP port an interface to a robot device can be found, Section \ref{sec:ConfigurationFile:DeviceAddress} has more information about device addresses. This uses the key:host:robot:interface:index form separated by white space.
+The input to the 'provides' parameter is a ``device address'', which specifies which TCP port an interface to a robot device can be found, Section \ref{sec_ConfigurationFile_DeviceAddress} has more information about device addresses. This uses the key:host:robot:interface:index form separated by white space.
 
 ```
 provides ["key:host:robot:interface:index" 
@@ -43,9 +52,9 @@ provides ["key:host:robot:interface:index"
 ```
 
 After the two mandatory parameters, the next most useful driver parameter is `model'. This is only used if `"stage"' is the driver, it tells Player which particular model in the worldfile is providing the interfaces for this particular driver. A different driver is needed for each model that you want to use. 
-Models that aren't required to do anything (such as a map, or in the example of Section \ref{sec:BuildingAWorld:OtherStuff} oranges and boxes) don't need to have a driver written for them.\newline
-The remaining driver parameters are `requires' and `plugin'. The `requires' is used for drivers that need input information such as `"vfh"', it tells this driver where to find this information and which interface it uses. 
-The `requires' parameter uses the same key:host:robot:interface:index syntax as the `provides' parameter. Finally the `plugin' parameter is used to tell Player where to find all the information about the driver being used. 
+Models that aren't required to do anything (such as a map, or in the example of Section \ref{sec_BuildingAWorld_OtherStuff} oranges and boxes) don't need to have a driver written for them.\newline
+The remaining driver parameters are 'requires' and `plugin'. The 'requires' is used for drivers that need input information such as `"vfh"', it tells this driver where to find this information and which interface it uses. 
+The 'requires' parameter uses the same key:host:robot:interface:index syntax as the 'provides' parameter. Finally the `plugin' parameter is used to tell Player where to find all the information about the driver being used. 
 Earlier we made a .cfg file in order to create a simulation of an empty (or at least unmoving) world, the .cfg file read as follows:
 ```
 driver
@@ -61,7 +70,7 @@ driver
 ```
 This has to be done at the beginning of the configuration file because it tells Player that there is a driver called `"stage"' that we're going to use and the code for dealing with this driver can be found in the `stageplugin' plugin. This needs to be specified for Stage because Stage is an add-on for Player, for drivers that are built into Player by default the `plugin' doesn't need to be specified.
 
-\section{Device Addresses - key:host:robot:interface:index} \label{sec:ConfigurationFile:DeviceAddress}
+\section{Device Addresses - key:host:robot:interface:index} \label{sec_ConfigurationFile_DeviceAddress}
 
 A device address is used to tell Player where the driver you are making will present (or receive) information and which interface to use in order to read this information. This is a string in the form `key:host:robot:interface:index' where each field is separated by a colon.
 \begin{itemize}
@@ -82,9 +91,9 @@ This is very different from the `\key\ field because having a ``driver that supp
 If you want to use any of the default values it can just be left out of the device address. So we could use the default host and robot port and specify (for example) a laser interface just by doing `\"ranger:0"\. 
 However, if you want to specify fields at the beginning of the device address but not in the middle then  the separating colons should remain. For example if we had a host at `"127.0.0.1"' with a `\ranger\ interface then we would specify the address as `"127.0.0.1::ranger:0"', the robot field is empty but the colons around it are still there. You may notice that the key field here was left off as before.
 
-\section{Putting the Configuration File Together}\label{sec:ConfigurationFile:FinishingCFG}
+\section{Putting the Configuration File Together}\label{sec_ConfigurationFile_FinishingCFG}
 
-We have examined the commands necessary to build a driver for a model in the worldfile, now it is just a case of putting them all together. To demonstrate this process we will build a configuration file for the worldfile developed in Section \ref{sec:BuildingAWorld}. In this world we want our code to be able to interact with the robot, so in our configuration file we need to specify a driver for this robot.
+We have examined the commands necessary to build a driver for a model in the worldfile, now it is just a case of putting them all together. To demonstrate this process we will build a configuration file for the worldfile developed in Section \ref{sec_BuildingAWorld}. In this world we want our code to be able to interact with the robot, so in our configuration file we need to specify a driver for this robot.
 ```
 driver
 (
@@ -113,7 +122,7 @@ use rangers.
 We only have one sensor of each type, so our devices don't need separate indices. What would happen if we did have several sensors of the same type (like say two cameras) is that we put the first device at index 0 and subsequent devices using the same interface have index 1, then 2, then 3 and so on.
 
 \footnote{ There are lots of ranger sensors in our model but when we
-created the robot's sensors in Section \ref{sec:BuildingAWorld:BuildingRobot:RobotSensors} 
+created the robot's sensors in Section \ref{sec_BuildingAWorld_BuildingRobot_RobotSensors} 
 we put them all into two ranger models (one for all the sonars and one for
 the one laser).  So as far as the configuration file is concerned there are
 only two ranging devices, because all the separate sonar sensors are lumped
