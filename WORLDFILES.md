@@ -966,7 +966,8 @@ as illustrated in Figure 13 for an alien bitmap.
 | | |
 | :---------------:| :------: |
 | <img src="pics/oranges_box/ghost_original.png" width=80 >| <img src="pics/oranges_box/ghost_woutline.png" width="50%"> |
-| Figure 13: The left image is the original picture, the right image is its Stage interpretation.|
+
+Figure 13: The left image is the original picture, the right image is its Stage interpretation.
 
 In our code, we don't want an alien, we want a simple circular shape (see
 Figure 14), so we'll point to a circular bitmap.
@@ -976,7 +977,8 @@ Figure 14), so we'll point to a circular bitmap.
 | | |
 | :---------------:| :------: |
 | <img src="pics/oranges_box/circle.png" width=50 >| <img src="pics/oranges_box/orange_and_bob.png" width="80%"> |
-| Figure 14: The orange model rendered in the same Stage window as Bigbob. |
+
+Figure 14: The orange model rendered in the same Stage window as Bigbob.
 		
 		
 
