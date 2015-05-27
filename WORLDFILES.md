@@ -392,9 +392,16 @@ yaw]` data is explained in [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_Rob
 ```
 
 ####gripper 
-The gripper model
-[URL](http://rtv.github.com/Stage/group__model__gripper.html)
-is a simulation of the gripper you get on a Pioneer robot.[The Pioneer grippers looks like a big block on the front of the robot with two big sliders that close around an object.] If you put a gripper on your robot model it means that your robot is able to pick up objects and move them around within the simulation. The online Stage manual says that grippers are deprecated in Stage 3.X.X, however this is not actually the case and grippers are very useful if you want your robot to be able to manipulate and move items. The parameters you can use to customise the gripper model are:
+The [gripper model](http://rtv.github.com/Stage/group__model__gripper.html)
+is a simulation of the gripper you get on a Pioneer robot.[The Pioneer
+grippers looks like a big block on the front of the robot with two big
+sliders that close around an object.] If you put a gripper on your robot
+model it means that your robot is able to pick up objects and move them
+around within the simulation. The [online Stage manual](??) says that grippers
+are deprecated in Stage 3.X.X, however this is not actually the case and
+grippers are very useful if you want your robot to be able to manipulate
+and move items. The parameters you can use to customise the gripper model
+are:
 
 	* `size [x y z]\: The x and y dimensions of the gripper.
 	* `pose [x y z yaw]\: Where the gripper is placed on the robot, relative to the robot's geometric centre. The pose parameter is decribed properly in Section [sec_BuildingAWorld_BuildingRobot_RobotSensors].
