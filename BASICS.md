@@ -80,3 +80,6 @@ address instead of ``localhost''. The specifics of writing a device
 address in this way will be described in 
 Section [ConfigurationFile](CFGFILES.md)
 
+* Up: [README](README.md)
+* Prev: [Introduction](INTRO.md)
+* Next: [Building a World](WORLDFILES.md)
