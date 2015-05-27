@@ -499,7 +499,7 @@ Bigbob with teeth plotted onto a cartesian grid:
 | |
 | :---------------:| 
 | <img src="pics/robot_building/bigbob2.png" width="50%">     |
-| Figure 6: The new shape of Bigbob. |
+| Figure 7: The new shape of Bigbob. |
 
 ```
 define bigbob position
@@ -548,6 +548,9 @@ define bigbob position
 
 > `stage bigbob2.world`
 
+> The file `bigbob2.world` has the above code in it, so you can see what it
+> looks like.
+
 To declare the size of the robot you use the `size [x y z]` parameter, this
 will cause the polygon described to be scaled to fit into a box which is
 `x` by `y` in size and `z` metres tall. The default size is 0.4 x 0.4 x 1
@@ -560,22 +563,19 @@ For a robot as large as Bigbob this is not really important, but it could
 be useful when building models of very small robots.  It should be noted
 that it doesn't actually matter where in the cartesian coordinate system
 you place the polygon, instead of starting at `(0, 0)` it could just as
-easily have started at `(-1000, 12345)`. With the `block\ parameter we just
+easily have started at `(-1000, 12345)`. With the `block` parameter we just
 describe the *shape* of the robot, not its size or location in the map. 
 
 You may have noticed that in Figures 6 and 7 Bigbob is facing to the right
 of the grid. When you place any item in a Player/Stage simulation they are,
 by default, facing to the right hand side of the simulation. Figure
-[fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows that the grids use a
+3 shows that the grids use a
 typical Cartesian coordinate system, and so if you want to alter the
 direction an object in the simulation is pointing (its "yaw") any angles
 you give use the x-axis as a reference, just like vectors in a Cartesian
-coordinate system (see Figure
-[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_EmptyCartGrid]) and so
-the default yaw is *0* degrees. This is also why in Section
-[sec_BuildingAWorld_EmptyWorld] the `gui_nose` shows the map is facing to
-the right. Figure [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_Yaws]
-shows a few examples of robots with different yaws.
+coordinate system (see Figure 8) and so
+the default yaw is *0* degrees. This is also why in [Empty World](#sec_BuildingAWorld_EmptyWorld) the `gui_nose` shows the map is facing to
+the right. Figure 9 shows a few examples of robots with different yaws.
 
 <!--- Figure --->
 | |
@@ -596,10 +596,9 @@ geometric centre based on what values are given to the robot's `size`
 parameter. Bigbob's `size` is `1.25 x 1 x 1` so Player/Stage will place
 its centre at `(0.625, 0.5, 0.5)`, which means that Bigbob's wheels
 would be closer to its teeth. Instead let's say that Bigbob's centre of
-rotation is in the middle of its main body (shown in Figure
-[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob]) which
-puts the centre of rotation at `(0.5, 0.5, 0.5)`. To change this in
-robot model you use the `origin` \\ `[x-offset y-offset z-offset]` command:
+rotation is in the middle of its main body (shown in Figure 6
+which puts the centre of rotation at `(0.5, 0.5, 0.5)`. To change this in
+robot model you use the `origin [x-offset y-offset z-offset]` command:
 ```
 define bigbob position
 (
@@ -618,9 +617,12 @@ define bigbob position
 
 
 ## TRY IT OUT
->` > cd <source_code>/Ch3` \\
->` > stage bigbob3.world` \\
-Click on the robot, and it should hilight.  Click and hold down the right
+
+>` > cd <source_code>/Ch3` 
+
+>` > stage bigbob3.world` 
+
+> Click on the robot, and it should hilight.  Click and hold down the right
 (secondary) mouse button, and move the mouse to rotate bigbob.
 
 Finally we will specify the `drive` of Bigbob, this is a parameter of the `position` model and has been described earlier.
