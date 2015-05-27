@@ -332,7 +332,7 @@ the most useful ones are here:
       is given to the blobfinder definition in the form
       `["black" "blue" "cyan"]`. These colour names are from the
       built in X11 colour database rgb.txt. This is built in to
-      Linux.[rgb.txt can normally be found at
+      Linux -- the file `rgb.txt` can normally be found at
       /usr/share/X11/rgb.txt assuming it's properly installed,
       or see [Wikipedia](http://en.wikipedia.org/wiki/X11_color_names) for
       details.
@@ -358,7 +358,7 @@ away than `range_max_id` then it detects that there is a fiducial but can't iden
 
 
 #### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Ranger Sensor"> ranger sensor </a>
-This[URL](http://rtv.github.com/Stage/group__model__ranger.html)
+The [ranger sensor](http://rtv.github.com/Stage/group__model__ranger.html)
 simulates any kind of obstacle detection device (e.g. sonars, lasers, or
 infrared sensors). These can locate models whose ` ranger_return` is
 non-negative. Using a ranger model you can define any number of ranger
@@ -380,12 +380,12 @@ can be sensed.
       rangers are 1 apart.
 
 ####ranger device
-A ranger device[URL](http://rtv.github.com/Stage/group__model__ranger.html) is comprised of ranger sensors.  A laser is a special case
-of ranger sensor which allows only one sensor, and has a very large field
-of view.  For a ranger device, you just provide a list of sensors which
-comprise this device, typically resetting the pose for each.  How to write
-the `[x y yaw]` data is explained in Section
-[sec_BuildingAWorld_BuildingRobot_RobotSensors].
+A [ranger device](http://rtv.github.com/Stage/group__model__ranger.html) is
+comprised of ranger sensors.  A laser is a special case of ranger sensor
+which allows only one sensor, and has a very large field of view.  For a
+ranger device, you just provide a list of sensors which comprise this
+device, typically resetting the pose for each.  How to write the `[x y
+yaw]` data is explained in [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_RobotSensors).
 ```
   sensor_name (pose [x1 y1 z1 yaw1])
   sensor_name (pose [x2 y2 z2 yaw2])
