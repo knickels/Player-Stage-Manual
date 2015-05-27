@@ -51,23 +51,22 @@ means to go to a terminal window and type the command given (`ls`), without
 the `>` character, then hit return.
 
 The first time, you'll need to download the [example
-code](/archive/master.zip) which will contain the files. 
+code](../..//archive/master.zip) which will contain the files. 
 
 In many cases, you'll need two windows, since the first command (`player
 configfile.cfg`) doesn't quit till player is done.
 
 ## 1.3 - TRY IT OUT
-> If you haven't already, download the sample code from [here](/archive/master.zip) 
+If you haven't already, download the sample code from [here](/archive/master.zip) 
 
-> Next, you'll need to extract the sample code.  To do this, open a
-> terminal and cd to the directory where you put the file
-> `tutorial_code.zip`, then extract using zip.  Yes, there are
-> GUI-based ways to do this too.  I won't cover them here.
+Next, you'll need to extract the sample code.  To do this, open a
+ terminal and cd to the directory where you put the file
+ `master.zip`, then extract using zip.  Yes, there are
+ GUI-based ways to do this too.  I won't cover them here.
 
 > `> cd $HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
 
-> `> unzip $HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
-> your specific path may differ.)
+> `> unzip $HOME/Downloads/master.zip` (Again, your specific path may differ.)
 
 > `> cd $HOME/Player-Stage-Manual-master/code` (From here on out, I'll
 > just say \<source_code\> for brevity and generality.)
