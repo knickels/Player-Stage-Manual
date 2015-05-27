@@ -735,6 +735,10 @@ define bigbobs_sonars ranger
 >from the other commands given.  For brevity, I won't repeat this in every TRY
 >IT OUT section.
 
+> This will open two new windows, one containing the simulation and another
+> containing a "remote control".  See [the playerv documentation](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__util__playerv.html)
+> for details.
+
 Now that Bigbob's sonars are done we will attach a blobfinder:
 ```
 define bigbobs_eyes blobfinder
@@ -784,9 +788,6 @@ define bigbobs_eyes blobfinder
 
 > `> playerv --blobfinder:0`
 
-> This will open two windows, one containing the simulation and another
-> containing a "remote control".  See [the playerv documentation](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__util__playerv.html)
-> for details.
 
 The last sensor that needs adding to Bigbob is the laser, which will be
 used to detect whenever a piece of rubbish has been collected, the laser's
