@@ -1055,25 +1055,25 @@ carton(name "carton3" pose [-2 -2 0 0])
 carton(name "carton4" pose [-2 -1 0 0])
 ```
 
+Up until now we have been describing models with each parameter on a new line, this is just a way of making it more readable for the programmer -- especially if there are a lot of parameters. If there are only a few parameters or you want to be able to comment it out easily, it can all be put onto one line. Here we declare that there will be four `orange` models in the simulation with the names `orange1` to `orange4`, we also need to specify different poses for the models so they aren't all on top of each other. Properties that the orange models have in common (such as shape, colour or size) should all be in the model definition. 
+
+> #### TRY IT OUT
+
+>`> cd <source_code>/Ch3` 
+
+>`> player bigbob7.cfg` 
+
+>`> playerv --ranger:0 --ranger:1 --blobfinder:0`
+
+The full worldfile is [here](code/Ch3/bigbob7.world), this includes the
+orange and carton models as well as the code for putting them in the
+simulation. Figure 16 shows the populated Player/Stage simulation.
+
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/oranges_box/final_robot_and_stuff.png" width="50%">     |
 | Figure 16: The Bigbob robot placed in the simulation along with junk for it to pick up.
-
-Up until now we have been describing models with each parameter on a new line, this is just a way of making it more readable for the programmer -- especially if there are a lot of parameters. If there are only a few parameters or you want to be able to comment it out easily, it can all be put onto one line. Here we declare that there will be four `orange` models in the simulation with the names `orange1` to `orange4`, we also need to specify different poses for the models so they aren't all on top of each other. Properties that the orange models have in common (such as shape, colour or size) should all be in the model definition. 
-
-> #### TRY IT OUT
-
->` cd <source_code>/Ch3` 
-
->` > player bigbob7.cfg` 
-
->` > playerv --ranger:0 --ranger:1 --blobfinder:0`
-
-The full worldfile is [here](code/Ch3/bigbob7.world), this includes the
-orange and carton models as well as the code for putting them in the
-simulation. Figure 16 shows the populated Player/Stage simulation.
 
 * Up: [README](README.md)
 * Prev: [The Basics](BASICS.md)
