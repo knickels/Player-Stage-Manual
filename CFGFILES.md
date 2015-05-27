@@ -58,7 +58,7 @@ provides ["key:host:robot:interface:index"
 ```
 
 After the two mandatory parameters, the next most useful driver parameter
-is `model`. This is only used if `"stage"' is the driver, it tells Player
+is `model`. This is only used if `"stage"` is the driver, it tells Player
 which particular model in the worldfile is providing the interfaces for
 this particular driver. A different driver is needed for each model that
 you want to use.  Models that aren't required to do anything (such as a
@@ -67,8 +67,8 @@ map, or in the example of [Other Stuff](WORLDFILES.md#sec_BuildingAWorld_OtherSt
 The remaining driver parameters are 'requires' and `plugin'. The 'requires'
 is used for drivers that need input information such as `"vfh"', it tells
 this driver where to find this information and which interface it uses.
-The 'requires' parameter uses the same key:host:robot:interface:index
-syntax as the 'provides' parameter. Finally the `plugin' parameter is used
+The 'requires' parameter uses the same `key:host:robot:interface:index`
+syntax as the 'provides' parameter. Finally the `plugin` parameter is used
 to tell Player where to find all the information about the driver being
 used. 
 
@@ -85,11 +85,16 @@ driver
       worldfile "empty.world"	
 )
 ```
-This has to be done at the beginning of the configuration file because it tells Player that there is a driver called `"stage"' that we're going to use and the code for dealing with this driver can be found in the `stageplugin' plugin. This needs to be specified for Stage because Stage is an add-on for Player, for drivers that are built into Player by default the `plugin' doesn't need to be specified.
+This has to be done at the beginning of the configuration file because it
+tells Player that there is a driver called `"stage"` that we're going to
+use and the code for dealing with this driver can be found in the
+`stageplugin` plugin. This needs to be specified for Stage because Stage is
+an add-on for Player, for drivers that are built into Player by default the
+`plugin` doesn't need to be specified.
 
 \section{Device Addresses - key:host:robot:interface:index} \label{sec_ConfigurationFile_DeviceAddress}
 
-A device address is used to tell Player where the driver you are making will present (or receive) information and which interface to use in order to read this information. This is a string in the form `key:host:robot:interface:index' where each field is separated by a colon.
+A device address is used to tell Player where the driver you are making will present (or receive) information and which interface to use in order to read this information. This is a string in the form `key:host:robot:interface:index` where each field is separated by a colon.
 \begin{itemize}
 \item `\key\: The Player manual states that: \textit{"The purpose of the
 key field is to allow a driver that supports multiple interfaces of the
@@ -103,12 +108,12 @@ located. With a robot it could be the IP address of the robot. The default
 host is "localhost" which means the computer on which Player is running.
 \item `\robot\: this is the TCP port through which Player should expect to receive data from the interface usually a single robot and all its necessary interfaces are assigned to one port. The default port used is 6665, if there were two robots in the simulation the ports could be 6665 and 6666 although there's no rule saying which number ports you can or can't use.
 \item `\interface\: The interface to use in order to interact with the data. There is no default value for this option because it is a mandatory field.
-\item `\index\: If a robot has multiple devices of the same type, for instance it has 2 cameras to give the robot depth perception, each device uses the same interface but gives slightly different information. The index field allows you to give a slightly different address to each device. So two cameras could be `camera:0' and `camera:1'. 
+\item `\index\: If a robot has multiple devices of the same type, for instance it has 2 cameras to give the robot depth perception, each device uses the same interface but gives slightly different information. The index field allows you to give a slightly different address to each device. So two cameras could be `camera:0` and `camera:1`. 
 This is very different from the `\key\ field because having a "driver that supports multiple interfaces of the same type" is NOT the same as having multiple devices that use the same interface. Again there is no default index, as this is a mandatory field in the device address, but you should use 0 as the index if there is only one of that kind of device. 
 \end{itemize}
 
 If you want to use any of the default values it can just be left out of the device address. So we could use the default host and robot port and specify (for example) a laser interface just by doing `\"ranger:0"\. 
-However, if you want to specify fields at the beginning of the device address but not in the middle then  the separating colons should remain. For example if we had a host at `"127.0.0.1"' with a `\ranger\ interface then we would specify the address as `"127.0.0.1::ranger:0"', the robot field is empty but the colons around it are still there. You may notice that the key field here was left off as before.
+However, if you want to specify fields at the beginning of the device address but not in the middle then  the separating colons should remain. For example if we had a host at `"127.0.0.1"` with a `\ranger\ interface then we would specify the address as `"127.0.0.1::ranger:0"`, the robot field is empty but the colons around it are still there. You may notice that the key field here was left off as before.
 
 \section{Putting the Configuration File Together}\label{sec_ConfigurationFile_FinishingCFG}
 
@@ -120,7 +125,7 @@ driver
 )
 ```
 
-The inbuilt driver that Player/Stage uses for simulations is called `"stage"' so the driver name is `"stage"'.
+The inbuilt driver that Player/Stage uses for simulations is called `"stage"` so the driver name is `"stage"`.
 ```
 driver
 (
@@ -128,16 +133,16 @@ driver
 )
 ```
 
-The Bigbob robot uses `position', `blobfinder' and `ranger'
-sensors. These correspond to the `position2d', `blobfinder' and
-`ranger' interfaces respectively. 
+The Bigbob robot uses `position`, `blobfinder` and `ranger`
+sensors. These correspond to the `position2d`, `blobfinder` and
+`ranger` interfaces respectively. 
 
 All range-finding sensors (i.e. sonar, laser, and IR sensors) are
 represented by the ranger interface.  In Stage 4.1.1 there is only legacy
 support for separate laser or IR interfaces.  All new development should
 use rangers.
        
-       We want our code to be able to read from these sensors, so we need to declare interfaces for them and tell Player where to find each device's data, for this we use the configuration file's `\provides\ parameter. This requires that we construct device addresses for each sensor; to remind ourselves, this is in the key:host:robot:interface:index format. We aren't using any fancy drivers, so we don't need to specify a key. We are running our robot in a simulation on the same computer as our Player sever, so the host name is `\localhost\ which is the default, so we also don't need to specify a host. The robot is a TCP port to receive robot information over, picking which port to use is pretty arbitrary but what usually happens is that the first robot uses the default port 6665 and subsequent robots use 6666, 6667, 6668 etc. There is only one robot in our simulation so we will use port 6665 for all our sensor information from this robot. 
+       We want our code to be able to read from these sensors, so we need to declare interfaces for them and tell Player where to find each device's data, for this we use the configuration file's 'provides' parameter. This requires that we construct device addresses for each sensor; to remind ourselves, this is in the key:host:robot:interface:index format. We aren't using any fancy drivers, so we don't need to specify a key. We are running our robot in a simulation on the same computer as our Player sever, so the host name is 'localhost' which is the default, so we also don't need to specify a host. The robot is a TCP port to receive robot information over, picking which port to use is pretty arbitrary but what usually happens is that the first robot uses the default port 6665 and subsequent robots use 6666, 6667, 6668 etc. There is only one robot in our simulation so we will use port 6665 for all our sensor information from this robot. 
 We only have one sensor of each type, so our devices don't need separate indices. What would happen if we did have several sensors of the same type (like say two cameras) is that we put the first device at index 0 and subsequent devices using the same interface have index 1, then 2, then 3 and so on.
 
 \footnote{ There are lots of ranger sensors in our model but when we
@@ -149,8 +154,8 @@ together into one device.  We don't need to declare each sonar device on an
 index of its own.
 }
 Finally we use interfaces appropriate to the sensors the robot has, so in
-our example these are the `position2d', `blobfinder' interfaces
-and for our sonar and laser devices we will use the `ranger'
+our example these are the `position2d`, `blobfinder` interfaces
+and for our sonar and laser devices we will use the `ranger`
 interface.
 
 Putting all this together under the `\provides\ parameter gives us:
@@ -166,7 +171,7 @@ driver
 ```
 The device addresses can be on the same line as each other or separate lines, just so long as they're separated by some form of white space.
 
-The last thing to do on our driver is the `model "model_name"' parameter
+The last thing to do on our driver is the `model "model_name"` parameter
 which needs to be specified because we are using Player/Stage. This tells
 the simulation software that anything you do with this driver will affect
 the model `\"model_name"\ in the simulation. In the simulation we built we
