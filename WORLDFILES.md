@@ -434,17 +434,25 @@ parameters of the position model are:
 
 ### 3.2.2 - An Example Robot 
 
-To demonstrate how to build a model of a robot in Player/Stage we will build our own example. First we will describe the physical properties of the robot, such as size and shape. Then we will add sensors onto it so that it can interact with its environment.
+To demonstrate how to build a model of a robot in Player/Stage we will
+build our own example. First we will describe the physical properties of
+the robot, such as size and shape. Then we will add sensors onto it so that
+it can interact with its environment.
 
 ####The Robot's Body
-Let's say we want to model a rubbish collecting robot called "Bigbob". The first thing we need to do is describe its basic shape, to do this you need to know your robot's dimensions in metres. Figure [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob] shows the basic shape of Bigbob drawn onto some cartesian coordinates, the coordinates of the corners of the robot have been recorded. We can then build this model using the `block` model parameter[In this example we're using blocks with the position model type but we could equally use it with other model types.]:
+Let's say we want to model a rubbish collecting robot called "Bigbob". The
+first thing we need to do is describe its basic shape, to do this you need
+to know your robot's dimensions in metres. Figure 6 shows the basic shape
+of Bigbob drawn onto some cartesian coordinates, the coordinates of the
+corners of the robot have been recorded. We can then build this model using
+the `block` model parameter.  In this example we're using blocks with the
+position model type but we could equally use it with other model types.
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/robot_building/bigbob1.png" width="50%">     |
-| Figure 6: The basic shape we want to make Bigbob, the units on the axes are in
-metres.|
+| Figure 6: The basic shape we want to make Bigbob, the units on the axes are in metres.|
 	
 ```
 define bigbob position
@@ -533,12 +541,12 @@ define bigbob position
 ```
 
 #### TRY IT OUT
->` > cd <source_code>/Ch3` \\
->` > stage bigbob2.world`
+> `cd `<source_code>`/Ch3`
+> `stage bigbob2.world`
 
 To declare the size of the robot you use the `size [x y z]` parameter, this
 will cause the polygon described to be scaled to fit into a box which is
-`x` by `y\ in size and `z\ metres tall. The default size is 0.4 x 0.4 x 1
+`x` by `y` in size and `z` metres tall. The default size is 0.4 x 0.4 x 1
 m, so because the addition of rubbish-collecting teeth made Bigbob longer,
 the size parameter was needed to stop Player/Stage from making the robot
 smaller than it should be. In this way we could have specified the polygon
@@ -551,20 +559,19 @@ you place the polygon, instead of starting at `(0, 0)` it could just as
 easily have started at `(-1000, 12345)`. With the `block\ parameter we just
 describe the *shape* of the robot, not its size or location in the map. 
 
-You may have noticed that in Figures 6 and 7 Bigbob is
-facing to the right of the grid. When you place any item in a Player/Stage
-simulation they are, by default, facing to the right hand side of the
-simulation. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows
-that the grids use a typical Cartesian coordinate system, and so if you
-want to alter the direction an object in the simulation is pointing (its
-"yaw") any angles you give use the x-axis as a reference, just like vectors
-in a Cartesian coordinate system (see Figure
+You may have noticed that in Figures 6 and 7 Bigbob is facing to the right
+of the grid. When you place any item in a Player/Stage simulation they are,
+by default, facing to the right hand side of the simulation. Figure
+[fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows that the grids use a
+typical Cartesian coordinate system, and so if you want to alter the
+direction an object in the simulation is pointing (its "yaw") any angles
+you give use the x-axis as a reference, just like vectors in a Cartesian
+coordinate system (see Figure
 [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_EmptyCartGrid]) and so
 the default yaw is *0* degrees. This is also why in Section
 [sec_BuildingAWorld_EmptyWorld] the `gui_nose` shows the map is facing to
-the right. Figure
-[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_Yaws] shows a few
-examples of robots with different yaws.
+the right. Figure [fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_Yaws]
+shows a few examples of robots with different yaws.
 
 <!--- Figure --->
 | |
