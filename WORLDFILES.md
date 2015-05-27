@@ -342,18 +342,18 @@ the most useful ones are here:
       *in DEGREES*.  Unlike the camera ` fov`, the
       blobfinder ` fov` respects the ` unit_angle` call as
       described in
-      (http://playerstage.sourceforge.net/wiki/Writing_configuration_files#/Units).  By default, the blobfinder ` fov` is in DEGREES.
+      (http://playerstage.sourceforge.net/wiki/Writing_configuration_files#Units).  By default, the blobfinder `fov` is in DEGREES.
 
 ####fiducial 
-A fiducial is a fixed point in an image, so the fiducial
-finder[URL](http://rtv.github.com/Stage/group__model__fiducial.html) 
+A fiducial is a fixed point in an image, so the [fiducial
+finder](http://rtv.github.com/Stage/group__model__fiducial.html) 
 simulates image processing software that locates fixed points in an image. The fiducialfinder is able to locate objects in the simulation whose `fiducial_return` parameter is set to true. Stage also allows you to specify different types of fiducial using the `fiducial_key` parameter of a model. This means that you can make the robots able to tell the difference between different fiducials by what key they transmit. The fiducial finder and the concept of `fiducial_key`s is properly explained in the Stage manual. The fiducial sensors parameters are:
 
 * `range_min`: The minimum range at which a fiducial can be detected, in metres.
 * `range_max`: The maximum range at which a fiducial can be detected, in metres.
 * `range_max_id`: The maximum range at which a fiducial's key can be
-accurately identified. If a fiducial is closer that `range_max\ but further
-away than `range_max_id\ then it detects that there is a fiducial but can't identify it.
+accurately identified. If a fiducial is closer that `range_max` but further
+away than `range_max_id` then it detects that there is a fiducial but can't identify it.
 * `fov`: The field of view of the fiducial finder *in DEGREES*.
 
 
