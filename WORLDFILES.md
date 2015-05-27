@@ -323,7 +323,6 @@ parameter to determine if a blobfinder could detect an object.  In Stage
 object to be a color not listed in the ` colors[]` list to make it invisible
 to blobfinders.
 
-%The blobfinder can only find a model if its `blob_return` parameter is true. 
 The parameters for the blobfinder are described in the Stage manual, but
 the most useful ones are here:
 
@@ -335,8 +334,8 @@ the most useful ones are here:
       built in X11 colour database rgb.txt. This is built in to
       Linux.[rgb.txt can normally be found at
       /usr/share/X11/rgb.txt assuming it's properly installed,
-      alternatively a Google search for "rgb.txt" will give you the
-      document.] 
+      or see [Wikipedia](http://en.wikipedia.org/wiki/X11_color_names) for
+      details.
 * `image [x y]`: the size of the image from the camera, in pixels.
 * `range <float>`: The maximum range that the camera can detect, in metres.
 * `fov <float>`: field of view of the blobfinder 
