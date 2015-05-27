@@ -50,11 +50,12 @@ typeset in monospace font. For example,
 means to go to a terminal window and type the command given (`ls`), without
 the `>` character, then hit return.
 
-The first time, you'll need to download the [example
-code](../../archive/master.zip) which will contain the files. 
-
 In many cases, you'll need two windows, since the first command (`player
-configfile.cfg`) doesn't quit till player is done.
+configfile.cfg`) doesn't quit till player is done.  I'll try to point out
+when this is the case.
+
+When you use files, you should examine the files to see how they are
+working, just running the examples will not teach you (as) much!
 
 ## 1.3 - TRY IT OUT (Preparation)
 > If you haven't already, download the sample code from [here](../..//archive/master.zip) 
@@ -79,12 +80,16 @@ configfile.cfg`) doesn't quit till player is done.
 
 
 ## 1.4 - TRY IT OUT
-> First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
-> * `> cd /usr/local/share/stage/worlds` 
-> * `> player simple.cfg`
+> First we will run a world and configuration file that comes bundled with Stage. In a terminal window, navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
+
+> `> cd /usr/local/share/stage/worlds` 
+
+> `> player simple.cfg`
+
 > Assuming Player/Stage is installed properly you should now have a window open which looks like the figure below.  Congratulations,you can now build Player/Stage simulations!
+
 > ![The simple.cfg world after being run](https://github.com/NickelsLab/Player-Stage-Manual/blob/master/pics/simpleworld.png)
 
-Up: [README](README.md)
 
-Next: [The Basics](BASICS.md)
+* Up: [README](README.md)
+* Next: [The Basics](BASICS.md)

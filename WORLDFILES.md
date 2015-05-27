@@ -545,6 +545,7 @@ define bigbob position
 #### TRY IT OUT
 
 > `cd `\<source_code\>`/Ch3`
+
 > `stage bigbob2.world`
 
 To declare the size of the robot you use the `size [x y z]` parameter, this
@@ -1023,3 +1024,6 @@ Up until now we have been describing models with each parameter on a new line, t
 
 The full worldfile is included in appendix B, this includes the orange and carton models as well as the code for putting them in the simulation. Figure [fig_BuildingAWorld_OtherStuff_FinalRobotAndStuff] shows the populated Player/Stage simulation.
 
+* Up: [README](README.md)
+* Prev: [The Basics](BASICS.md)
+* Next: [Writing a Configuration (.cfg) File](CFGFILES.md)
