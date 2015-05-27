@@ -56,10 +56,10 @@ code](../../archive/master.zip) which will contain the files.
 In many cases, you'll need two windows, since the first command (`player
 configfile.cfg`) doesn't quit till player is done.
 
-## 1.3 - TRY IT OUT
-If you haven't already, download the sample code from [here](../..//archive/master.zip) 
+## 1.3 - TRY IT OUT (Preparation)
+> If you haven't already, download the sample code from [here](../..//archive/master.zip) 
 
-Next, you'll need to extract the sample code.  To do this, open a
+> Next, you'll need to extract the sample code.  To do this, open a
  terminal and cd to the directory where you put the file
  `master.zip`, then extract using zip.  Yes, there are
  GUI-based ways to do this too.  I won't cover them here.
