@@ -1,6 +1,6 @@
-# The Basics
+# Chapter 2 - The Basics
 
-## Important File Types
+## 2.1 - Important File Types
 
 In Player/Stage there are 3 kinds of file that you need to understand to get going with Player/Stage:
 
@@ -34,7 +34,7 @@ robot), if you don't need your code to interact with the item then this
 isn't necessary. The .cfg file does all this specification using interfaces
 and drivers, which will be discussed in the following section.
 
-## Interfaces, Drivers and Devices
+## 2.2 - Interfaces, Drivers and Devices
 
 * Drivers are pieces of code that talk directly to hardware. These are
   built in to Player so it is not important to know how to write these as
