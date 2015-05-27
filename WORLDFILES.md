@@ -1,4 +1,4 @@
-# <a name="sec_BuildingAWorld"> Building a World</a>
+# Chapter 3 - <a name="sec_BuildingAWorld"> Building a World</a>
 
 First we will run a world and configuration file that comes bundled with
 Stage. In your bash shell navigate to the Stage/worlds folder, by default
@@ -18,7 +18,7 @@ open which looks like Figure 1.
 
 Congratulations, you can now build Player/Stage simulations! 
 
-## <a name="sec_BuildingAWorld_EmptyWorld"> Building an Empty World </a>
+## 3.1 - <a name="sec_BuildingAWorld_EmptyWorld"> Building an Empty World </a>
 
 As you can see above, when we tell Player to build a world we only give it
 the .cfg file as an input. This .cfg file needs to tell us where to find
@@ -61,7 +61,7 @@ Now a basic configuration file has been written, it is time to tell
 Player/Stage what to put into this simulation. This is done in the .world
 file. 
 
-### <a name="sec_BuildingAWorld_EmptyWorld_Models"> Models </a>
+### 3.1.1 - <a name="sec_BuildingAWorld_EmptyWorld_Models"> Models </a>
 
 A worldfile is basically just a list of models that describes all the stuff
 in the simulation. This includes the basic environment, robots and other
@@ -201,7 +201,7 @@ there are a few other types of model which are relevant to building
 simulations of robots, these will be described later in 
 [Building a Robot](#sec_BuildingAWorld_BuildingRobot).
 
-### <a name="sec_BuildingAWorld_EmptyWorld_PLSTWindow"> Describing the Player/Stage Window </a>
+### 3.1.2 - <a name="sec_BuildingAWorld_EmptyWorld_PLSTWindow"> Describing the Player/Stage Window </a>
 
 The worldfile also can be used to describe the simulation window that
 Player/Stage creates. Player/Stage will automatically make a window for the
@@ -236,7 +236,7 @@ The two most important parameters for the window are `size` and `scale`.
 A full list of window parameters can be found in [the Stage manual under
 "WorldGUI"](http://rtv.github.com/Stage/group__worldgui.html)
 
-### <a name="sec_BuildingAWorld_EmptyWorld_BasicWorldfile"> Making a Basic Worldfile </a>
+### 3.1.3 - <a name="sec_BuildingAWorld_EmptyWorld_BasicWorldfile"> Making a Basic Worldfile </a>
 
 We have already discussed the basics of worldfile building: models and the
 window. There are just a few more parameters to describe which don't belong
@@ -279,13 +279,13 @@ in Figure 5.
 | <img src="pics/empty_world/finalEmptyWorld.png" width="50%">     |
 | Figure 5: Our Empty World | 
 	
-## <a name="sec_BuildingAWorld_BuildingRobot"> Building a Robot </a>
+## 3.2 - <a name="sec_BuildingAWorld_BuildingRobot"> Building a Robot </a>
 
 In Player/Stage a robot is just a slightly advanced kind of model, all the
 parameters described in [Models](#sec_BuildingAWorld_EmptyWorld_Models) can
 still be applied. 
 
-### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
+### 3.2.1 - <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
@@ -298,12 +298,11 @@ relevant model to describe the sensor, otherwise Stage and Player won't be
 able to pass the data between each other. It is possible to write your own
 interfaces, but the stuff already included in Player/Stage should be
 sufficient for most people's needs. A full list of interfaces that Player
-supports can be found in the Player
-manual[URL](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html) although only the following are supported by the current distribution of Stage (version 4.1.X). Unless otherwise stated, these models use the Player interface that shares its name:
+supports can be found in the [Player
+manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__interfaces.html) although only the following are supported by the current distribution of Stage (version 4.1.X). Unless otherwise stated, these models use the Player interface that shares its name:
 
 ####camera
-The camera
-model[URL](http://rtv.github.com/Stage/group__model__camera.html)
+The [camera model](http://rtv.github.com/Stage/group__model__camera.html)
 adds a camera to the robot model and allows your code to interact with the simulated camera. The camera parameters are as follows:
 
 * `resolution [x y]`: the resolution, in pixels, of the camera's image.
@@ -312,7 +311,7 @@ adds a camera to the robot model and allows your code to interact with the simul
 * `pantilt [pan tilt]`: angle, in degrees, where the camera is looking. Pan is the left-right positioning. So for instance pantilt [20 10] points the camera 20 degrees left and 10 degrees down.
 
 ####blobfinder
-This[URL](http://rtv.github.com/Stage/group__model__blobfinder.html)
+[The blobfinder](http://rtv.github.com/Stage/group__model__blobfinder.html)
 simulates colour detection software that can be run on the image from the
 robot's camera. It is not necessary to include a model of the camera in
 your description of the robot if you want to use a blobfinder, the
@@ -328,25 +327,22 @@ to blobfinders.
 The parameters for the blobfinder are described in the Stage manual, but
 the most useful ones are here:
 
-      * `colors_count <int>`: the number of different colours the
-            blobfinder can detect
-      * `colors [ ]`: the names of the colours it can detect. This
-            is given to the blobfinder definition in the form
-            `["black" "blue" "cyan"]`. These colour names are from the
-            built in X11 colour database rgb.txt. This is built in to
-            Linux.[rgb.txt can normally be found at
-            /usr/share/X11/rgb.txt assuming it's properly installed,
-            alternatively a Google search for "rgb.txt" will give you the
-            document.] 
-      * `image [x y]`: the size of the image from the camera, in pixels.
-      * `range <float>`: The maximum range that the camera can detect, in metres.
-      * `fov <float>`: field of view of the blobfinder 
-            *in DEGREES* [Unlike the camera ` fov`, the
-            blobfinder ` fov` respects the ` unit_angle` call as
-            described in
-            URL](http://playerstage.sourceforge.net/wiki/Writing_configuration_files\#Units].
-            By default, the blobfinder ` fov` is in DEGREES.
-           .
+* `colors_count <int>`: the number of different colours the
+      blobfinder can detect
+* `colors [ ]`: the names of the colours it can detect. This
+      is given to the blobfinder definition in the form
+      `["black" "blue" "cyan"]`. These colour names are from the
+      built in X11 colour database rgb.txt. This is built in to
+      Linux.[rgb.txt can normally be found at
+      /usr/share/X11/rgb.txt assuming it's properly installed,
+      alternatively a Google search for "rgb.txt" will give you the
+      document.] 
+* `image [x y]`: the size of the image from the camera, in pixels.
+* `range <float>`: The maximum range that the camera can detect, in metres.
+* `fov <float>`: field of view of the blobfinder 
+      *in DEGREES*.  Unlike the camera ` fov`, the
+      blobfinder ` fov` respects the ` unit_angle` call as
+      described in (http://playerstage.sourceforge.net/wiki/Writing_configuration_files\#Units).  By default, the blobfinder ` fov` is in DEGREES.
 
 ####fiducial 
 A fiducial is a fixed point in an image, so the fiducial
@@ -412,7 +408,7 @@ The most useful parameters of the position model are:
 * `odom_error [x y angle]`: The amount of error that the robot will make in the odometry recordings.
 
 
-###An Example Robot 
+### 3.2.2 - An Example Robot 
 
 To demonstrate how to build a model of a robot in Player/Stage we will build our own example. First we will describe the physical properties of the robot, such as size and shape. Then we will add sensors onto it so that it can interact with its environment.
 
@@ -443,7 +439,7 @@ define bigbob position
 )
 ```
 
-## TRY IT OUT
+#### TRY IT OUT
 >`> cd `<source_code>`/Ch3`
 >`> stage bigbob1.world`
 
@@ -462,8 +458,7 @@ its lower $z$ coordinate is at 0) and it is 1 metre tall. If I wanted it to
 be from 50cm off the ground to 1m then I could use `z [0.5 1]`.
 
 Now in the same way as we built the body we can add on some
-teeth for Bigbob to collect rubbish between. Figure
-[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BigbobTeeth] shows
+teeth for Bigbob to collect rubbish between. Figure 7 shows
 Bigbob with teeth plotted onto a cartesian grid:
 
 <!--- Figure --->
@@ -513,7 +508,7 @@ define bigbob position
 )
 ```
 
-## TRY IT OUT
+#### TRY IT OUT
 >` > cd <source_code>/Ch3` \\
 >` > stage bigbob2.world`
 
@@ -532,9 +527,7 @@ you place the polygon, instead of starting at `(0, 0)` it could just as
 easily have started at `(-1000, 12345)`. With the `block\ parameter we just
 describe the *shape* of the robot, not its size or location in the map. 
 
-You may have noticed that in Figures
-[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BasicBigbob] and
-[fig_BuildingAWorld_BuildingRobot_ExampleRobot_Body_BigbobTeeth] Bigbob is
+You may have noticed that in Figures 6 and 7 Bigbob is
 facing to the right of the grid. When you place any item in a Player/Stage
 simulation they are, by default, facing to the right hand side of the
 simulation. Figure [fig_BuildingAWorld_EmptyWorld_Models_GUIGrid] shows
