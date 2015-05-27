@@ -1,4 +1,4 @@
-# Introduction
+# Chapter 1 -  Introduction
 
 Player/Stage is a robot simulation tool, it comprises of one program,
 Player, which is a *Hardware Abstraction Layer*. That means that it
@@ -20,7 +20,7 @@ These instructions will be focussing on how to use Player/Stage to make a
 simulation, but hopefully this will still be a useful resource for anyone
 just using Player (which is the same thing but on a real robot, without any simulation software).
 
-## A Note on Installing Player/Stage
+## 1.1 - A Note on Installing Player/Stage
 Instructions on how to install Player/Stage onto your computer aren't really the focus of this document. It is very difficult though. If you're lucky the install will work first time but there are a lot of dependencies which may need installing. 
 * For computers running Ubuntu there is a very good set of instructions here (including a script for downloading the many prerequisites): [http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu](http://www.control.aau.dk/~tb/wiki/index.php/Installing_Player_and_Stage_in_Ubuntu)
 * For OSX users you might find the following install instructions useful:
@@ -37,7 +37,7 @@ export LD_LIBRARY_PATH=/usr/local/lib64:$LD_LIBRARY_PATH}
 export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:$PKG_CONFIG_PATH}
 ```
 
-## A Note about TRY IT OUT sections
+## 1.2 - A Note about TRY IT OUT sections
 There will be sections scattered throughout this tutorial labeled **TRY IT OUT**
 that explain how to run examples. You'll need to download the example code
 from 
@@ -47,33 +47,37 @@ which will contain the files. In these sections, you'll be given commands to
 type in a terminal
 window (or bash shell). They'll be shown prefixed with a carrot `>` and
 typeset in monospace font. For example, 
-```
-> ls
-```
-means to go to a terminal window and type the command given (ls), without
+
+> `ls`
+
+means to go to a terminal window and type the command given (`ls`), without
 the `>` character, then hit return.
 
-In many cases, you'll need two windows, since the first command (player
-configfile.cfg) doesn't quit till player is done.  
+In many cases, you'll need two windows, since the first command (`player
+configfile.cfg`) doesn't quit till player is done.  
 
-## TRY IT OUT
+## 1.3 - TRY IT OUT
 > First, you'll need to extract the sample code.  To do this, open a
 > terminal and cd to the directory where you put the file
-> `tutorial_code.zip`, then extract using zip (Yes, there are
-> GUI-based ways to do this too.  I won't cover them here.)
-> * `> cd $HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
-> * `> unzip $HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
-> your specific path may differ.
-> * `> cd $HOME/Player-Stage-Manual-master/code` (From here on out, I'll
-> just say `<source_code>` for brevity and generality.)
-> * `> ls` 
+> `tutorial_code.zip`, then extract using zip.  Yes, there are
+> GUI-based ways to do this too.  I won't cover them here.
+
+> `> cd $HOME` I'll assume that you put this directory in your home directory.  If not, just replace the commands given with the appropriate directory. 
+
+> `> unzip $HOME/Downloads/Player-Stage-Manual-master.zip` (Again,
+> your specific path may differ.)
+
+> `> cd $HOME/Player-Stage-Manual-master/code` (From here on out, I'll
+> just say \<source_code\> for brevity and generality.)
+
+> `> ls` 
 
 > At this point, you should see five directories, `Ch3 Ch4 Ch5.1 Ch5.2
 > Ch5.3`, which contain the C++ code examples for the respective chapters, and
 > one, `bitmaps`, that has pictures used in several different examples.
 
 
-## TRY IT OUT
+## 1.4 - TRY IT OUT
 > First we will run a world and configuration file that comes bundled with Stage. In your bash shell navigate to the Stage/worlds folder, by default (in Linux at least) this is `/usr/local/share/stage/worlds`. Type the following commands to run the ``simple world'' that comes with Player/Stage: 
 > * `> cd /usr/local/share/stage/worlds` 
 > * `> player simple.cfg`
