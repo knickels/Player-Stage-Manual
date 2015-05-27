@@ -541,7 +541,9 @@ define bigbob position
 ```
 
 #### TRY IT OUT
+
 > `cd `<source_code>`/Ch3`
+>
 > `stage bigbob2.world`
 
 To declare the size of the robot you use the `size [x y z]` parameter, this
