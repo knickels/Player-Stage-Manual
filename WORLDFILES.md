@@ -341,7 +341,7 @@ the most useful ones are here:
 * `fov <float>`: field of view of the blobfinder 
       *in DEGREES*.  Unlike the camera ` fov`, the
       blobfinder ` fov` respects the ` unit_angle` call as
-      described in (http://playerstage.sourceforge.net/wiki/Writing_configuration_files\#Units).  By default, the blobfinder ` fov` is in DEGREES.
+      described in (http://playerstage.sourceforge.net/wiki/Writing_configuration_files/Units).  By default, the blobfinder ` fov` is in DEGREES.
 
 ####fiducial 
 A fiducial is a fixed point in an image, so the fiducial
