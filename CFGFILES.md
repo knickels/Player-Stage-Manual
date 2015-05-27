@@ -92,30 +92,32 @@ use and the code for dealing with this driver can be found in the
 an add-on for Player, for drivers that are built into Player by default the
 `plugin` doesn't need to be specified.
 
-\section{Device Addresses - key:host:robot:interface:index} \label{sec_ConfigurationFile_DeviceAddress}
+#Device Addresses - key:host:robot:interface:index \label{sec_ConfigurationFile_DeviceAddress}
 
 A device address is used to tell Player where the driver you are making will present (or receive) information and which interface to use in order to read this information. This is a string in the form `key:host:robot:interface:index` where each field is separated by a colon.
-\begin{itemize}
-\item `\key\: The Player manual states that: \textit{"The purpose of the
+
+* `key`: The Player manual states that: \textit{"The purpose of the
 key field is to allow a driver that supports multiple interfaces of the
 same type to map those interfaces onto different devices"} (http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_addresses). 
 This is a driver level thing and has a lot to do with the `\name\ of the
 driver that you are using, generally for `\"stage"\ the `\key\ doesn't need
 to be used. If you're using Player without Stage then there is a useful
 section about device address keys in the [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_key).
-\item `\host\: This is the address of the host computer where the device is
+* `host`: This is the address of the host computer where the device is
 located. With a robot it could be the IP address of the robot. The default
 host is "localhost" which means the computer on which Player is running.
-\item `\robot\: this is the TCP port through which Player should expect to receive data from the interface usually a single robot and all its necessary interfaces are assigned to one port. The default port used is 6665, if there were two robots in the simulation the ports could be 6665 and 6666 although there's no rule saying which number ports you can or can't use.
-\item `\interface\: The interface to use in order to interact with the data. There is no default value for this option because it is a mandatory field.
-\item `\index\: If a robot has multiple devices of the same type, for instance it has 2 cameras to give the robot depth perception, each device uses the same interface but gives slightly different information. The index field allows you to give a slightly different address to each device. So two cameras could be `camera:0` and `camera:1`. 
-This is very different from the `\key\ field because having a "driver that supports multiple interfaces of the same type" is NOT the same as having multiple devices that use the same interface. Again there is no default index, as this is a mandatory field in the device address, but you should use 0 as the index if there is only one of that kind of device. 
-\end{itemize}
+* `robot`: this is the TCP port through which Player should expect to receive data from the interface usually a single robot and all its necessary interfaces are assigned to one port. The default port used is 6665, if there were two robots in the simulation the ports could be 6665 and 6666 although there's no rule saying which number ports you can or can't use.
+* `interface`: The interface to use in order to interact with the data. There is no default value for this option because it is a mandatory field.
+* `index`: If a robot has multiple devices of the same type, for instance it has 2 cameras to give the robot depth perception, each device uses the same interface but gives slightly different information. The index field allows you to give a slightly different address to each device. So two cameras could be `camera:0` and `camera:1`. 
+
+This is very different from the `key` field because having a "driver that supports multiple interfaces of the same type" is NOT the same as having multiple devices that use the same interface. Again there is no default index, as this is a mandatory field in the device address, but you should use 0 as the index if there is only one of that kind of device. 
+
 
 If you want to use any of the default values it can just be left out of the device address. So we could use the default host and robot port and specify (for example) a laser interface just by doing `\"ranger:0"\. 
+
 However, if you want to specify fields at the beginning of the device address but not in the middle then  the separating colons should remain. For example if we had a host at `"127.0.0.1"` with a `\ranger\ interface then we would specify the address as `"127.0.0.1::ranger:0"`, the robot field is empty but the colons around it are still there. You may notice that the key field here was left off as before.
 
-\section{Putting the Configuration File Together}\label{sec_ConfigurationFile_FinishingCFG}
+# Putting the Configuration File Together \label{sec_ConfigurationFile_FinishingCFG}
 
 We have examined the commands necessary to build a driver for a model in the worldfile, now it is just a case of putting them all together. To demonstrate this process we will build a configuration file for the worldfile developed in Section \ref{sec_BuildingAWorld}. In this world we want our code to be able to interact with the robot, so in our configuration file we need to specify a driver for this robot.
 ```
