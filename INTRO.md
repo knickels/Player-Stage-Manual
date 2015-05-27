@@ -39,16 +39,13 @@ export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:$PKG_CONFIG_PATH}
 
 ## 1.2 - A Note about TRY IT OUT sections
 There will be sections scattered throughout this tutorial labeled **TRY IT OUT**
-that explain how to run examples. You'll need to download the example code
-from 
-[https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip]
-(https://github.com/jennyhasahat/Player-Stage-Manual/archive/master.zip) 
-which will contain the files. In these sections, you'll be given commands to
-type in a terminal
-window (or bash shell). They'll be shown prefixed with a carrot `>` and
+that explain how to run examples. You'll need to download the [example
+code](archive/master.zip) which will contain the files. In these sections,
+you'll be given commands to type in a terminal window (or bash shell).
+They'll be shown prefixed with a carrot `>` and
 typeset in monospace font. For example, 
 
-> `ls`
+> `> ls`
 
 means to go to a terminal window and type the command given (`ls`), without
 the `>` character, then hit return.
