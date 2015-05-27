@@ -117,7 +117,7 @@ We can see from the first line that they are defining a `model` called `floorpla
 * `fiducial_return`: any parameter of the form
   some_sensor_return describes how that kind of sensor should react to the
   model. "Fiducial" is a kind of robot sensor which will be described later
-  in [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_RobotSensors). Setting
+  in [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices). Setting
   `fiducial_return` to 0 means that the map cannot be detected by a
   fiducial sensor.
 * `ranger_return`: Setting `ranger_return` to a negative
@@ -285,7 +285,7 @@ In Player/Stage a robot is just a slightly advanced kind of model, all the
 parameters described in [Models](#sec_BuildingAWorld_EmptyWorld_Models) can
 still be applied. 
 
-### 3.2.1 - <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors">Sensors and Devices</a>
+### 3.2.1 - <a name="sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices">Sensors and Devices</a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
@@ -357,7 +357,7 @@ away than `range_max_id` then it detects that there is a fiducial but can't iden
 * `fov`: The field of view of the fiducial finder *in DEGREES*.
 
 
-#### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Ranger Sensor"> ranger sensor </a>
+#### <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Ranger_Sensor"> ranger sensor </a>
 The [ranger sensor](http://rtv.github.com/Stage/group__model__ranger.html)
 simulates any kind of obstacle detection device (e.g. sonars, lasers, or
 infrared sensors). These can locate models whose ` ranger_return` is
@@ -406,7 +406,7 @@ are:
 * `size [x y z]`: The x and y dimensions of the gripper.
 * `pose [x y z yaw]`: Where the gripper is placed on the robot, relative to
   the robot's geometric centre. The pose parameter is decribed properly in
-  [Robot Sensors](#sec_BuildingAWorld_BuildingRobot_RobotSensors).
+  [Robot Sensors and Devices](#sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices).
 
 
 ####position 
@@ -647,7 +647,9 @@ define bigbob position
 ```
 
 
-####The Robot's Sensors
+####
+<a name="sec_BuildingAWorld_BuildingRobot_RobotSensors"> The Robot's Sensors </a>
+
 Now that Bigbob's body has been built let's move on to the sensors. We will
 put sonar and blobfinding sensors onto Bigbob so that it can detect walls
 and see coloured blobs it can interpret as rubbish to collect. We will also
@@ -957,30 +959,26 @@ approximation of a circle. An alternative to this is to use `bitmap`
 which we previously saw being used to create a map. What the bitmap command
 actually does is take in a picture, and turn it into a series of blocks
 which are connected together to make a model the same shape as the picture,
-as illustrated in Figure [fig_BuildingAWorld_OtherStuff_Ghosts] for an
-alien bitmap.
-
-In our code, we don't want an alien, we want a simple circular shape (see
-Figure [fig_circle.png]), so we'll point to a
-circular bitmap.
+as illustrated in Figure 13 for an alien bitmap.
 
 
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
 | <img src="pics/oranges_box/ghost_original.png" width=80 >| <img src="pics/oranges_box/ghost_woutline.png" width="50%"> |
+| Figure 13: The left image is the original picture, the right image is its Stage interpretation.|
 
-Figure 13: The left image is the original picture, the right image is its Stage interpretation.
+In our code, we don't want an alien, we want a simple circular shape (see
+Figure 14), so we'll point to a circular bitmap.
+
 		
 <!--- Figure --->
 | | |
 | :---------------:| :------: |
 | <img src="pics/oranges_box/circle.png" width=50 >| <img src="pics/oranges_box/orange_and_bob.png" width="80%"> |
-
-Figure 14: The orange model rendered in the same Stage window as Bigbob.
+| Figure 14: The orange model rendered in the same Stage window as Bigbob. |
 		
 		
-
 
 ```
 define orange model
@@ -991,7 +989,10 @@ define orange model
 )
 ```
 
-In this bit of code we describe a model called `orange` which uses a bitmap to define its shape and represents an object which is *15cm* x *15cm* x *15cm* and is coloured orange. Figure [fig_BuildingAWorld_OtherStuff_OrangeAndBob] shows our orange model next to Bigbob.
+In this bit of code we describe a model called `orange` which uses a bitmap
+to define its shape and represents an object which is *15cm* x *15cm* x
+*15cm* and is coloured orange. Figure 14 shows our orange model next to
+Bigbob.
 
 Building a juice carton model is similarly quite easy:
 
@@ -1017,7 +1018,12 @@ define carton model
 )
 ```
 
-We can use the `block` command since juice cartons are boxy, with boxy things it's slightly easier to describe the shape with `block` than drawing a bitmap and using that. In the above code I used `block\ to describe a metre cube (since that's something that can be done pretty easily without needing to draw a carton on a grid) and then resized it to the size I wanted using `size\.
+We can use the `block` command since juice cartons are boxy, with boxy
+things it's slightly easier to describe the shape with `block` than drawing
+a bitmap and using that. In the above code I used `block` to describe a
+metre cube (since that's something that can be done pretty easily without
+needing to draw a carton on a grid) and then resized it to the size I
+wanted using `size`.
 
 Now that we have described basic `orange` and `carton` models it's time to put some oranges and cartons into the simulation. This is done in the same way as our example robot was put into the world:
 ```
