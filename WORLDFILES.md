@@ -472,9 +472,9 @@ define bigbob position
 ```
 
 #### TRY IT OUT
-> `cd `\<source_code\>`/Ch3`
+> `> cd `\<source_code\>`/Ch3`
 
-> `stage bigbob1.world`
+> `> stage bigbob1.world`
 
 
 In the first line of this code we state that we are defining a `position`
