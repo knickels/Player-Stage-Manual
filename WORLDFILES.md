@@ -648,7 +648,11 @@ define bigbob position
 
 
 ####The Robot's Sensors
-Now that Bigbob's body has been built let's move on to the sensors. We will put sonar and blobfinding sensors onto Bigbob so that it can detect walls and see coloured blobs it can interpret as rubbish to collect. We will also put a laser between Bigbob's teeth so that it can detect when an item passes in between them.
+Now that Bigbob's body has been built let's move on to the sensors. We will
+put sonar and blobfinding sensors onto Bigbob so that it can detect walls
+and see coloured blobs it can interpret as rubbish to collect. We will also
+put a laser between Bigbob's teeth so that it can detect when an item
+passes in between them.
 
 We will start with the sonars. The first thing to do is to define a model
 for the sonar sensor that is going to be used on Bigbob:
@@ -662,9 +666,23 @@ define bigbobs_ranger ranger
       # parameters...
 )
 ```
-Here we tell Player/Stage that we will `define` a type of sonar sensor called `bigbobs_sonars`.Next, we'll tell Player/Stage to use these sensors in a ranging device. Let's put four sonars on Bigbob, one on the front of each tooth, and one on the front left and the front right corners of its body. 
 
-When building Bigbob's body we were able to use any location on a coordinate grid that we wanted and could declare our shape polygons to be any distance apart we wanted so long as we resized the model with `size`. In contrast, sensors - all sensors not just rangers - must be positioned according to the *robot's* origin and actual size. To work out the distances in metres it helps to do a drawing of where the sensors will go on the robot and their distances from the robot's origin. When we worked out the shape of Bigbob's body we used its actual size, so we can use the same drawings again to work out the distances of the sensors from the origin as shown in Figure [fig_BuildingAWorld_BuildingRobot_RobotSensors_Sonars].
+Here we tell Player/Stage that we will `define` a type of sensor
+called `bigbobs_sonars`.  Next, we'll tell Player/Stage to use these
+sensors in a ranging device. Let's put four sonars on Bigbob, one on the
+front of each tooth, and one on the front left and the front right corners
+of its body. 
+
+When building Bigbob's body we were able to use any location on a
+coordinate grid that we wanted and could declare our shape polygons to be
+any distance apart we wanted so long as we resized the model with `size`.
+In contrast, sensors - all sensors not just rangers - must be positioned
+according to the *robot's* origin and actual size. To work out the
+distances in metres it helps to do a drawing of where the sensors will go
+on the robot and their distances from the robot's origin. When we worked
+out the shape of Bigbob's body we used its actual size, so we can use the
+same drawings again to work out the distances of the sensors from the
+origin as shown in Figure 10.
 
 <!--- Figure --->
 | |
@@ -672,7 +690,7 @@ When building Bigbob's body we were able to use any location on a coordinate gri
 | <img src="pics/robot_building/bigbob_sonars.png" width="50%">     |
 | Figure 10: The position of Bigbob's sonars (in red) relative to its origin. The origin is marked with a cross, some of the distances from the origin to the sensors have been marked. The remaining distances can be done by inspection. |
 
-First, we'll define a single raners (in this case sonar) sensor.
+First, we'll define a single ranger (in this case sonar) sensor.
 To define the size, range and field of view of the sonars we just consult the
 sonar device's datasheet.  
 ```
@@ -715,7 +733,7 @@ define bigbobs_sonars ranger
 >**Note:**
 >From now on, in the examples, player should be started in a different window
 >from the other commands given.  For brevity, I won't repeat this in every TRY
->IT OUT box.
+>IT OUT section.
 
 Now that Bigbob's sonars are done we will attach a blobfinder:
 ```
@@ -725,7 +743,12 @@ define bigbobs_eyes blobfinder
 )
 ```
 
-Bigbob is a rubbish-collector so here we should tell it what colour of rubbish to look for. Let's say that the intended application of Bigbob is in an orange juice factory and he picks up any stray oranges or juice cartons that fall on the floor. Oranges are orange, and juice cartons are (let's say) dark blue so Bigbob's blobfinder will look for these two colours:
+Bigbob is a rubbish-collector so here we should tell it what colour of
+rubbish to look for. Let's say that the intended application of Bigbob is
+in an orange juice factory and he picks up any stray oranges or juice
+cartons that fall on the floor. Oranges are orange, and juice cartons are
+(let's say) dark blue so Bigbob's blobfinder will look for these two
+colours: 
 ```
 define bigbobs_eyes blobfinder
 (
@@ -753,11 +776,13 @@ define bigbobs_eyes blobfinder
 )
 ```
 
-## TRY IT OUT
->`> cd <source_code>/Ch3`
->`> player bigbob5.cfg`
->`> playerv --blobfinder:0`
->
+> ## TRY IT OUT
+
+> `> cd <source_code>/Ch3`
+
+> `> player bigbob5.cfg`
+
+> `> playerv --blobfinder:0`
 
 
 The last sensor that needs adding to Bigbob is the laser, which will be
