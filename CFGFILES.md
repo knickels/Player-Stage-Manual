@@ -183,13 +183,13 @@ the one laser).  So as far as the configuration file is concerned there are
 only two ranging devices, because all the separate sonar sensors are lumped
 together into one device.  We don't need to declare each sonar device on an
 index of its own.
-}
+
 Finally we use interfaces appropriate to the sensors the robot has, so in
 our example these are the `position2d`, `blobfinder` interfaces
 and for our sonar and laser devices we will use the `ranger`
 interface.
 
-Putting all this together under the `\provides\ parameter gives us:
+Putting all this together under the `provides` parameter gives us:
 ```
 driver
 (
@@ -205,7 +205,7 @@ The device addresses can be on the same line as each other or separate lines, ju
 The last thing to do on our driver is the `model "model_name"` parameter
 which needs to be specified because we are using Player/Stage. This tells
 the simulation software that anything you do with this driver will affect
-the model `\"model_name"\ in the simulation. In the simulation we built we
+the model `"model_name"` in the simulation. In the simulation we built we
 named our robot model "bob1", so our final driver for the robot will be:
 ```
 driver
@@ -234,7 +234,15 @@ driver
 ```
 Notice that the port number and model name are the only differences because the robots have all the same sensors.
 
-A driver of this kind can be built for any model that is in the worldfile, not just the robots. For instance a map driver can be made which uses the `\map\ interface and will allow you to get size, origin and occupancy data about the map. The only requirement is that if you want to do something to the model with your code then you need to build a driver for it in the configuration file. Finally when we put the bit which declares the `\stage\ driver (this part is compulsory for any simulation configuration file) together with our drivers for the robot we end up with our final configuration file:
+A driver of this kind can be built for any model that is in the worldfile,
+not just the robots. For instance a map driver can be made which uses the
+`map` interface and will allow you to get size, origin and occupancy data
+about the map. The only requirement is that if you want to do something to
+the model with your code then you need to build a driver for it in the
+configuration file. Finally when we put the bit which declares the `stage`
+driver (this part is compulsory for any simulation configuration file)
+together with our drivers for the robot we end up with our final
+configuration file: 
 ```
 driver
 (		
