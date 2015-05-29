@@ -266,17 +266,18 @@ driver
 )
 ```
 
-\tiobox{
-{ \tt cd <source\_code>/Ch4} \\
-{\tt > player bigbob8.cfg (in one terminal window)}\\
-{\tt > playerv --position2d:0} \\(in another terminal window)\\
-{\tt > playerv -p 6666 -position2d:0} \\(in yet another terminal window)
+> #### TRY IT OUT
 
-To drive the robots around, you select Devices/Position2d/Command in a
-playerv window, then drag the red bulls-eye around.
-}
+> `> cd <source_code>/Ch4`
 
+> `> player bigbob8.cfg` (in one terminal window)
 
+> `> playerv --position2d:0`  (in another terminal window)
+
+> `> playerv -p 6666 -position2d:0}` (in yet another terminal window)
+
+> To drive the robots around, you select Devices/Position2d/Command in a
+  playerv window, then drag the red bulls-eye around.
 
 
 
