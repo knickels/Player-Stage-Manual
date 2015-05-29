@@ -161,7 +161,7 @@ We want our code to be able to read from these sensors, so we need to
 declare interfaces for them and tell Player where to find each device's
 data, for this we use the configuration file's 'provides' parameter. This
 requires that we construct device addresses for each sensor; to remind
-ourselves, this is in the key:host:robot:interface:index format. We aren't
+ourselves, this is in the `key:host:robot:interface:index` format. We aren't
 using any fancy drivers, so we don't need to specify a key. We are running
 our robot in a simulation on the same computer as our Player sever, so the
 host name is 'localhost' which is the default, so we also don't need to
@@ -176,9 +176,8 @@ cameras) is that we put the first device at index 0 and subsequent devices
 using the same interface have index 1, then 2, then 3 and so on.
 
 There are lots of ranger sensors in our model but when we
-created the robot's sensors in 
-[Sensors and Devices](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices)
-
+created the robot's sensors in [Sensors and
+Devices](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices)
 we put them all into two ranger models (one for all the sonars and one for
 the one laser).  So as far as the configuration file is concerned there are
 only two ranging devices, because all the separate sonar sensors are lumped
