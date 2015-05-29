@@ -125,9 +125,14 @@ then we would specify the address as `"127.0.0.1::ranger:0"`, the robot
 field is empty but the colons around it are still there. You may notice
 that the key field here was left off as before.
 
-# Putting the Configuration File Together \label{sec_ConfigurationFile_FinishingCFG}
+# <a name=sec_ConfigurationFile_FinishingCFG> Putting the Configuration File Together </a>
 
-We have examined the commands necessary to build a driver for a model in the worldfile, now it is just a case of putting them all together. To demonstrate this process we will build a configuration file for the worldfile developed in Section \ref{sec_BuildingAWorld}. In this world we want our code to be able to interact with the robot, so in our configuration file we need to specify a driver for this robot.
+We have examined the commands necessary to build a driver for a model in
+the worldfile, now it is just a case of putting them all together. To
+demonstrate this process we will build a configuration file for the
+worldfile developed in [Building a World](WORLDFILES.md#sec_BuildingAWorld).
+In this world we want our code to be able to interact with the robot, so in
+our configuration file we need to specify a driver for this robot.
 ```
 driver
 (
@@ -152,11 +157,28 @@ represented by the ranger interface.  In Stage 4.1.1 there is only legacy
 support for separate laser or IR interfaces.  All new development should
 use rangers.
        
-       We want our code to be able to read from these sensors, so we need to declare interfaces for them and tell Player where to find each device's data, for this we use the configuration file's 'provides' parameter. This requires that we construct device addresses for each sensor; to remind ourselves, this is in the key:host:robot:interface:index format. We aren't using any fancy drivers, so we don't need to specify a key. We are running our robot in a simulation on the same computer as our Player sever, so the host name is 'localhost' which is the default, so we also don't need to specify a host. The robot is a TCP port to receive robot information over, picking which port to use is pretty arbitrary but what usually happens is that the first robot uses the default port 6665 and subsequent robots use 6666, 6667, 6668 etc. There is only one robot in our simulation so we will use port 6665 for all our sensor information from this robot. 
-We only have one sensor of each type, so our devices don't need separate indices. What would happen if we did have several sensors of the same type (like say two cameras) is that we put the first device at index 0 and subsequent devices using the same interface have index 1, then 2, then 3 and so on.
+We want our code to be able to read from these sensors, so we need to
+declare interfaces for them and tell Player where to find each device's
+data, for this we use the configuration file's 'provides' parameter. This
+requires that we construct device addresses for each sensor; to remind
+ourselves, this is in the key:host:robot:interface:index format. We aren't
+using any fancy drivers, so we don't need to specify a key. We are running
+our robot in a simulation on the same computer as our Player sever, so the
+host name is 'localhost' which is the default, so we also don't need to
+specify a host. The robot is a TCP port to receive robot information over,
+picking which port to use is pretty arbitrary but what usually happens is
+that the first robot uses the default port 6665 and subsequent robots use
+6666, 6667, 6668 etc. There is only one robot in our simulation so we will
+use port 6665 for all our sensor information from this robot.  We only have
+one sensor of each type, so our devices don't need separate indices. What
+would happen if we did have several sensors of the same type (like say two
+cameras) is that we put the first device at index 0 and subsequent devices
+using the same interface have index 1, then 2, then 3 and so on.
 
-\footnote{ There are lots of ranger sensors in our model but when we
-created the robot's sensors in Section \ref{sec_BuildingAWorld_BuildingRobot_RobotSensors} 
+There are lots of ranger sensors in our model but when we
+created the robot's sensors in 
+[Sensors and Devices](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices)
+
 we put them all into two ranger models (one for all the sonars and one for
 the one laser).  So as far as the configuration file is concerned there are
 only two ranging devices, because all the separate sonar sensors are lumped
