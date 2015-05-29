@@ -64,7 +64,7 @@ this particular driver. A different driver is needed for each model that
 you want to use.  Models that aren't required to do anything (such as a
 map, or in the example of [Other Stuff](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) oranges and boxes) don't need to have a driver written for them.
 
-The remaining driver parameters are 'requires' and `plugin'. The 'requires'
+The remaining driver parameters are 'requires' and 'plugin'. The 'requires'
 is used for drivers that need input information such as `"vfh"', it tells
 this driver where to find this information and which interface it uses.
 The 'requires' parameter uses the same `key:host:robot:interface:index`
@@ -92,17 +92,20 @@ use and the code for dealing with this driver can be found in the
 an add-on for Player, for drivers that are built into Player by default the
 `plugin` doesn't need to be specified.
 
-#Device Addresses - key:host:robot:interface:index \label{sec_ConfigurationFile_DeviceAddress}
+# <a name=sec_ConfigurationFile_DeviceAddress> Device Addresses </a>
 
-A device address is used to tell Player where the driver you are making will present (or receive) information and which interface to use in order to read this information. This is a string in the form `key:host:robot:interface:index` where each field is separated by a colon.
+A device address is used to tell Player where the driver you are making
+will present (or receive) information and which interface to use in order
+to read this information. This is a string in the form
+`key:host:robot:interface:index` where each field is separated by a colon.
 
-* `key`: The Player manual states that: \textit{"The purpose of the
+* `key`: The Player manual states that: *"The purpose of the
 key field is to allow a driver that supports multiple interfaces of the
-same type to map those interfaces onto different devices"} (http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_addresses). 
-This is a driver level thing and has a lot to do with the `\name\ of the
-driver that you are using, generally for `\"stage"\ the `\key\ doesn't need
+same type to map those interfaces onto different devices"* (http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_addresses). 
+This is a driver level thing and has a lot to do with the `name` of the
+driver that you are using, generally for `"stage"` the `key` doesn't need
 to be used. If you're using Player without Stage then there is a useful
-section about device address keys in the [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_key).
+section about device address keys in the [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html#device_key).
 * `host`: This is the address of the host computer where the device is
 located. With a robot it could be the IP address of the robot. The default
 host is "localhost" which means the computer on which Player is running.
