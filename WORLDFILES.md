@@ -913,7 +913,7 @@ Bigbob is a model description, by not including any `define` stuff in the
 top line there it means that we are making an instantiation of that model,
 with the name `bob1`. Using an object-oriented programming analogy,
 `bigbob` is our class, and `bob1` is our object of class `bigbob`. The
-`pose [x y yaw]` parameter works in the same was as `spose [x y yaw]` does.
+`pose [x y yaw]` parameter works in the same way as `spose [x y yaw]` does.
 The only differences are that the coordinates use the centre of the
 simulation as a reference point and `pose` lets us specify the initial
 position and heading of the entire `bob1` model, not just one sensor within
@@ -1073,7 +1073,7 @@ simulation. Figure 16 shows the populated Player/Stage simulation.
 | |
 | :---------------:| 
 | <img src="pics/oranges_box/final_robot_and_stuff.png" width="50%">     |
-| Figure 16: The Bigbob robot placed in the simulation along with junk for it to pick up.
+| Figure 16: The Bigbob robot placed in the simulation along with junk for it to pick up. |
 
 * Up: [README](README.md)
 * Prev: [The Basics](BASICS.md)
