@@ -99,9 +99,9 @@ will present (or receive) information and which interface to use in order
 to read this information. This is a string in the form
 `key:host:robot:interface:index` where each field is separated by a colon.
 
-* `key`: The Player manual states that: *"The purpose of the
+* `key`: The [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_addresses) states that: *"The purpose of the
 key field is to allow a driver that supports multiple interfaces of the
-same type to map those interfaces onto different devices"* (http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__tutorial__config.html\#device_addresses). 
+same type to map those interfaces onto different devices"* 
 This is a driver level thing and has a lot to do with the `name` of the
 driver that you are using, generally for `"stage"` the `key` doesn't need
 to be used. If you're using Player without Stage then there is a useful
@@ -112,13 +112,18 @@ host is "localhost" which means the computer on which Player is running.
 * `robot`: this is the TCP port through which Player should expect to receive data from the interface usually a single robot and all its necessary interfaces are assigned to one port. The default port used is 6665, if there were two robots in the simulation the ports could be 6665 and 6666 although there's no rule saying which number ports you can or can't use.
 * `interface`: The interface to use in order to interact with the data. There is no default value for this option because it is a mandatory field.
 * `index`: If a robot has multiple devices of the same type, for instance it has 2 cameras to give the robot depth perception, each device uses the same interface but gives slightly different information. The index field allows you to give a slightly different address to each device. So two cameras could be `camera:0` and `camera:1`. 
-
 This is very different from the `key` field because having a "driver that supports multiple interfaces of the same type" is NOT the same as having multiple devices that use the same interface. Again there is no default index, as this is a mandatory field in the device address, but you should use 0 as the index if there is only one of that kind of device. 
 
+If you want to use any of the default values it can just be left out of the
+device address. So we could use the default host and robot port and specify
+(for example) a laser interface just by doing `"ranger:0"`. 
 
-If you want to use any of the default values it can just be left out of the device address. So we could use the default host and robot port and specify (for example) a laser interface just by doing `\"ranger:0"\. 
-
-However, if you want to specify fields at the beginning of the device address but not in the middle then  the separating colons should remain. For example if we had a host at `"127.0.0.1"` with a `\ranger\ interface then we would specify the address as `"127.0.0.1::ranger:0"`, the robot field is empty but the colons around it are still there. You may notice that the key field here was left off as before.
+However, if you want to specify fields at the beginning of the device
+address but not in the middle then  the separating colons should remain.
+For example if we had a host at `"127.0.0.1"` with a `ranger` interface
+then we would specify the address as `"127.0.0.1::ranger:0"`, the robot
+field is empty but the colons around it are still there. You may notice
+that the key field here was left off as before.
 
 # Putting the Configuration File Together \label{sec_ConfigurationFile_FinishingCFG}
 
