@@ -280,14 +280,13 @@ This function interacts with the robot's odometry. It allows you to monitor wher
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 
+>`> cd <source_code>/Ch5.2`
 
->` > player bigbob7.cfg 
+>`> player bigbob7.cfg`
 
->` > make bigbob8 
+>`> make bigbob8`
 
->` > ./bigbob8
->
+>`> ./bigbob8`
 
 In [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
 specified whether it would record odometry by measuring how much its wheels
@@ -297,7 +296,7 @@ If you set the robot to record odometry using its wheels then the positions
 returned by these get commands will become increasingly inaccurate as the
 simulation goes on. If you want to log your robots position as it moves
 around, these functions along with the perfect odometry (see
-Section (\ref{sec_BuildingAWorld_BuildingRobot_RobotSensors) for how to give
+[Section](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) for how to give
 the robot perfect odometry.) setting can be used. 
 
 #### SetMotorEnable()
@@ -324,41 +323,36 @@ with multiple ranger sensors whose `samples` attributes are not set (or
 set to 1).  To minimize confusion with the depreciated sonar and IR
 interfaces, I'll refer to these as multiple-sensor devices.
 
-%A laser is a special case of ranger device, it makes regularly spaced range
-%measurements turning from a minimum angle to a maximum angle. Each
-%measurement, or scan point, is treated as being done with a separate
-%ranger. 
-
 Angles are given with reference to the laser's centre front (see Figure
 5.4).
 
 
-	* `GetRangeCount`: The number of ranger measurements that
-              the sensor suite measures.  In the case of a single-sensor
-              device, this is given by the `samples` attribute.  In the
-              case of a multiple-sensor device, this is given by the number
-              of sensors.
-	* `rangerProxy_name[ranger_number]`: 
-              The range returned by the `ranger_number`$^{th}$ scan
-              point. For a single-sensor device, scan points are numbered
-              from the minimum angle at index 0, to the maximum angle at
-              index `GetRangeCount()`.
-              For a multiple-sensor device, the `ranger_number` is
-              given by the order in which you included the sensor.
-        * `GetRange(ranger_number)`: Same as `rangerProxy_name[ranger_number]`.
-	* `GetMinAngle()\: gives the minimum angle (One tricky thing - you need to be sure to call `RequestConfigure()` once before accessing the min or max
-        angles, they are initialized to zero!) covered by a ranger sensor.
-        Only makes sense for a single-sensor device.
-	* `GetMaxAngle()`: gives the maximum angle covered by a
-        ranger sensor.  Only makes sense for a single-sensor device.
-	* `GetAngularRes()`: gives the angular resolution
-        ($\Theta$ in Figure 5.4)
- 
+* `GetRangeCount`: The number of ranger measurements that
+  the sensor suite measures.  In the case of a single-sensor
+  device, this is given by the `samples` attribute.  In the
+  case of a multiple-sensor device, this is given by the number
+  of sensors.
+* `rangerProxy_name[ranger_number]`: 
+  The range returned by the `ranger_number`$^{th}$ scan
+  point. For a single-sensor device, scan points are numbered
+  from the minimum angle at index 0, to the maximum angle at
+  index `GetRangeCount()`.
+  For a multiple-sensor device, the `ranger_number` is
+  given by the order in which you included the sensor.
+* `GetRange(ranger_number)`: Same as `rangerProxy_name[ranger_number]`.
+* `GetMinAngle()\: gives the minimum angle (One tricky thing - you need to be sure to call `RequestConfigure()` once before accessing the min or max
+angles, they are initialized to zero!) covered by a ranger sensor.
+Only makes sense for a single-sensor device.
+* `GetMaxAngle()`: gives the maximum angle covered by a
+ranger sensor.  Only makes sense for a single-sensor device.
+* `GetAngularRes()`: gives the angular resolution
+(&Theta; in Figure 5.4)
+
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner2.png" width="50%">     |
-| Figure x: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle $\theta$ is the angle of a laser scan point, in this example $\theta$ is negative. |
+| Figure x: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
 
 
 
@@ -366,7 +360,7 @@ Angles are given with reference to the laser's centre front (see Figure
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner.png" width="50%">     |
-| Figure x: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  $\theta$ is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
+| Figure x: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Laser_Proxy" </a> --->
 
 
@@ -1019,7 +1013,7 @@ the PlayerClient is a constructor parameter. Each robot has a proxy for
 each of its devices, no robots share a proxy, so it is important that your
 code connects to every proxy of every robot in order to read the sensor
 information.
-%
+
 How you handle the extra PlayerClients and proxies is dependent on the
 scale of the simulation and your own personal coding preferences. It's a
 good idea, if there's more than maybe 2 robots in the simulation, to make a
@@ -1032,9 +1026,7 @@ the same robot.) and all the simulated robots will run the same code.
 
 An alternative to using a port for each robot is to use the same port but a
 different index. 
-%This will only work if the robots are all the same (or at
-%least use the same interfaces, although different robots could be run on a
-%different ports) and the robots only use one index for each of its devices.
+
 For example, the Bigbob robot uses interfaces and indexes: position2d:0,
 ranger:0, blobfinder:0 and ranger:0. If we configured two Bigbob robots to
 use the same port but a different index our configuration file would be
