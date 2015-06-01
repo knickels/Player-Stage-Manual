@@ -352,7 +352,7 @@ ranger sensor.  Only makes sense for a single-sensor device.
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner2.png" width="50%">     |
-| Figure x: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
+| Figure 5.1: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
 
 
 
@@ -360,7 +360,7 @@ ranger sensor.  Only makes sense for a single-sensor device.
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner.png" width="50%">     |
-| Figure x: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
+| Figure 5.2: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Laser_Proxy" </a> --->
 
 
@@ -378,39 +378,39 @@ ranger sensor.  Only makes sense for a single-sensor device.
 ### <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
 The blobfinder module analyses a camera image for areas of a desired colour and returns an array of the structure `playerc_blobfinder_blob_t`, this is the structure used to store blob data. First we will cover how to get this data from the blobfinder proxy, then we will discuss the data stored in the structure.
 
-	* `GetCount`: Returns the number of blobs seen.
-	* `blobProxy_name[blob_number]`: This returns the blob structure data for the blob with the index `blob_number`. Blobs are sorted by index in the order that they appear in the image from left to right. This can also be achieved with the BlobfinderProxy function `GetBlob(blob_number)`.
+* `GetCount`: Returns the number of blobs seen.
+* `blobProxy_name[blob_number]`: This returns the blob structure data for the blob with the index `blob_number`. Blobs are sorted by index in the order that they appear in the image from left to right. This can also be achieved with the BlobfinderProxy function `GetBlob(blob_number)`.
 
 
 Once we receive the blob structure from the proxy we can extract data we
 need. The `playerc_blobfinder_blob_t` structure contains the following fields:
 
-	* `color`: The colour of the blob it detected. This is given as a hexadecimal value.
-	* `area`: The area of the blob's bounding box. (In
-            Stage 4.1.1, there is a bug with respect to the area.  It is
-            computed as an `int`, but return as an `unsigned int`.  In order to use
-            it, you must explicitly cast it as an int (`(int)area`).  See
-            (http://sourceforge.net/p/playerstage/bugs/362/) and/or
-            (https://github.com/rtv/Stage/issues/41) for the details.)
-	* `x`: The horizontal coordinate of the geometric centre of the
-          blob's bounding box (see Figure 5.6).
-	* `y`: The vertical coordinate of the geometric centre of the
-          blob's bounding box (see Figure 5.6). 
-	* `left`: The horizontal coordinate of the left hand side of the
-          blob's bounding box (see Figure 5.6).
-	* `right`: The horizontal coordinate of the right hand side of the
-          blob's bounding box (see Figure 5.6).
-	* `top`: The vertical coordinate of the top side of the blob's
-          bounding box (see Figure 5.6).
-	* `bottom`: The vertical coordinate of the bottom side of the
-          blob's bounding box (see Figure 5.6).
+* `color`: The colour of the blob it detected. This is given as a hexadecimal value.
+* `area`: The area of the blob's bounding box. (In
+    Stage 4.1.1, there is a bug with respect to the area.  It is
+    computed as an `int`, but return as an `unsigned int`.  In order to use
+    it, you must explicitly cast it as an int (`(int)area`).  See
+    (http://sourceforge.net/p/playerstage/bugs/362/) and/or
+    (https://github.com/rtv/Stage/issues/41) for the details.)
+* `x`: The horizontal coordinate of the geometric centre of the
+  blob's bounding box (see Figure 5.6).
+* `y`: The vertical coordinate of the geometric centre of the
+  blob's bounding box (see Figure 5.6). 
+* `left`: The horizontal coordinate of the left hand side of the
+  blob's bounding box (see Figure 5.6).
+* `right`: The horizontal coordinate of the right hand side of the
+  blob's bounding box (see Figure 5.6).
+* `top`: The vertical coordinate of the top side of the blob's
+  bounding box (see Figure 5.6).
+* `bottom`: The vertical coordinate of the bottom side of the
+  blob's bounding box (see Figure 5.6).
 
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/blobfinder_image.png" width="50%">     |
-| Figure x: What the fields in `playerc_blobfinder_blob_t` mean. The blob on the left has a geometric centre at *(x,y)*, the blob on the right has a bounding box with the top left corner at *(left, top)* pixels, and a lower right coordinate at *(right, bottom)* pixels. Coordinates are given with reference to the top left corner of the image. |
+| Figure 5.3: What the fields in `playerc_blobfinder_blob_t` mean. The blob on the left has a geometric centre at *(x,y)*, the blob on the right has a bounding box with the top left corner at *(left, top)* pixels, and a lower right coordinate at *(right, bottom)* pixels. Coordinates are given with reference to the top left corner of the image. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Blobfinder_BlobImage" </a> ---> 
 
 > #### TRY IT OUT
@@ -491,30 +491,36 @@ Get/SetProperty, which is "color".
 To change a property of an item in the simulation we use the following function:
 `SetProperty(char *item_name, char *property, void *value, size_t value_len)`
 
-        * `*_name`: this is the name that you gave to the object in the
-          worldfile, it could be *any* model that you have described in the
-          worldfile. For example, in [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
-          worldfile we declared a Bigbob type robot which we called
-          "bob1" so the `*_name` for that object is "bob1". Similarly
-          in [Here](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) we built some
-          models of oranges and called the "orange1" to "orange4" so
-          the item name for one of these would be "orange1". Anything
-          that is a model in your worldfile can be altered by this
-          function, you just need to have named it, no drivers need to be
-          declared in the configuration file for this to work either. We
-          didn't write drivers for the oranges but we could still alter
-          their properties this way.
-        * `property`: There is only one property about a model
-        that you can change.  You specify this wish a string:
-        * `"_mp_color"`: The colour of the item. 
-	* `value`: The value you want to assign to the property.
-	* `value_len`: is the size of the value you gave in bytes. This can easily be found with the C or C++ `sizeof()` operator.
+* `*_name`: this is the name that you gave to the object in the
+  worldfile, it could be *any* model that you have described in the
+  worldfile. For example, in [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
+  worldfile we declared a Bigbob type robot which we called
+  "bob1" so the `*_name` for that object is "bob1". Similarly
+  in [Here](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) we built some
+  models of oranges and called the "orange1" to "orange4" so
+  the item name for one of these would be "orange1". Anything
+  that is a model in your worldfile can be altered by this
+  function, you just need to have named it, no drivers need to be
+  declared in the configuration file for this to work either. We
+  didn't write drivers for the oranges but we could still alter
+  their properties this way.
+* `property`: There is only one property about a model
+that you can change.  You specify this wish a string:
+* `"_mp_color"`: The colour of the item. 
+* `value`: The value you want to assign to the property.
+* `value_len`: is the size of the value you gave in bytes. This can easily be found with the C or C++ `sizeof()` operator.
 
 The `value` parameter is dependant on which `property` you want to set.
 
-		* `"color"`: This requires an array of four `float` values, scaled between 0 and 1. The first index of the array is the red component of the colour, the second is the green, third is blue and fourth is alpha (how light or dark the colour is, usually 1). For example if we want a nice shade of green, which has RGB components 171/224/110 we scale these between 0 and 1 by dividing by 255 to get 0.67/0.88/0.43 we can now put this into a float array with the line `float green[]={0.67, 0.88, 0.43, 1};`. This array can then be passed into our `SetProperty` function like so:
-		`SetProperty("model_name", "color", (void*)green, sizeof(float)*4 );`
-
+* `"color"`: This requires an array of four `float` values, scaled between
+  0 and 1. The first index of the array is the red component of the colour,
+  the second is the green, third is blue and fourth is alpha (how light or
+  dark the colour is, usually 1). For example if we want a nice shade of
+  green, which has RGB components 171/224/110 we scale these between 0 and
+  1 by dividing by 255 to get 0.67/0.88/0.43 we can now put this into a
+  float array with the line `float green[]={0.67, 0.88, 0.43, 1};`. This
+  array can then be passed into our `SetProperty` function like so:
+`SetProperty("model_name", "color", (void*)green, sizeof(float)*4 );`
 
 > #### TRY IT OUT
 
@@ -558,7 +564,7 @@ transitions shown in Figure 5.7.
 | |
 | :---------------:| 
 | <img src="pics/coding/arch_structureOA.png" width="50%">     |
-| Figure x: The state transitions that the Bigbob rubbish collecting robot will follow. |
+| Figure 5.4: The state transitions that the Bigbob rubbish collecting robot will follow. |
 <!--- <a name="fig_Coding_UsingProxiesExample_ControlArch_Structure" </a> --->
 
 
@@ -710,7 +716,7 @@ int main(int argc, char *argv[])
 ### Obstacle Avoidance
 Now we need to write a subfunction that checks the sonars for any obstacles and amends the motor speeds accordingly.
 ```
-void AvoidObstacles(double *forwardSpeed, double *turnSpeed, \
+void AvoidObstacles(double *forwardSpeed, double *turnSpeed, 
       RangerProxy &sp)
 {
       //will avoid obstacles closer than 40cm
@@ -768,7 +774,7 @@ while(true)
 ### Move To Item
 For this state we want the robot to move towards a blob that it has spotted. There may be several blobs in its view at once, so we'll tell the robot to move to the largest one because it's probably the closest to the robot. The following subfunction finds the largest blob and turns the robot so that the blob's centre is near the centre of the image. The robot will then move towards the blob.
 ```
-void MoveToItem(double *forwardSpeed, double *turnSpeed, \
+void MoveToItem(double *forwardSpeed, double *turnSpeed, 
       BlobfinderProxy &bfp)
 {
       int i, centre;
@@ -924,7 +930,7 @@ example.)
 | |
 | :---------------:| 
 | <img src="pics/coding/bigbob_radius.png" width="50%">     |
-| Figure x: Where to look for items which may have passed through Bigbob's laser. |
+| Figure 5.5: Where to look for items which may have passed through Bigbob's laser. |
 <!--- <a name="fig_Coding_UsingProxiesExample_CollectItem_BigbobLaserRadius" </a> --->
 
 Now that we can find the item to destroy it's fairly simple to trigger our subfunction when the laser is broken so we can find and destroy an item.
@@ -947,9 +953,9 @@ if(laserProxy[90] < 0.25)
 The laser has 180 samples, so sample number 90 is the one which is perpendicular to Bigbob's teeth. This point returns a maximum of 0.25, so if its range was to fall below this then something has passed through the laser beam. We then find the item closest to the robot's teeth and move that item to coordinate *(-10, -10)* so it is no longer visible or accessible.
 
 Finally we have a working simulation of a rubbish collecting robot! 
-The full code listing is included in Appendix (#app_Dbigbobcode), 
-the simulation world and configuration files are in appendices 
-(#app_Brobotsjunkworld) and (#app_Cconfig) respectively.
+The code comprises [the source](code/Ch5.2/bigbob13.cc), 
+the [simulation world](code/Ch5.2/bigbob11.world), and 
+[configuration files are](code/Ch5.2/bigbob11.cfg).
 
 > #### TRY IT OUT
 
@@ -1029,8 +1035,8 @@ different index.
 For example, the Bigbob robot uses interfaces and indexes: position2d:0,
 ranger:0, blobfinder:0 and ranger:0. If we configured two Bigbob robots to
 use the same port but a different index our configuration file would be
-like this: ```
-
+like this: 
+```
 driver( name "stage" 
         provides ["6665:position2d:0" "6665:ranger:0" 
         "6665:blobfinder:0" "6665:ranger:1"] 
