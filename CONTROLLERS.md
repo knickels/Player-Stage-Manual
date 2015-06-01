@@ -121,7 +121,7 @@ What this line does is declare a new object which is a PlayerClient called
 `client_name` which connects to the Player server at the given address. The
 hostname and port is like that discussed in [Here](CFGFILES.md#sec_ConfigurationFile_DeviceAddress). If your code is running on the
 same computer (or robot) as the Player server you wish to connect to then
-the hostname is ``localhost'' otherwise it will be the IP address of the
+the hostname is "localhost" otherwise it will be the IP address of the
 computer or robot. The port is an optional parameter usually only needed
 for simulations, it will be the same as the port you gave in the .cfg file.
 This is only useful if your simulation has more than one robot in and you
@@ -151,7 +151,7 @@ driver
             "ranger:1" ]
 )
 ```
-Here we've told the Player server that our ``robot'' has devices which use the
+Here we've told the Player server that our "robot" has devices which use the
 position2d, ranger, and blobfinder interfaces. In our code then, we should
 connect to the position2d, ranger, and blobfinder proxies like so:
 ```
@@ -502,10 +502,10 @@ To change a property of an item in the simulation we use the following function:
           worldfile, it could be *any* model that you have described in the
           worldfile. For example, in [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
           worldfile we declared a Bigbob type robot which we called
-          ``bob1'' so the `*_name` for that object is ``bob1''. Similarly
+          "bob1" so the `*_name` for that object is "bob1". Similarly
           in [Here](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) we built some
-          models of oranges and called the ``orange1'' to ``orange4'' so
-          the item name for one of these would be ``orange1''. Anything
+          models of oranges and called the "orange1" to "orange4" so
+          the item name for one of these would be "orange1". Anything
           that is a model in your worldfile can be altered by this
           function, you just need to have named it, no drivers need to be
           declared in the configuration file for this to work either. We
@@ -547,7 +547,7 @@ Most of the proxies have a function called `GetGeom` or `GetGeometry` or `Reques
 ## <a name="sec_Coding_UsingProxiesExample"> Using Proxies: A Case Study </a>
 
 To demonstrate how to write code to control a Player device or Player/Stage
-simulation we will use the example robot ``Bigbob'' developed in
+simulation we will use the example robot "Bigbob" developed in
 [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot) and (#sec_ConfigurationFile) which collects oranges and juice cartons from a factory floor. In previous sections we have developed the Stage model for this robot and its environment and the configuration file to control it. Now we can begin to put everything together to create a working simulation of this robot.
 
 ### <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
@@ -857,13 +857,13 @@ This behaviour will be the most difficult to code because Stage doesn't
 support pushable objects (the required physics is far too complex), what
 happens instead is that the robot runs over the object and just jostles it
 a bit.  As a work-around to this problem we will have to somehow find out
-which item is between Bigbob's teeth so that we can find its ``name'' and
+which item is between Bigbob's teeth so that we can find its "name" and
 then change that item's pose (for which we need the item's name) so that it
 is no longer in the simulation. In essence, instead of having our robot eat
 rubbish and store it within its body, what we are doing is making the laser
 zap the rubbish out of existence.
 
-We can find the name of an item between Bigbob's teeth by cross referencing the robot's pose with the poses of the items in the world to find out which item is nearest the robot's laser. The first step is to create a list of all the items in the world, their names and their poses at initialisation. Since we know the names of the items are ``orange1'' to ``orange4'' and ``carton1'' to ``carton4'', we can find their poses with a simple call to a simulation proxy. We'll have to connect to the simulation proxy with our code first using the line `SimulationProxy simProxy(&robot,0);`, then we can access this information and put it into a struct.
+We can find the name of an item between Bigbob's teeth by cross referencing the robot's pose with the poses of the items in the world to find out which item is nearest the robot's laser. The first step is to create a list of all the items in the world, their names and their poses at initialisation. Since we know the names of the items are "orange1" to "orange4" and "carton1" to "carton4", we can find their poses with a simple call to a simulation proxy. We'll have to connect to the simulation proxy with our code first using the line `SimulationProxy simProxy(&robot,0);`, then we can access this information and put it into a struct.
 ```
 struct Item
 {
@@ -905,7 +905,7 @@ void RefreshItemList(item_t *itemList, SimulationProxy &simProxy)
 ```
 Here we are making a string of the item names, for example orange1 and storing that in the item's name. We then use this string as an input into the `GetPose2d` function so that we can also get the item's location in the simulation.
 
-Next we can begin the ``Collect Item'' behaviour, which will be triggered
+Next we can begin the "Collect Item" behaviour, which will be triggered
 by something breaking the laser beam. When this happens we will check the
 area around Bigbob's teeth, as indicated by Figure 5.8.   We know the
 distance from the centre of this search circle to Bigbob's origin (0.625m)
@@ -971,7 +971,7 @@ the simulation world and configuration files are in appendices
 
 
 ## Simulating Multiple Robots
-Our robot simulation case study only shows how to simulate a single robot in a Player/Stage environment. It's highly likely that a simulation might want more than one robot in it. In this situation you will need to build a model of every robot you need in the worldfile, and then its associated driver in the configuration file. Let's take a look at our worldfile for the case study, we'll add a new model of a new Bigbob robot called ``bob2'':
+Our robot simulation case study only shows how to simulate a single robot in a Player/Stage environment. It's highly likely that a simulation might want more than one robot in it. In this situation you will need to build a model of every robot you need in the worldfile, and then its associated driver in the configuration file. Let's take a look at our worldfile for the case study, we'll add a new model of a new Bigbob robot called "bob2":
 ```
 bigbob
 (
