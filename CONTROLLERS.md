@@ -68,7 +68,7 @@ Before beginning a project it is highly recommended that for any programs other 
 
 Finally, in order to compile your program you use the following commands (in Linux):
 ```
-g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++
+g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++`
 ```
 
 That will compile a program to a file called `example0` from the C++ code file \`example0.cc`. If you are coding in C instead then use the following command:
@@ -81,23 +81,31 @@ explains how to compile your code for you.  The details of Makefiles are
 beyond the scope of this manual, but an example is given in the tutorial
 files that came with this manual.  If you have this `Makefile` in the
 same directory as your code, you can just type `make file` and the make
-program will search for `file.cc` and `file.c` and ``do the right
-thing''.
+program will search for `file.cc` and `file.c` and "do the right
+thing".
 
 > #### TRY IT OUT
 
->` > cd <source_code>/Ch5.1` \\
->` > player simple.cfg` \\
->` > make example0` \\
->` > ./example0` \\
+>` > cd <source_code>/Ch5.1` 
+
+>` > player simple.cfg` 
+
+>` > make example0` 
+
+>` > ./example0` 
+
 >
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.1` \\
->` > player simple.cfg` \\
->` > make simple` \\
->` > ./simple` \\
+> ` > cd <source_code>/Ch5.1` 
+
+>` > player simple.cfg` 
+
+>` > make simple` 
+
+>` > ./simple` 
+
 >
 
 
@@ -268,9 +276,12 @@ This function interacts with the robot's odometry. It allows you to monitor wher
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 \\
->` > player bigbob7.cfg \\
->` > make bigbob8 \\
+> ` > cd <source_code>/Ch5.2 
+
+>` > player bigbob7.cfg 
+
+>` > make bigbob8 
+
 >` > ./bigbob8
 >
 
@@ -357,9 +368,12 @@ Angles are given with reference to the laser's centre front (see Figure
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 \\
->` > player bigbob7.cfg \\
->` > make bigbob9 \\
+> ` > cd <source_code>/Ch5.2 
+
+>` > player bigbob7.cfg 
+
+>` > make bigbob9 
+
 >` > ./bigbob9
 >
 
@@ -404,9 +418,12 @@ need. The `playerc_blobfinder_blob_t` structure contains the following fields:
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 \\
->` > player bigbob7.cfg \\
->` > make bigbob10 \\
+> ` > cd <source_code>/Ch5.2 
+
+>` > player bigbob7.cfg 
+
+>` > make bigbob10 
+
 >` > ./bigbob10
 >
 
@@ -421,9 +438,12 @@ The GripperProxy allows you to control the gripper, once the gripper is holding 
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 \\
->` > player bigbob11.cfg \\
->` > make bigbob11 \\
+> ` > cd <source_code>/Ch5.2 
+
+>` > player bigbob11.cfg 
+
+>` > make bigbob11 
+
 >` > ./bigbob11
 >
 
@@ -449,9 +469,12 @@ the given addresses in memory.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 \\
->` > player bigbob11.cfg \\
->` > make bigbob12 \\
+> ` > cd <source_code>/Ch5.2 
+
+>` > player bigbob11.cfg 
+
+>` > make bigbob12 
+
 >` > ./bigbob12
 >
 
@@ -498,9 +521,12 @@ The `value` parameter is dependant on which `property` you want to set.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 \\
->` > player bigbob11.cfg \\
->` > make bigbob13 \\
+> ` > cd <source_code>/Ch5.2 
+
+>` > player bigbob11.cfg 
+
+>` > make bigbob13 
+
 >` > ./bigbob13
 >
 
@@ -930,11 +956,13 @@ the simulation world and configuration files are in appendices
 
 > #### TRY IT OUT
 
->` > cd <source_code>/Ch5.2 \\
->` > player bigbob11.cfg \\
->` > make bigbob13 \\
+>` > cd <source_code>/Ch5.2 
+
+>` > player bigbob11.cfg 
+
+>` > make bigbob13 
+
 >` > ./bigbob13
->
 
 
 
