@@ -29,7 +29,7 @@ describe player drivers.
 | |
 | :---------------:| 
 | <img src="pics/coding/ServerClient_robot.png" width="50%">     |
-| Figure 1: The server/client control structure of Player when used on a robot. There may be several proxies connected to the server at any time. |
+| Figure 5.1: The server/client control structure of Player when used on a robot. There may be several proxies connected to the server at any time. |
 <!--- <a name="fig_Coding_ServerClientSim"></a> --->
 
 
@@ -37,7 +37,7 @@ describe player drivers.
 | |
 | :---------------:| 
 | <img src="pics/coding/ServerClient_sim.png" width="50%">     |
-| Figure 2: The server/client control structure of Player/Stage when used as a simulator. There may be several proxies connected to the server at any time. |
+| Figure 5.2: The server/client control structure of Player/Stage when used as a simulator. There may be several proxies connected to the server at any time. |
 
 ## Types of drivers
 Player is compatable with C, C++ or Python drivers.  
@@ -119,7 +119,7 @@ PlayerClient client_name(hostname, port);
 ```
 What this line does is declare a new object which is a PlayerClient called
 `client_name` which connects to the Player server at the given address. The
-hostname and port is like that discussed in [Here](CFGFILES.md#sec_ConfigurationFile_DeviceAddress). If your code is running on the
+hostname and port is like that discussed in [Device Address](CFGFILES.md#sec_ConfigurationFile_DeviceAddress). If your code is running on the
 same computer (or robot) as the Player server you wish to connect to then
 the hostname is "localhost" otherwise it will be the IP address of the
 computer or robot. The port is an optional parameter usually only needed
@@ -127,7 +127,7 @@ for simulations, it will be the same as the port you gave in the .cfg file.
 This is only useful if your simulation has more than one robot in and you
 need your code to connect to both robots. So if you gave your first robot
 port 6665 and the second one 6666 (like in the example of
-[Here](CFGFILES.md#sec_ConfigurationFile_FinishingCFG)) then you would need two
+[Finishing Configuration File](CFGFILES.md#sec_ConfigurationFile_FinishingCFG)) then you would need two
 PlayerClients, one connected to each robot, and you would do this with the
 following code: 
 ```
@@ -140,7 +140,7 @@ Once we have established a PlayerClient we should connect our code to the device
 
 Proxies take the name of the interface which the drivers use to talk to
 Player. Let's take part of the Bigbob example configuration file from
-[Here](CFGFILES.md#sec_ConfigurationFile_FinishingCFG):
+[Finishing Configuration File](CFGFILES.md#sec_ConfigurationFile_FinishingCFG):
 ```
 driver
 (
@@ -171,7 +171,8 @@ your configuration file (probably 0).
 ### <a name="sec_Coding_ConnectingToServer_Example"> Setting Up Connections: an Example. </a>
 
 For an example of how to connect to the Player sever and device proxies we
-will use the example configuration file developed in [Here](CFGFILES.md#sec_ConfigurationFile_FinishingCFG). For convenience this is reproduced below:
+will use the example configuration file developed in [Finishing
+Configuration File](CFGFILES.md#sec_ConfigurationFile_FinishingCFG). For convenience this is reproduced below:
 ```
 driver
 (		
@@ -241,7 +242,7 @@ The `SetSpeed` command is used to tell the robot's motors how fast to turn. Ther
 | |
 | :---------------:| 
 | <img src="pics/coding/bob_cartgrid.png" width="50%">     |
-| Figure 3: A robot on a cartesian grid. This shows what directions the X and Y speeds will cause the robot to move in. A positive yaw speed will turn the robot in the direction of the + arrow, a negative yaw speed is the direction of the - arrow. |
+| Figure 5.3: A robot on a cartesian grid. This shows what directions the X and Y speeds will cause the robot to move in. A positive yaw speed will turn the robot in the direction of the + arrow, a negative yaw speed is the direction of the - arrow. |
 
 
 
@@ -288,7 +289,7 @@ This function interacts with the robot's odometry. It allows you to monitor wher
 
 >`> ./bigbob8`
 
-In [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
+In [Position](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
 specified whether it would record odometry by measuring how much its wheels
 have turned, or whether the robot would have perfect knowledge of its
 current coordinates (by default the robot does not record odometry at all).
@@ -296,7 +297,7 @@ If you set the robot to record odometry using its wheels then the positions
 returned by these get commands will become increasingly inaccurate as the
 simulation goes on. If you want to log your robots position as it moves
 around, these functions along with the perfect odometry (see
-[Section](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) for how to give
+[Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) for how to give
 the robot perfect odometry.) setting can be used. 
 
 #### SetMotorEnable()
@@ -352,7 +353,7 @@ ranger sensor.  Only makes sense for a single-sensor device.
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner2.png" width="50%">     |
-| Figure 5.1: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
+| Figure 5.4: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
 
 
 
@@ -360,7 +361,7 @@ ranger sensor.  Only makes sense for a single-sensor device.
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner.png" width="50%">     |
-| Figure 5.2: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
+| Figure 5.5: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Laser_Proxy" </a> --->
 
 
@@ -410,7 +411,7 @@ need. The `playerc_blobfinder_blob_t` structure contains the following fields:
 | |
 | :---------------:| 
 | <img src="pics/coding/blobfinder_image.png" width="50%">     |
-| Figure 5.3: What the fields in `playerc_blobfinder_blob_t` mean. The blob on the left has a geometric centre at *(x,y)*, the blob on the right has a bounding box with the top left corner at *(left, top)* pixels, and a lower right coordinate at *(right, bottom)* pixels. Coordinates are given with reference to the top left corner of the image. |
+| Figure 5.6: What the fields in `playerc_blobfinder_blob_t` mean. The blob on the left has a geometric centre at *(x,y)*, the blob on the right has a bounding box with the top left corner at *(left, top)* pixels, and a lower right coordinate at *(right, bottom)* pixels. Coordinates are given with reference to the top left corner of the image. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Blobfinder_BlobImage" </a> ---> 
 
 > #### TRY IT OUT
@@ -493,10 +494,10 @@ To change a property of an item in the simulation we use the following function:
 
 * `*_name`: this is the name that you gave to the object in the
   worldfile, it could be *any* model that you have described in the
-  worldfile. For example, in [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
+  worldfile. For example, in [This Example](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
   worldfile we declared a Bigbob type robot which we called
   "bob1" so the `*_name` for that object is "bob1". Similarly
-  in [Here](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) we built some
+  in [Other Stuff](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) we built some
   models of oranges and called the "orange1" to "orange4" so
   the item name for one of these would be "orange1". Anything
   that is a model in your worldfile can be altered by this
@@ -547,7 +548,7 @@ Most of the proxies have a function called `GetGeom` or `GetGeometry` or `Reques
 
 To demonstrate how to write code to control a Player device or Player/Stage
 simulation we will use the example robot "Bigbob" developed in
-[Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot) and (#sec_ConfigurationFile) which collects oranges and juice cartons from a factory floor. In previous sections we have developed the Stage model for this robot and its environment and the configuration file to control it. Now we can begin to put everything together to create a working simulation of this robot.
+[Building a Robot](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot) and (#sec_ConfigurationFile) which collects oranges and juice cartons from a factory floor. In previous sections we have developed the Stage model for this robot and its environment and the configuration file to control it. Now we can begin to put everything together to create a working simulation of this robot.
 
 ### <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
 To collect rubbish we have three basic behaviours: 
@@ -564,13 +565,13 @@ transitions shown in Figure 5.7.
 | |
 | :---------------:| 
 | <img src="pics/coding/arch_structureOA.png" width="50%">     |
-| Figure 5.4: The state transitions that the Bigbob rubbish collecting robot will follow. |
+| Figure 5.7: The state transitions that the Bigbob rubbish collecting robot will follow. |
 <!--- <a name="fig_Coding_UsingProxiesExample_ControlArch_Structure" </a> --->
 
 
 ### <a name="sec_Coding_UsingProxiesExample_BeginningCode"> Beginning the Code </a>
 
-In [Here](#sec_Coding_ConnectingToServer_Example) we discussed how to connect to the Player server and proxies attached to the server, and developed the following code:
+In [Connecting to Server](#sec_Coding_ConnectingToServer_Example) we discussed how to connect to the Player server and proxies attached to the server, and developed the following code:
 ```
 #include <stdio.h>
 #include <libplayerc++/playerc++.h>
@@ -591,7 +592,7 @@ int main(int argc, char *argv[])
       return 0;
 }
 ```
-Using our knowledge of the proxies discussed in [Here](#sec_Coding_InteractingWithProxies) we can build controlling code on top of this basic code. 
+Using our knowledge of the proxies discussed in [Proxies](#sec_Coding_InteractingWithProxies) we can build controlling code on top of this basic code. 
 Firstly, it is good practice to enable the motors and request the geometry for all the proxies. This means that the robot will move and that if we need to know about the sensing devices the proxies will have that information available.
 ```
 //enable motors
@@ -629,7 +630,8 @@ RangerProxy     laserProxy(&robot,1);
 double forwardSpeed, turnSpeed;
 ```
 
-Let's say that Bigbob's maximum speed is 1 metre/second and it can turn 90$^\circ$ a second. We will write a small subfunction to randomly assign forward and turning speeds between 0 and the maximum speeds.
+Let's say that Bigbob's maximum speed is 1 metre/second and it can turn 90
+degrees a second. We will write a small subfunction to randomly assign forward and turning speeds between 0 and the maximum speeds.
 ```
 void Wander(double *forwardSpeed, double *turnSpeed)
 {
@@ -923,14 +925,14 @@ centre, and the smallest distance is the item we want to destroy. We made a
 subfunction called `FindItem` that returns the index of the item to be
 destroyed.
 (We could also equip BigBob with a gripper, and call `gripper.close()`, and haul the trash somewhere else to drop it off.  See
-[Here](#gripperproxy) for more details, and `bigbob11` for an
+[GripperProxy](#gripperproxy) for more details, and `bigbob11` for an
 example.)
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/bigbob_radius.png" width="50%">     |
-| Figure 5.5: Where to look for items which may have passed through Bigbob's laser. |
+| Figure 5.8: Where to look for items which may have passed through Bigbob's laser. |
 <!--- <a name="fig_Coding_UsingProxiesExample_CollectItem_BigbobLaserRadius" </a> --->
 
 Now that we can find the item to destroy it's fairly simple to trigger our subfunction when the laser is broken so we can find and destroy an item.
@@ -955,7 +957,7 @@ The laser has 180 samples, so sample number 90 is the one which is perpendicular
 Finally we have a working simulation of a rubbish collecting robot! 
 The code comprises [the source](code/Ch5.2/bigbob13.cc), 
 the [simulation world](code/Ch5.2/bigbob11.world), and 
-[configuration files are](code/Ch5.2/bigbob11.cfg).
+[configuration files](code/Ch5.2/bigbob11.cfg).
 
 > #### TRY IT OUT
 
@@ -987,7 +989,7 @@ bigbob
 )
 ```
 If there are multiple robots in the simulation, the standard practice is to
-put each robot on its own port (see [Here](CFGFILES.md#sec_ConfigurationFile_DeviceAddress)). To implement this in the configuration file we need to tell Player which port to find our second robot on:
+put each robot on its own port (see [Device Address](CFGFILES.md#sec_ConfigurationFile_DeviceAddress)). To implement this in the configuration file we need to tell Player which port to find our second robot on:
 ```
 driver( name "stage" 
         provides ["6665:position2d:0" "6665:ranger:0"
@@ -1068,4 +1070,4 @@ This is good since there is only ever one simulation window that you can
 interact with and so multiple simulation proxies are unnecessary.
 
 * Up: [README](README.md)
-* Prev: Writing a Configuration (.cfg) File
+* Prev: [Writing a Configuration (.cfg) File](CFGFILES.md)
