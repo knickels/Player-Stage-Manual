@@ -5,11 +5,11 @@ understand the basic structure of how Player works. Player uses a
 Server/Client structure in order to pass data and instructions between your
 code and the robot's hardware. Player is a server, and a hardware device.
 Remember, a device is a piece of hardware that uses a driver which conforms
-to an interface. See [Here](#sec_Basics_InterfaceDriverDevices).  On
+to an interface. See [Interface Driver Devices](BASICS.md#sec_Basics_InterfaceDriverDevices).  On
 the robot is subscribed as a client to the server via a thing called a
 *proxy*. The .cfg file associated with your robot (or your simulation)
 takes care of telling the Player server which devices are attached to it,
-so when we run the command `Player some_cfg.cfg` this starts up the Player
+so when we run the command `player some_cfg.cfg` this starts up the Player
 server and connects all the necessary hardware devices to the server.
 Figure 5.1 shows a basic block diagram of
 the structure of Player when implemented on a robot. In Player/Stage the
@@ -45,7 +45,7 @@ Player is compatable with C, C++ or Python drivers.
 There are also such things as "stage controllers" such as those distributed
 in the stage source code (under `examples/ctrl`), but in this manual
 we'll only describe player drivers.  Earlier versions of
-simple.world had a line `ctrl wander` that automatically started the
+`simple.world` had a line `ctrl wander` that automatically started the
 simulated robot working with a stage controller.  If you happen to
 encounter this `simple.world` file, just comment out that line to use the
 examples given here.  Player drivers can control a real or a simulated
@@ -67,10 +67,14 @@ some matlab and python examples based on this manual are given at
 Before beginning a project it is highly recommended that for any programs other than basic examples you should always wrap your Player commands around your own functions and classes so that all your code's interactions with Player are kept together the same file. This isn't a requirement of Player, it's just good practice. For example, if you upgrade Player or if for some reason your robot breaks and a certain function no longer works you only have to change part of a file instead of searching through all your code for places where Player functions have been used.
 
 Finally, in order to compile your program you use the following commands (in Linux):
-`g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++\``
+```
+g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++
+```
 
 That will compile a program to a file called `example0` from the C++ code file \`example0.cc`. If you are coding in C instead then use the following command:
-`gcc -o simple `pkg-config --cflags playerc` simple.c `pkg-config --libs playerc``
+```
+gcc -o simple `pkg-config --cflags playerc` simple.c `pkg-config --libs playerc`
+```
 
 An even easier and more general way is to make a `Makefile` that
 explains how to compile your code for you.  The details of Makefiles are
