@@ -333,14 +333,14 @@ Angles are given with reference to the laser's centre front (see Figure
   case of a multiple-sensor device, this is given by the number
   of sensors.
 * `rangerProxy_name[ranger_number]`: 
-  The range returned by the `ranger_number`$^{th}$ scan
+  The range returned by the `ranger_number`*th* scan
   point. For a single-sensor device, scan points are numbered
   from the minimum angle at index 0, to the maximum angle at
   index `GetRangeCount()`.
   For a multiple-sensor device, the `ranger_number` is
   given by the order in which you included the sensor.
 * `GetRange(ranger_number)`: Same as `rangerProxy_name[ranger_number]`.
-* `GetMinAngle()\: gives the minimum angle (One tricky thing - you need to be sure to call `RequestConfigure()` once before accessing the min or max
+* `GetMinAngle()`: gives the minimum angle (One tricky thing - you need to be sure to call `RequestConfigure()` once before accessing the min or max
 angles, they are initialized to zero!) covered by a ranger sensor.
 Only makes sense for a single-sensor device.
 * `GetMaxAngle()`: gives the maximum angle covered by a
@@ -366,14 +366,13 @@ ranger sensor.  Only makes sense for a single-sensor device.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 
+>`> cd <source_code>/Ch5.2`
 
->` > player bigbob7.cfg 
+>`> player bigbob7.cfg`
 
->` > make bigbob9 
+>`> make bigbob9`
 
->` > ./bigbob9
->
+>`> ./bigbob9`
 
 
 ### <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
@@ -416,34 +415,34 @@ need. The `playerc_blobfinder_blob_t` structure contains the following fields:
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 
+> ` > cd <source_code>/Ch5.2 `
 
->` > player bigbob7.cfg 
+>` > player bigbob7.cfg `
 
->` > make bigbob10 
+>` > make bigbob10 `
 
->` > ./bigbob10
->
+>` > ./bigbob10`
+
 
 ### <a name="gripperproxy"> GripperProxy </a>
 The GripperProxy allows you to control the gripper, once the gripper is holding an item, the simulated robot will carry it around wherever it goes. Without a gripper you can only jostle an item in the simulation and you would have to manually tell the simulation what to do with an item. The GripperProxy can also tell you if an item is between the gripper teeth because the gripper model has inbuilt beams which can detect if they are broken. 
 
-	* `GetBeams`: This command will tell you if there is an item inside the gripper. If it is a value above 0 then there is an item to grab.
-	* `GetState`: This will tell you whether the gripper is opened or closed. If the command returns a 1 then the gripper is open, if it returns 2 then the gripper is closed, and 3 if the gripper is moving.
-	* `Open`: Tells the gripper to open. This will cause any items that were being carried to be dropped.
-	* `Close`: Tells the gripper to close. This will cause it to pick up anything between its teeth.
+* `GetBeams`: This command will tell you if there is an item inside the gripper. If it is a value above 0 then there is an item to grab.
+* `GetState`: This will tell you whether the gripper is opened or closed. If the command returns a 1 then the gripper is open, if it returns 2 then the gripper is closed, and 3 if the gripper is moving.
+* `Open`: Tells the gripper to open. This will cause any items that were being carried to be dropped.
+* `Close`: Tells the gripper to close. This will cause it to pick up anything between its teeth.
 
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 
+> ` > cd <source_code>/Ch5.2 `
 
->` > player bigbob11.cfg 
+>` > player bigbob11.cfg `
 
->` > make bigbob11 
+>` > make bigbob11 `
 
->` > ./bigbob11
->
+>` > ./bigbob11`
+
 
 
 ### SimulationProxy
@@ -467,14 +466,14 @@ the given addresses in memory.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 
+> ` > cd <source_code>/Ch5.2 `
 
->` > player bigbob11.cfg 
+>` > player bigbob11.cfg `
 
->` > make bigbob12 
+>` > make bigbob12 `
 
->` > ./bigbob12
->
+>` > ./bigbob12`
+
 
 #### Get/Set Property
 In version 4.1.1 of Stage the Get/SetProperty simulation proxy functions
@@ -519,14 +518,14 @@ The `value` parameter is dependant on which `property` you want to set.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 
+> ` > cd <source_code>/Ch5.2 `
 
->` > player bigbob11.cfg 
+>` > player bigbob11.cfg `
 
->` > make bigbob13 
+>` > make bigbob13 `
 
->` > ./bigbob13
->
+>` > ./bigbob13`
+
 
 		
 ### General Useful Commands
@@ -954,13 +953,13 @@ the simulation world and configuration files are in appendices
 
 > #### TRY IT OUT
 
->` > cd <source_code>/Ch5.2 
+>` > cd <source_code>/Ch5.2 `
 
->` > player bigbob11.cfg 
+>` > player bigbob11.cfg `
 
->` > make bigbob13 
+>` > make bigbob13 `
 
->` > ./bigbob13
+>` > ./bigbob13`
 
 
 
