@@ -119,14 +119,15 @@ PlayerClient client_name(hostname, port);
 ```
 What this line does is declare a new object which is a PlayerClient called
 `client_name` which connects to the Player server at the given address. The
-hostname and port is like that discussed in [Here](#sec_ConfigurationFile_DeviceAddress). If your code is running on the
+hostname and port is like that discussed in [Here](CFGFILES.md#sec_ConfigurationFile_DeviceAddress). If your code is running on the
 same computer (or robot) as the Player server you wish to connect to then
 the hostname is ``localhost'' otherwise it will be the IP address of the
 computer or robot. The port is an optional parameter usually only needed
 for simulations, it will be the same as the port you gave in the .cfg file.
 This is only useful if your simulation has more than one robot in and you
 need your code to connect to both robots. So if you gave your first robot
-port 6665 and the second one 6666 (like in the example of [Here](#sec_ConfigurationFile_FinishingCFG)) then you would need two
+port 6665 and the second one 6666 (like in the example of
+[Here](CFGFILES.md#sec_ConfigurationFile_FinishingCFG)) then you would need two
 PlayerClients, one connected to each robot, and you would do this with the
 following code: 
 ```
@@ -137,7 +138,9 @@ If you are only using one robot and in your .cfg file you said that it would ope
 
 Once we have established a PlayerClient we should connect our code to the device proxies so that we can exchange information with them. Which proxies you can connect your code to is dependent on what you have put in your configuration file. For instance if your configuration file says your robot is connected to a laser but not a camera you can connect to the laser device but not the camera, even if the robot (or robot simulation) has a camera on it. 
 
-Proxies take the name of the interface which the drivers use to talk to Player. Let's take part of the Bigbob example configuration file from [Here](#sec_ConfigurationFile_FinishingCFG):
+Proxies take the name of the interface which the drivers use to talk to
+Player. Let's take part of the Bigbob example configuration file from
+[Here](CFGFILES.md#sec_ConfigurationFile_FinishingCFG):
 ```
 driver
 (
@@ -167,7 +170,8 @@ your configuration file (probably 0).
 
 ### <a name="sec_Coding_ConnectingToServer_Example"> Setting Up Connections: an Example. </a>
 
-For an example of how to connect to the Player sever and device proxies we will use the example configuration file developed in [Here](#sec_ConfigurationFile_FinishingCFG). For convenience this is reproduced below:
+For an example of how to connect to the Player sever and device proxies we
+will use the example configuration file developed in [Here](CFGFILES.md#sec_ConfigurationFile_FinishingCFG). For convenience this is reproduced below:
 ```
 driver
 (		
@@ -285,7 +289,7 @@ This function interacts with the robot's odometry. It allows you to monitor wher
 >` > ./bigbob8
 >
 
-In [Here](#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
+In [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
 specified whether it would record odometry by measuring how much its wheels
 have turned, or whether the robot would have perfect knowledge of its
 current coordinates (by default the robot does not record odometry at all).
@@ -496,10 +500,10 @@ To change a property of an item in the simulation we use the following function:
 
         * `*_name`: this is the name that you gave to the object in the
           worldfile, it could be *any* model that you have described in the
-          worldfile. For example, in [Here](#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
+          worldfile. For example, in [Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) in the
           worldfile we declared a Bigbob type robot which we called
           ``bob1'' so the `*_name` for that object is ``bob1''. Similarly
-          in [Here](#sec_BuildingAWorld_OtherStuff) we built some
+          in [Here](WORLDFILES.md#sec_BuildingAWorld_OtherStuff) we built some
           models of oranges and called the ``orange1'' to ``orange4'' so
           the item name for one of these would be ``orange1''. Anything
           that is a model in your worldfile can be altered by this
@@ -544,7 +548,7 @@ Most of the proxies have a function called `GetGeom` or `GetGeometry` or `Reques
 
 To demonstrate how to write code to control a Player device or Player/Stage
 simulation we will use the example robot ``Bigbob'' developed in
-[Here](#sec_BuildingAWorld_BuildingRobot) and (#sec_ConfigurationFile) which collects oranges and juice cartons from a factory floor. In previous sections we have developed the Stage model for this robot and its environment and the configuration file to control it. Now we can begin to put everything together to create a working simulation of this robot.
+[Here](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot) and (#sec_ConfigurationFile) which collects oranges and juice cartons from a factory floor. In previous sections we have developed the Stage model for this robot and its environment and the configuration file to control it. Now we can begin to put everything together to create a working simulation of this robot.
 
 ### <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
 To collect rubbish we have three basic behaviours: 
@@ -983,7 +987,8 @@ bigbob
 	color "yellow"
 )
 ```
-If there are multiple robots in the simulation, the standard practice is to put each robot on its own port (see [Here](#sec_ConfigurationFile_DeviceAddress)). To implement this in the configuration file we need to tell Player which port to find our second robot on:
+If there are multiple robots in the simulation, the standard practice is to
+put each robot on its own port (see [Here](CFGFILES.md#sec_ConfigurationFile_DeviceAddress)). To implement this in the configuration file we need to tell Player which port to find our second robot on:
 ```
 driver( name "stage" 
         provides ["6665:position2d:0" "6665:ranger:0"
