@@ -50,7 +50,7 @@ If you happen to encounter this `simple.world` file, just comment out that
 line to use the examples given here.  Player controllers can control a real or
 a simulated robot.
 
-We will start by using C++ since it's pretty general.
+In this section we will start by using C++ since it's pretty general.
 There are also sections covering [C controllers](#CONTROLLER_C.md) and
 [Python controllers](#CONTROllER_PY.md).
 
@@ -66,29 +66,25 @@ under ` examples/`.  These and more are documented at
 some matlab and python examples based on this manual are given at
 (http://turobotics.blogspot.com/2013/08/client-controllers-for-player-302-and.html).
 
-Before beginning a project it is highly recommended that for any programs
-other than basic examples you should always wrap your Player commands
-around your own functions and classes so that all your code's interactions
-with Player are kept together the same file. This isn't a requirement of
-Player, it's just good practice. For example, if you upgrade Player or if
-for some reason your robot breaks and a certain function no longer works
-you only have to change part of a file instead of searching through all
-your code for places where Player functions have been used.
+Before beginning a project it is highly recommended that for any programs other than basic examples you should always wrap your Player commands around your own functions and classes so that all your code's interactions with Player are kept together the same file. This isn't a requirement of Player, it's just good practice. For example, if you upgrade Player or if for some reason your robot breaks and a certain function no longer works you only have to change part of a file instead of searching through all your code for places where Player functions have been used.
 
-In order to compile your program you use the following commands (in Linux):
+Finally, in order to compile your program you use the following commands (in Linux):
 ```
 g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++`
 ```
 
-That will compile a program to a file called `example0` from the C++ code file \`example0.cc`. 
+That will compile a program to a file called `example0` from the C++ code file \`example0.cc`. If you are coding in C instead then use the following command:
+```
+gcc -o simple `pkg-config --cflags playerc` simple.c `pkg-config --libs playerc`
+```
 
 An even easier and more general way is to make a `Makefile` that
 explains how to compile your code for you.  The details of Makefiles are
-beyond the scope of this manual, but [an example](code/Ch5.1/Makefile) is
-given in the tutorial files that came with this manual.  If you have this
-`Makefile` in the same directory as your code, you can just type `make
-file` and if the make program finds `file.cc` it will just "do
-the right thing".
+beyond the scope of this manual, but an example is given in the tutorial
+files that came with this manual.  If you have this `Makefile` in the
+same directory as your code, you can just type `make file` and the make
+program will search for `file.cc` and `file.c` and "do the right
+thing".
 
 > #### TRY IT OUT
 
@@ -96,21 +92,28 @@ the right thing".
 
 >` > player simple.cfg` 
 
->` > cat example0.cc` 
-
 >` > make example0` 
 
 >` > ./example0` 
 
+>
+
+> #### TRY IT OUT
+
+> ` > cd <source_code>/Ch5.1` 
+
+>` > player simple.cfg` 
+
+>` > make simple` 
+
+>` > ./simple` 
+
+>
+
 
 ## <a name="sec_Coding_ConnectingToServer"> Connecting to the Server and Proxies With Your Code</a>
 
-The first thing to do within your code is to include the Player header
-file. Assuming Player/Stage is installed correctly on your machine then
-this can be done with the line 
-```
-#include <libplayerc++/playerc++.h>
-```
+The first thing to do within your code is to include the Player header file. Assuming Player/Stage is installed correctly on your machine then this can be done with the line `#include <libplayerc++/playerc++.h>` (if you're using C then type `#include <libplayerc/playerc.h>` instead).
 
 Next we need to establish a Player Client, which will interact with the Player server for you. To do this we use the line:
 ```
@@ -133,17 +136,9 @@ following code:
 PlayerClient robot1("localhost", 6665); 
 PlayerClient robot2("localhost", 6666); 
 ```
-If you are only using one robot and in your .cfg file you said that it
-would operate on port 6665 then the port parameter to the PlayerClient
-class is not needed. 
+If you are only using one robot and in your .cfg file you said that it would operate on port 6665 then the port parameter to the PlayerClient class is not needed. 
 
-Once we have established a PlayerClient we should connect our code to the
-device proxies so that we can exchange information with them. Which proxies
-you can connect your code to is dependent on what you have put in your
-configuration file. For instance if your configuration file says your robot
-is connected to a laser but not a camera you can connect to the laser
-device but not the camera, even if the robot (or robot simulation) has a
-camera on it. 
+Once we have established a PlayerClient we should connect our code to the device proxies so that we can exchange information with them. Which proxies you can connect your code to is dependent on what you have put in your configuration file. For instance if your configuration file says your robot is connected to a laser but not a camera you can connect to the laser device but not the camera, even if the robot (or robot simulation) has a camera on it. 
 
 Proxies take the name of the interface which the drivers use to talk to
 Player. Let's take part of the Bigbob example configuration file from
@@ -162,15 +157,14 @@ Here we've told the Player server that our "robot" has devices which use the
 position2d, ranger, and blobfinder interfaces. In our code then, we should
 connect to the position2d, ranger, and blobfinder proxies like so:
 ```
-Position2dProxy  positionProxy_name(&client_name,index);
+Position2dProxy positionProxy_name(&client_name,index);
 RangerProxy      sonarProxy_name(&client_name,index);
-BlobfinderProxy  blobProxy_name(&client_name,index);
+BlobfinderProxy blobProxy_name(&client_name,index);
 RangerProxy      laserProxy_name(&client_name,index);
 ```
 A full list of which proxies Player supports can be found in the [Player
-manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html).
-They all follow the convention of being named after the interface they use.
-
+manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html),
+they all follow the convention of being named after the interface they use.
 In the above case `Proxy_name` is the name you want to give to the
 proxy object, `client_name` is the name you gave the PlayerClient
 object earlier and `index` is the index that the device was given in
@@ -203,22 +197,21 @@ driver
       model "bob1" 
 )
 ```
-
-To set up a PlayerClient and then connect to proxies on that server we can
-use principles discussed in this Section to develop the following code:
+To set up a PlayerClient and then connect to proxies on that server we can use principles discussed in this Section to develop the following code:
 ```
 #include <stdio.h>
 #include <libplayerc++/playerc++.h>
 
 int main(int argc, char *argv[])
 {
-      using namespace PlayerCc; /*need to do this line in c++ only*/
+      /*need to do this line in c++ only*/
+      using namespace PlayerCc;
 	
       PlayerClient    robot("localhost");
 
-      Position2dProxy  p2dProxy(&robot,0);
+      Position2dProxy p2dProxy(&robot,0);
       RangerProxy      sonarProxy(&robot,0);
-      BlobfinderProxy  blobProxy(&robot,0);
+      BlobfinderProxy blobProxy(&robot,0);
       RangerProxy      laserProxy(&robot,1);
 
       //some control code
@@ -228,31 +221,19 @@ int main(int argc, char *argv[])
 
 ## <a name="sec_Coding_InteractingWithProxies"> Interacting with Proxies </a>
 
-As you may expect, each proxy is specialised towards controlling the device
-it connects to. This means that each proxy will have different commands
-depending on what it controls. 
-
+As you may expect, each proxy is specialised towards controlling the device it connects to. This means that each proxy will have different commands depending on what it controls. 
 In Player version 3.0.2 there are 39 different proxies which you can choose
 to use, many of which are not applicable to Player/Stage. This manual will
 not attempt to explain them all, a full list of avaliable proxies and their
-functions is in the 
-[Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html),
-although the returns, parameters and purpose of the proxy function are not
-always explained. 
+functions is in the [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html), although the returns, parameters and purpose of the proxy function is not always explained. 
 
-The following few proxies are probably the most useful to anyone using
-Player or Player/Stage.
+The following few proxies are probably the most useful to anyone using Player or Player/Stage.
 
 ### Position2dProxy
-The Position2dProxy is the number one most useful proxy there is. It
-controls the robot's motors and keeps track of the robot's odometry (where
-the robot thinks it is based on how far its wheels have moved).
+The Position2dProxy is the number one most useful proxy there is. It controls the robot's motors and keeps track of the robot's odometry (where the robot thinks it is based on how far its wheels have moved).
 
 #### <a name="sec_Coding_InteractingWithProxies_GetSetSpeed"> Get/SetSpeed </a>
-The `SetSpeed` command is used to tell the robot's motors how fast to turn.
-There are two different `SetSpeed` commands that can be called, one is for
-robots that can move in any direction and the other is for robots with
-differential or car-like drives. 
+The `SetSpeed` command is used to tell the robot's motors how fast to turn. There are two different `SetSpeed` commands that can be called, one is for robots that can move in any direction and the other is for robots with differential or car-like drives. 
 
 * `SetSpeed(double XSpeed, double YSpeed, double YawSpeed)`
 * `SetSpeed(double XSpeed, double YawSpeed)`
@@ -266,21 +247,21 @@ differential or car-like drives.
 | Figure 5.3: A robot on a cartesian grid. This shows what directions the X and Y speeds will cause the robot to move in. A positive yaw speed will turn the robot in the direction of the + arrow, a negative yaw speed is the direction of the - arrow. |
 
 
-Figure 5.3 shows which direction the x, y and yaw speeds are in relation to
-the robot.  The x speed is the rate at which the robot moves forward and
-the y speed is the robot's speed sideways, both are to be given in metres
-per second. The y speed will only be useful if the robot you want to
-simulate or control is a ball, since robots with wheels cannot move
-sideways. The yaw speed controls how fast the robot is turning and is given
-in radians per second, Player has an inbuilt global function called
-`dtor()` which converts a number in degrees into a number in radians which
-could be useful when setting the yaw speed. 
 
-If you want to simulate or control a robot with a differential drive system
-then you'll need to convert left and right wheel speeds into a forward
-speed and a turning speed before sending it to the proxy. For car-like
-drives there is the `SetCarlike` which again is the forward speed in m/s
-and the drive angle in radians.
+Figure 5.3 
+shows which direction the x, y and yaw speeds are in relation to the robot.
+The x speed is the rate at which the robot moves forward and the y speed is
+the robot's speed sideways, both are to be given in metres per second. The
+y speed will only be useful if the robot you want to simulate or control is
+a ball, since robots with wheels cannot move sideways. The yaw speed
+controls how fast the robot is turning and is given in radians per second,
+Player has an inbuilt global function called `dtor()` which converts a
+number in degrees into a number in radians which could be useful when
+setting the yaw speed. If you want to simulate or control a robot with a
+differential drive system then you'll need to convert left and right wheel
+speeds into a forward speed and a turning speed before sending it to the
+proxy. For car-like drives there is the `SetCarlike` which, again is
+the forward speed in m/s and the drive angle in radians.
 
 The `GetSpeed` commands are essentially the reverse of the SetSpeed
 command. Instead of setting a speed they return the current speed relative
@@ -291,14 +272,13 @@ on).
 * `GetYSpeed`: sideways (perpendicular) speed (metres/sec).
 * `GetYawSpeed`: turning speed (radians/sec).
 
-#### `Get_Pos ()`
-This function interacts with the robot's odometry. It allows you to monitor
-where the robot thinks it is. Coordinate values are given relative to its
-starting point, and yaws are relative to its starting yaw. 
 
-* `GetXPos()`: returns current x coordinate relative to its x starting position.
-* `GetYPos()`: returns current y coordinate relative to its y starting position.
-* `GetYaw()`: returns current yaw relative to its starting yaw.
+#### `Get_Pos ()`
+This function interacts with the robot's odometry. It allows you to monitor where the robot thinks it is. Coordinate values are given relative to its starting point, and yaws are relative to its starting yaw. 
+
+* `GetXPos()`: gives current x coordinate relative to its x starting position.
+* `GetYPos()`: gives current y coordinate relative to its y starting position.
+* `GetYaw()`: gives current yaw relative to its starting yaw.
 
 
 > #### TRY IT OUT
@@ -307,23 +287,20 @@ starting point, and yaws are relative to its starting yaw.
 
 >`> player bigbob7.cfg`
 
->`> cat bigbob8.cc`
-
 >`> make bigbob8`
 
 >`> ./bigbob8`
 
 In [Position](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
-specified whether player would record odometry by measuring how much the
-robot's wheels have turned, or whether the robot would have perfect
-knowledge of its current coordinates (by default the robot does not record
-odometry at all).  If you set the robot to record odometry using its wheels
-then the positions returned by these get commands will become increasingly
-inaccurate as the simulation goes on. If you want to log your robots
-position as it moves around, these functions along with the perfect
-odometry can be used (see
-[Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) 
-for how to give the robot perfect odometry.) 
+specified whether it would record odometry by measuring how much its wheels
+have turned, or whether the robot would have perfect knowledge of its
+current coordinates (by default the robot does not record odometry at all).
+If you set the robot to record odometry using its wheels then the positions
+returned by these get commands will become increasingly inaccurate as the
+simulation goes on. If you want to log your robots position as it moves
+around, these functions along with the perfect odometry (see
+[Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) for how to give
+the robot perfect odometry.) setting can be used. 
 
 #### SetMotorEnable()
 This function takes a boolean input, telling Player whether to enable the
@@ -331,9 +308,9 @@ motors or not. If the motors are disabled then the robot will not move no
 matter what commands are given to it, if the motors are enabled then the
 motors will always work, this is not so desirable if the robot is on a desk
 or something and is likely to get damaged. Hence the motors being enabled
-is optional. If you are using Player/Stage, then the motors will always be
-enabled and this command doesn't need to be run. However, if your code is
-ever likely to be moved onto a real robot and the motors are not explicitly
+is optional. If you are using Player/Stage, then the motors will always be enabled
+and this command doesn't need to be run. However, if your code is ever
+likely to be moved onto a real robot and the motors are not explicitly
 enabled in your code, then you may end up spending a long time trying to
 work out why your robot is not working.
 
@@ -344,9 +321,7 @@ A RangerProxy interfaces with any ranger sensor.
 A laser is represented by a ranger device with one ranger sensor, whose
 `samples` attribute is greater than one.  To minimize confusion with
 the depreciated laser interface, I'll refer to these as single-sensor
-devices.  
-
-A set of sonars or IR sensors is represented by a ranger device
+devices.  A set of sonars or IR sensors is represented by a ranger device
 with multiple ranger sensors whose `samples` attributes are not set (or
 set to 1).  To minimize confusion with the depreciated sonar and IR
 interfaces, I'll refer to these as multiple-sensor devices.
@@ -354,27 +329,27 @@ interfaces, I'll refer to these as multiple-sensor devices.
 Angles are given with reference to the laser's centre front (see Figure
 5.4).
 
-* `GetRangeCount()`: The number of ranger measurements that
+
+* `GetRangeCount`: The number of ranger measurements that
   the sensor suite measures.  In the case of a single-sensor
   device, this is given by the `samples` attribute.  In the
   case of a multiple-sensor device, this is given by the number
   of sensors.
 * `rangerProxy_name[ranger_number]`: 
-  The range returned by the `ranger_number`<sup>th</sup> scan
+  The range returned by the `ranger_number`*th* scan
   point. For a single-sensor device, scan points are numbered
   from the minimum angle at index 0, to the maximum angle at
-  index `GetRangeCount()-1`.
+  index `GetRangeCount()`.
   For a multiple-sensor device, the `ranger_number` is
-  given by the order in which you included the sensor in the world file.
+  given by the order in which you included the sensor.
 * `GetRange(ranger_number)`: Same as `rangerProxy_name[ranger_number]`.
-* `GetMinAngle()`: gives the minimum angle (One tricky thing - you need to
-  be sure to call `RequestConfigure()` once before accessing the min or max
-  angles, they are initialized to zero!) covered by a ranger sensor.  Only
-  makes sense for a single-sensor device.
+* `GetMinAngle()`: gives the minimum angle (One tricky thing - you need to be sure to call `RequestConfigure()` once before accessing the min or max
+angles, they are initialized to zero!) covered by a ranger sensor.
+Only makes sense for a single-sensor device.
 * `GetMaxAngle()`: gives the maximum angle covered by a
-  ranger sensor.  Only makes sense for a single-sensor device.
+ranger sensor.  Only makes sense for a single-sensor device.
 * `GetAngularRes()`: gives the angular resolution
-   (&Theta; in Figure 5.4)
+(&Theta; in Figure 5.4)
 
 <!--- Figure --->
 | |
@@ -397,8 +372,6 @@ Angles are given with reference to the laser's centre front (see Figure
 >`> cd <source_code>/Ch5.2`
 
 >`> player bigbob7.cfg`
-
->`> cat bigbob9.cc`
 
 >`> make bigbob9`
 
