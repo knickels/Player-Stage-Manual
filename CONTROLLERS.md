@@ -38,7 +38,7 @@ actually call these functions with your code and know how to use them.
 | <img src="pics/coding/ServerClient_sim.png" width="50%">     |
 | Figure 5.2: The server/client control structure of Player/Stage when used as a simulator. There may be several proxies connected to the server at any time. |
 
-## Types of controllers
+## 5.1 Types of controllers
 Player is compatable with C, C++ or Python player controllers.  
 
 There are also such things as "stage controllers" such as those distributed in
@@ -51,8 +51,8 @@ line to use the examples given here.  Player controllers can control a real or
 a simulated robot.
 
 We will start by using C++ since it's pretty general.
-There are also sections covering [C controllers](#CONTROLLER_C.md) and
-[Python controllers](#CONTROllER_PY.md).
+There are also sections covering [C controllers](CONTROLLER_C.md) and
+[Python controllers](CONTROllER_PY.md).
 
 The process of writing Player code is mostly the same for each different
 language though. The Player and Player proxy functions have different names for
@@ -75,7 +75,7 @@ for some reason your robot breaks and a certain function no longer works
 you only have to change part of a file instead of searching through all
 your code for places where Player functions have been used.
 
-In order to compile your program you use the following commands (in Linux):
+In order to compile your C++ program you use the following commands (in Linux):
 ```
 g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++`
 ```
@@ -96,14 +96,14 @@ the right thing".
 
 >` > player simple.cfg` 
 
->` > cat example0.cc` 
+>` > cat example0.cc` (and read through the code for understanding)
 
 >` > make example0` 
 
 >` > ./example0` 
 
 
-## <a name="sec_Coding_ConnectingToServer"> Connecting to the Server and Proxies With Your Code</a>
+## 5.2 <a name="sec_Coding_ConnectingToServer"> Connecting to the Server and Proxies With Your Code</a>
 
 The first thing to do within your code is to include the Player header
 file. Assuming Player/Stage is installed correctly on your machine then
@@ -176,7 +176,7 @@ proxy object, `client_name` is the name you gave the PlayerClient
 object earlier and `index` is the index that the device was given in
 your configuration file (probably 0).
 
-### <a name="sec_Coding_ConnectingToServer_Example"> Setting Up Connections: an Example. </a>
+### 5.2.1 <a name="sec_Coding_ConnectingToServer_Example"> Setting Up Connections: an Example. </a>
 
 For an example of how to connect to the Player sever and device proxies we
 will use the example configuration file developed in [Finishing
@@ -205,7 +205,7 @@ driver
 ```
 
 To set up a PlayerClient and then connect to proxies on that server we can
-use principles discussed in this Section to develop the following code:
+use principles discussed in this section to develop the following code:
 ```
 #include <stdio.h>
 #include <libplayerc++/playerc++.h>
@@ -226,7 +226,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-## <a name="sec_Coding_InteractingWithProxies"> Interacting with Proxies </a>
+## 5.3 <a name="sec_Coding_InteractingWithProxies"> Interacting with Proxies </a>
 
 As you may expect, each proxy is specialised towards controlling the device
 it connects to. This means that each proxy will have different commands
@@ -243,12 +243,12 @@ always explained.
 The following few proxies are probably the most useful to anyone using
 Player or Player/Stage.
 
-### Position2dProxy
+### 5.3.1 Position2dProxy
 The Position2dProxy is the number one most useful proxy there is. It
 controls the robot's motors and keeps track of the robot's odometry (where
 the robot thinks it is based on how far its wheels have moved).
 
-#### <a name="sec_Coding_InteractingWithProxies_GetSetSpeed"> Get/SetSpeed </a>
+#### <a name="sec_Coding_InteractingWithProxies_SetSpeed"> SetSpeed </a>
 The `SetSpeed` command is used to tell the robot's motors how fast to turn.
 There are two different `SetSpeed` commands that can be called, one is for
 robots that can move in any direction and the other is for robots with
@@ -282,14 +282,16 @@ speed and a turning speed before sending it to the proxy. For car-like
 drives there is the `SetCarlike` which again is the forward speed in m/s
 and the drive angle in radians.
 
-The `GetSpeed` commands are essentially the reverse of the SetSpeed
+#### `GetSpeed ()`
+
+The GetSpeed commands are essentially the reverse of the SetSpeed
 command. Instead of setting a speed they return the current speed relative
 to the robot (so x is the forward speed, yaw is the turning speed and so
 on).  
 
-* `GetXSpeed`: forward speed (metres/sec).
-* `GetYSpeed`: sideways (perpendicular) speed (metres/sec).
-* `GetYawSpeed`: turning speed (radians/sec).
+* `GetXSpeed()`: forward speed (metres/sec).
+* `GetYSpeed()`: sideways (perpendicular) speed (metres/sec).
+* `GetYawSpeed()`: turning speed (radians/sec).
 
 #### `Get_Pos ()`
 This function interacts with the robot's odometry. It allows you to monitor
@@ -307,13 +309,13 @@ starting point, and yaws are relative to its starting yaw.
 
 >`> player bigbob7.cfg`
 
->`> cat bigbob8.cc`
+>`> cat bigbob8.cc`(and read through the code for understanding)
 
 >`> make bigbob8`
 
 >`> ./bigbob8`
 
-In [Position](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
+In [The Position Model](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
 specified whether player would record odometry by measuring how much the
 robot's wheels have turned, or whether the robot would have perfect
 knowledge of its current coordinates (by default the robot does not record
@@ -321,9 +323,7 @@ odometry at all).  If you set the robot to record odometry using its wheels
 then the positions returned by these get commands will become increasingly
 inaccurate as the simulation goes on. If you want to log your robots
 position as it moves around, these functions along with the perfect
-odometry can be used (see
-[Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) 
-for how to give the robot perfect odometry.) 
+odometry can be used.
 
 #### SetMotorEnable()
 This function takes a boolean input, telling Player whether to enable the
@@ -337,7 +337,7 @@ ever likely to be moved onto a real robot and the motors are not explicitly
 enabled in your code, then you may end up spending a long time trying to
 work out why your robot is not working.
 
-### <a name="sec_Coding_InteractingWithProxies_ranger">RangerProxy</a>
+### 5.3.2 <a name="sec_Coding_InteractingWithProxies_ranger">RangerProxy</a>
 
 A RangerProxy interfaces with any ranger sensor.  
 
@@ -398,22 +398,29 @@ Angles are given with reference to the laser's centre front (see Figure
 
 >`> player bigbob7.cfg`
 
->`> cat bigbob9.cc`
+>`> cat bigbob9.cc`(and read through the code for understanding)
 
 >`> make bigbob9`
 
 >`> ./bigbob9`
 
 
-### <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
-The blobfinder module analyses a camera image for areas of a desired colour and returns an array of the structure `playerc_blobfinder_blob_t`, this is the structure used to store blob data. First we will cover how to get this data from the blobfinder proxy, then we will discuss the data stored in the structure.
+### 5.3.3 <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
+The blobfinder module analyses a camera image for areas of a desired colour
+and returns an array of the structure [`playerc_blobfinder_blob_t`](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/structplayer__blobfinder__blob.html), this is
+the structure used to store blob data. First we will cover how to get this
+data from the blobfinder proxy, then we will discuss the data stored in the
+structure.
 
-* `GetCount`: Returns the number of blobs seen.
-* `blobProxy_name[blob_number]`: This returns the blob structure data for the blob with the index `blob_number`. Blobs are sorted by index in the order that they appear in the image from left to right. This can also be achieved with the BlobfinderProxy function `GetBlob(blob_number)`.
-
+* `GetCount()`: Returns the number of blobs seen.
+* `blobProxy_name[blob_number]`: This returns the blob structure data for
+  the blob with the index `blob_number`. Blobs are sorted by index in the
+  order that they appear in the image from left to right. 
+* `GetBlob(blob_number)`: same as `blobProxy_name[blob_number]`
 
 Once we receive the blob structure from the proxy we can extract data we
-need. The `playerc_blobfinder_blob_t` structure contains the following fields:
+need. The `playerc_blobfinder_blob_t` structure, documented in the [Player
+manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/structplayer__blobfinder__blob.html) contains the following fields:
 
 * `color`: The colour of the blob it detected. This is given as a hexadecimal value.
 * `area`: The area of the blob's bounding box. (In
@@ -449,18 +456,20 @@ need. The `playerc_blobfinder_blob_t` structure contains the following fields:
 
 >` > player bigbob7.cfg `
 
+>` > cat bigbob10.cc `(and read through the code for understanding)
+
 >` > make bigbob10 `
 
 >` > ./bigbob10`
 
 
-### <a name="gripperproxy"> GripperProxy </a>
-The GripperProxy allows you to control the gripper, once the gripper is holding an item, the simulated robot will carry it around wherever it goes. Without a gripper you can only jostle an item in the simulation and you would have to manually tell the simulation what to do with an item. The GripperProxy can also tell you if an item is between the gripper teeth because the gripper model has inbuilt beams which can detect if they are broken. 
+### 5.3.4 <a name="gripperproxy"> GripperProxy </a>
+The GripperProxy allows you to control the gripper.  Once the gripper is holding an item, the simulated robot will carry it around wherever it goes. Without a gripper you can only jostle an item in the simulation and you would have to manually tell the simulation what to do with an item. The GripperProxy can also tell you if an item is between the gripper teeth because the gripper model has inbuilt beams which can detect if they are broken. 
 
-* `GetBeams`: This command will tell you if there is an item inside the gripper. If it is a value above 0 then there is an item to grab.
-* `GetState`: This will tell you whether the gripper is opened or closed. If the command returns a 1 then the gripper is open, if it returns 2 then the gripper is closed, and 3 if the gripper is moving.
-* `Open`: Tells the gripper to open. This will cause any items that were being carried to be dropped.
-* `Close`: Tells the gripper to close. This will cause it to pick up anything between its teeth.
+* `GetBeams()`: This command will tell you if there is an item inside the gripper. If it is a value above 0 then there is an item to grab.
+* `GetState()`: This will tell you whether the gripper is opened or closed. If the command returns a 1 then the gripper is open, if it returns 2 then the gripper is closed, and 3 if the gripper is moving.
+* `Open()`: Tells the gripper to open. This will cause any items that were being carried to be dropped.
+* `Close()`: Tells the gripper to close. This will cause it to pick up anything between its teeth.
 
 
 > #### TRY IT OUT
@@ -469,13 +478,15 @@ The GripperProxy allows you to control the gripper, once the gripper is holding 
 
 >` > player bigbob11.cfg `
 
+>` > cat bigbob11.cc `(and read through the code for understanding)
+
 >` > make bigbob11 `
 
 >` > ./bigbob11`
 
 
 
-### SimulationProxy
+### 5.3.5 SimulationProxy
 The simulation proxy allows your code to interact with and change aspects of the simulation, such as an item's pose or its colour. 
 
 #### Get/Set Pose
@@ -500,25 +511,28 @@ the given addresses in memory.
 
 >` > player bigbob11.cfg `
 
+>` > cat bigbob12.cc`(and read through the code for understanding)
+
 >` > make bigbob12 `
 
 >` > ./bigbob12`
 
 
 #### Get/Set Property
-In version 4.1.1 of Stage the Get/SetProperty simulation proxy functions
+In Stage 4.1.1 the Get/SetProperty simulation proxy functions
 are only implemented for the property "color".  None of the other
 properties are supported.  Previous versions of Stage (before 3.2.2) had
 some code but it wasn't fully implemented, and it's been removed since.
 
 If you desperately need this functionality you can use an earlier release
-of Stage, and the first edition of this manual describes how to get and
+of Stage, and [the first edition of this manual](http://playerstage.sourceforge.net/doc/playerstage_instructions_2.0.pdf) describes how to get and
 set a model's property in those distributions.  
 
 In this edition of the manual I will describe the only functioning
 Get/SetProperty, which is "color".
 
 To change a property of an item in the simulation we use the following function:
+
 `SetProperty(char *item_name, char *property, void *value, size_t value_len)`
 
 * `item_name`: this is the name that you gave to the object in the
@@ -534,11 +548,11 @@ To change a property of an item in the simulation we use the following function:
   declared in the configuration file for this to work either. We
   didn't write controllers for the oranges but we could still alter
   their properties this way.
-* `property`: There is only one property about a model
-that you can change.  You specify this wish a string:
-* `"_mp_color"`: The colour of the item. 
-* `value`: The value you want to assign to the property.
-* `value_len`: is the size of the value you gave in bytes. This can easily be found with the C or C++ `sizeof()` operator.
+* `property`: Currently, `"_mp_color"` is the only supported propery about
+   a model that you can change.  
+* `value`: The value you want to assign to the property (see below).
+* `value_len`: is the size of the value you gave in bytes. This can easily
+  be found with the C or C++ `sizeof()` operator.
 
 The `value` parameter is dependant on which `property` you want to set.
 
@@ -558,13 +572,15 @@ The `value` parameter is dependant on which `property` you want to set.
 
 >` > player bigbob11.cfg `
 
+>` > cat bigbob13.cc `(and read through the code for understanding)
+
 >` > make bigbob13 `
 
 >` > ./bigbob13`
 
 
 		
-### General Useful Commands
+## 5.4 General Useful Commands
 
 #### Read()
 To make the proxies update with new sensor data we need to tell the player server to update, we can do this using the PlayerClient object which we used to connect to the server. All we have to do is run the command `playerClient_name.Read()` every time the data needs updating (where playerClient_name is the name you gave the PlayerClient object). Until this command is run, the proxies and any sensor information from them will be empty. 
@@ -573,18 +589,24 @@ The devices on a typical robot are asynchronous and the devices in a Player/Stag
 #### GetGeom()
 Most of the proxies have a function called `GetGeom` or `GetGeometry` or `RequestGeometry`, or words to that effect. What these functions do is tell the proxy retrieve information about the device, usually its size and pose (relative to the robot). The proxies don't know this by default since this information is specific to the robot or the Player/Stage robot model. If your code needs to know this kind of information about a device then the proxy must run this command first.
 
-## <a name="sec_Coding_UsingProxiesExample"> Using Proxies: A Case Study </a>
+## 5.5 <a name="sec_Coding_UsingProxiesExample"> Using Proxies: Case Study 1: using C++ for a Trash-Zapping Robot</a>
 
 To demonstrate how to write code to control a Player device or Player/Stage
-simulation we will use the example robot "Bigbob" developed in
-[Building a Robot](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot) and (#sec_ConfigurationFile) which collects oranges and juice cartons from a factory floor. In previous sections we have developed the Stage model for this robot and its environment and the configuration file to control it. Now we can begin to put everything together to create a working simulation of this robot.
+simulation we will use the example robot "Bigbob" developed in [Building a
+Robot](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_ExampleRobot) and
+[Putting the Configuration File
+together](CFGFILES.md#sec_ConfigurationFile_FinishingCFG) which collects
+oranges and juice cartons from a factory floor. In previous sections we
+have developed the Stage model for this robot and its environment and the
+configuration file to control it. Now we can begin to put everything
+together to create a working simulation of this robot.
 
-### <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
+### 5.5.1 <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
 To collect rubbish we have three basic behaviours: 
 
-* Wandering: to search for rubbish. 
-* Moving towards item: for when an item is spotted and the robot wants to collect it
-* Collecting item: for dealing with collecting items.
+* **Wander**: to search for rubbish. 
+* **Move to item**: for when an item is spotted and the robot wants to collect it
+* **Collect item**: for dealing with collecting items.
 
 The robot will also avoid obstacles but once this is done it will switch
 back to its previous behaviour. The control will follow the state
@@ -598,7 +620,7 @@ transitions shown in Figure 5.7.
 <!--- <a name="fig_Coding_UsingProxiesExample_ControlArch_Structure" </a> --->
 
 
-### <a name="sec_Coding_UsingProxiesExample_BeginningCode"> Beginning the Code </a>
+### 5.5.2 <a name="sec_Coding_UsingProxiesExample_BeginningCode"> Beginning the Code </a>
 
 In [Connecting to Server](#sec_Coding_ConnectingToServer_Example) we discussed how to connect to the Player server and proxies attached to the server, and developed the following code:
 ```
@@ -645,10 +667,10 @@ while(true)
 }
 ```
 
-### Wander
+### 5.5.3 Wander
 
 First we will initialise a couple of variables which will be the forward
-speed and the turning speed of the robot, we'll put this with the proxy
+speed and the turning speed of the robot.  We'll put this with the proxy
 initialisations.
 ```
 Position2dProxy p2dProxy(&robot,0);
@@ -746,7 +768,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-### Obstacle Avoidance
+### 5.5.4 Obstacle Avoidance
 Now we need to write a subfunction that checks the sonars for any obstacles and amends the motor speeds accordingly.
 ```
 void AvoidObstacles(double *forwardSpeed, double *turnSpeed, 
@@ -804,7 +826,7 @@ while(true)
 }
 ```
 
-### Move To Item
+### 5.4.5 Move To Item
 For this state we want the robot to move towards a blob that it has spotted. There may be several blobs in its view at once, so we'll tell the robot to move to the largest one because it's probably the closest to the robot. The following subfunction finds the largest blob and turns the robot so that the blob's centre is near the centre of the image. The robot will then move towards the blob.
 ```
 void MoveToItem(double *forwardSpeed, double *turnSpeed, 
@@ -884,7 +906,7 @@ else
 }
 ```
 
-### <a name="sec_Coding_UsingProxiesExample_CollectItem"> Collect Item </a>
+### 5.5.6 <a name="sec_Coding_UsingProxiesExample_CollectItem"> Collect Item </a>
 This behaviour will be the most difficult to code because Stage doesn't
 support pushable objects (the required physics is far too complex), what
 happens instead is that the robot runs over the object and just jostles it
@@ -996,13 +1018,15 @@ the [simulation world](code/Ch5.2/bigbob11.world), and
 
 >` > player bigbob11.cfg `
 
+>` > cat bigbob13.cc `(and read through the code for understanding)
+
 >` > make bigbob13 `
 
 >` > ./bigbob13`
 
 
 
-## Simulating Multiple Robots
+## 5.6 <a name="simulating_Multiple_Robots">Case Study 2: Simulating Multiple Robots</a>
 Our robot simulation case study only shows how to simulate a single robot in a Player/Stage environment. It's highly likely that a simulation might want more than one robot in it. In this situation you will need to build a model of every robot you need in the worldfile, and then its associated driver in the configuration file. Let's take a look at our worldfile for the case study, we'll add a new model of a new Bigbob robot called "bob2":
 ```
 bigbob
@@ -1034,7 +1058,8 @@ driver( name "stage"
 ```
 If you plan on simulating a large number of robots then it is probably worth writing a script to generate the world and configuration files.
 
-When Player/Stage is started, the Player server automatically connects to all the used ports in your simulation and you control the robots separately with different PlayerClient objects in your code. For instance:
+When Player/Stage is started, the Player server automatically connects to
+all the ports used in your simulation and you control the robots separately with different PlayerClient objects in your code. For instance:
 ```
 //first robot
 PlayerClient robot1("localhost", 6665);

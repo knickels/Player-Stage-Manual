@@ -285,7 +285,7 @@ In Player/Stage a robot is just a slightly advanced kind of model, all the
 parameters described in [Models](#sec_BuildingAWorld_EmptyWorld_Models) can
 still be applied. 
 
-### 3.2.1 - <a name="sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices">Sensors and Devices</a>
+### 3.2.1 - <a name="sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices">Sensors and Devices</a> <a name="sec_BuildingAWorld_BuildingRobot_RobotSensors"></a>
 
 There are six built-in kinds of model that help with building a robot, they
 are used to define the sensors and actuators that the robot has. These are
@@ -409,7 +409,7 @@ are:
   [Robot Sensors and Devices](#sec_BuildingAWorld_BuildingRobot_RobotSensorsDevices).
 
 
-####position 
+####<a name="sec_BuildingAWorld_BuildingRobot_RobotSensors_Position">position</a>
 The [position model](http://rtv.github.com/Stage/group__model__position.html)
 simulates the robot's odometry, this is when the robot keeps track of where
 it is by recording how many times its wheels spin and the angle it turns.
@@ -432,7 +432,7 @@ parameters of the position model are:
   the odometry recordings.
 
 
-### 3.2.2 - An Example Robot 
+### 3.2.2 - <a name="sec_BuildingAWorld_BuildingRobot_ExampleRobot">An Example Robot </a>
 
 To demonstrate how to build a model of a robot in Player/Stage we will
 build our own example. First we will describe the physical properties of
@@ -939,7 +939,7 @@ occupying the world, as shown in Figure 12.
 >` > playerv --ranger:0 --ranger:1`
 
 
-##Building Other Stuff 
+## <a name="sec_BuildingAWorld_OtherStuff">Building Other Stuff </a>
 We established in Section [sec_BuildingAWorld_BuildingRobot_RobotSensors]
 that Bigbob works in a orange juice factory collecting oranges and juice
 cartons. Now we need to build models to represent the oranges and juice

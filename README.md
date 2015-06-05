@@ -29,8 +29,8 @@ previous edition of this manual is now out of date.
 5. [Getting Your Simulation to Run Your Code](CONTROLLERS.md)
 
 ### Change Log
-* 18 May 2015 began migration from LaTeX to MARKDONW on GitHub
-* ? August 2013 updated manual to Stage 4.1.1
+* 18 May 2015 began migration from LaTeX to MARKDOWN on GitHub
+* August 2013 updated manual to Stage 4.1.1
 * 1st August 2013 Source code made available online
 * 16th April 2010 updated manual to Stage 3.2.2
 * 10th July 2009 original manual covering Stage versions 2.1.1 and 3.1.0

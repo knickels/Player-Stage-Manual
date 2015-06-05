@@ -1,79 +1,27 @@
-# <a name="sec_Coding"> Chapter 5 - Getting Your Simulation to Run Your Code</a>
+# <a name="sec_Coding"> Chapter 6 - Controllers in Other Languages </a>
 
-To learn how to write code for Player or Player/Stage it helps to
-understand the basic structure of how Player works. Player uses a
-Server/Client structure in order to pass data and instructions between your
-code and the robot's hardware. Player is a server, and a hardware device.
-Remember, a device is a piece of hardware that uses a driver which conforms
-to an interface. See [Interface Driver Devices](BASICS.md#sec_Basics_InterfaceDriverDevices).  On
-the robot is subscribed as a client to the server via a thing called a
-*proxy*. The .cfg file associated with your robot (or your simulation)
-takes care of telling the Player server which devices are attached to it,
-so when we run the command `player some_cfg.cfg` this starts up the Player
-server and connects all the necessary hardware devices to the server.
+In [Chapter 5](CONTROLLERS.md) only C++ was used as an example.  Since
+Player interacts with controlling code over network sockets, it's pretty
+easy to control robots (physical or simulated) with other languages as
+well.  Player officially supports C and Python (see 
+(http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__clientlibs.html)).
+There are also [Third party
+libraries](http://playerstage.sourceforge.net/wiki/PlayerClientLibraries)
+with support for clients ranging from Smalltalk to Java to MATLAB.
 
-Figure 5.1 shows a basic block diagram of
-the structure of Player when implemented on a robot. In Player/Stage the
-same command will start the Player server and load up the worldfile in a
-simulation window, this runs on your computer and allows your code to
-interact with the simulation rather than hardware. Figure
-5.2 shows a basic block diagram of the
-Player/Stage structure.  Your code must also subscribe to the Player server
-so that it can access these proxies and hence control the robot. Player has
-functions and classes which will do all this for you, but you still need to
-actually call these functions with your code and know how to use them.
+In this manual, I will cover only C and Python.
 
+First, I will review the same example given in [Chapter 5](CONTROLLERS.md)
+for C++, hilighting the differences in the new language.  Then, I will
+provide a new version of the 
+[Case Study](CONTROLLERS.md#sec_Coding_UsingProxiesExample)
+for each.
 
-<!--- Figure --->
-| |
-| :---------------:| 
-| <img src="pics/coding/ServerClient_robot.png" width="50%">     |
-| Figure 5.1: The server/client control structure of Player when used on a robot. There may be several proxies connected to the server at any time. |
-<!--- <a name="fig_Coding_ServerClientSim"></a> --->
+## <a name="sec_Coding_C">
 
+### Compiling a simple example
 
-<!--- Figure --->
-| |
-| :---------------:| 
-| <img src="pics/coding/ServerClient_sim.png" width="50%">     |
-| Figure 5.2: The server/client control structure of Player/Stage when used as a simulator. There may be several proxies connected to the server at any time. |
-
-## Types of controllers
-Player is compatable with C, C++ or Python player controllers.  
-
-There are also such things as "stage controllers" such as those distributed in
-the stage source code under `examples/ctrl`, but in this manual we'll only
-describe player controllers.
-Earlier versions of `simple.world` had a line `ctrl wander` that
-automatically started the simulated robot working with a stage controller.
-If you happen to encounter this `simple.world` file, just comment out that
-line to use the examples given here.  Player controllers can control a real or
-a simulated robot.
-
-In this section we will start by using C++ since it's pretty general.
-There are also sections covering [C controllers](#CONTROLLER_C.md) and
-[Python controllers](#CONTROllER_PY.md).
-
-The process of writing Player code is mostly the same for each different
-language though. The Player and Player proxy functions have different names for
-each language, but work in more or less the same way, so even if you don't
-plan on using C++ or Stage this section will still contain helpful
-information.  
-
-Example controllers in various languages can be found in the Player source code
-under ` examples/`.  These and more are documented at
-(http://playerstage.sourceforge.net/wiki/PlayerClientLibraries), and
-some matlab and python examples based on this manual are given at
-(http://turobotics.blogspot.com/2013/08/client-controllers-for-player-302-and.html).
-
-Before beginning a project it is highly recommended that for any programs other than basic examples you should always wrap your Player commands around your own functions and classes so that all your code's interactions with Player are kept together the same file. This isn't a requirement of Player, it's just good practice. For example, if you upgrade Player or if for some reason your robot breaks and a certain function no longer works you only have to change part of a file instead of searching through all your code for places where Player functions have been used.
-
-Finally, in order to compile your program you use the following commands (in Linux):
-```
-g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++`
-```
-
-That will compile a program to a file called `example0` from the C++ code file \`example0.cc`. If you are coding in C instead then use the following command:
+If you are coding in C instead then use the following command:
 ```
 gcc -o simple `pkg-config --cflags playerc` simple.c `pkg-config --libs playerc`
 ```
@@ -83,26 +31,15 @@ explains how to compile your code for you.  The details of Makefiles are
 beyond the scope of this manual, but an example is given in the tutorial
 files that came with this manual.  If you have this `Makefile` in the
 same directory as your code, you can just type `make file` and the make
-program will search for `file.cc` and `file.c` and "do the right
-thing".
-
-> #### TRY IT OUT
-
->` > cd <source_code>/Ch5.1` 
-
->` > player simple.cfg` 
-
->` > make example0` 
-
->` > ./example0` 
-
->
+program will search for `file.c` and "do the right thing".
 
 > #### TRY IT OUT
 
 > ` > cd <source_code>/Ch5.1` 
 
 >` > player simple.cfg` 
+
+>` > cat simple.c` 
 
 >` > make simple` 
 
@@ -111,16 +48,20 @@ thing".
 >
 
 
-## <a name="sec_Coding_ConnectingToServer"> Connecting to the Server and Proxies With Your Code</a>
+## <a name="sec_Coding_ConnectingToServer"> 6.1 Connecting to the Server and Proxies With Your Code</a>
 
-The first thing to do within your code is to include the Player header file. Assuming Player/Stage is installed correctly on your machine then this can be done with the line `#include <libplayerc++/playerc++.h>` (if you're using C then type `#include <libplayerc/playerc.h>` instead).
+The first thing to do within your code is to include the Player header
+file. Assuming Player/Stage is installed correctly on your machine then
+this can be done with the line `#include <libplayerc/playerc.h>`.
 
-Next we need to establish a Player Client, which will interact with the Player server for you. To do this we use the line:
+Next we need to establish a Player Client, which will interact with the
+Player server for you. To do this we use the lines:
 ```
-PlayerClient client_name(hostname, port); 
+playerc_client_t *client;
+client = playerc_client_create(NULL, "localhost", 6665);
 ```
-What this line does is declare a new object which is a PlayerClient called
-`client_name` which connects to the Player server at the given address. The
+What this does is declare a new object which is a playerc_client called
+`client` which connects to the Player server at the given address. The
 hostname and port is like that discussed in [Device Address](CFGFILES.md#sec_ConfigurationFile_DeviceAddress). If your code is running on the
 same computer (or robot) as the Player server you wish to connect to then
 the hostname is "localhost" otherwise it will be the IP address of the
@@ -133,12 +74,18 @@ port 6665 and the second one 6666 (like in the example of
 PlayerClients, one connected to each robot, and you would do this with the
 following code: 
 ```
-PlayerClient robot1("localhost", 6665); 
-PlayerClient robot2("localhost", 6666); 
+client1 = playerc_client_create(NULL, "localhost", 6665);
+client2 = playerc_client_create(NULL, "localhost", 6666);
 ```
 If you are only using one robot and in your .cfg file you said that it would operate on port 6665 then the port parameter to the PlayerClient class is not needed. 
 
-Once we have established a PlayerClient we should connect our code to the device proxies so that we can exchange information with them. Which proxies you can connect your code to is dependent on what you have put in your configuration file. For instance if your configuration file says your robot is connected to a laser but not a camera you can connect to the laser device but not the camera, even if the robot (or robot simulation) has a camera on it. 
+Once we have established a PlayerClient we should connect our code to the
+device proxies so that we can exchange information with them. Which proxies
+you can connect your code to is dependent on what you have put in your
+configuration file. For instance if your configuration file says your robot
+is connected to a laser but not a camera you can connect to the laser
+device but not the camera, even if the robot (or robot simulation) has a
+camera on it. 
 
 Proxies take the name of the interface which the drivers use to talk to
 Player. Let's take part of the Bigbob example configuration file from
@@ -157,16 +104,20 @@ Here we've told the Player server that our "robot" has devices which use the
 position2d, ranger, and blobfinder interfaces. In our code then, we should
 connect to the position2d, ranger, and blobfinder proxies like so:
 ```
-Position2dProxy positionProxy_name(&client_name,index);
-RangerProxy      sonarProxy_name(&client_name,index);
-BlobfinderProxy blobProxy_name(&client_name,index);
-RangerProxy      laserProxy_name(&client_name,index);
+position2d_name = playerc_position2d_create(client_name, index);
+playerc_position2d_subscribe(position2d_name, PLAYER_OPEN_MODE);
+
+ranger_name = playerc_ranger_create(client_name,index);
+playerc_ranger_subscribe(ranger_name,PLAYER_OPEN_MODE);
+
+blobfinder_name = playerc_blobfinder_create(client_name,index);
+playerc_blobfinder_subscribe(blobfinder_name,PLAYER_OPEN_MODE);
 ```
-A full list of which proxies Player supports can be found in the [Player
-manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html),
+A full list of which proxies PlayerC supports can be found in the [Player
+manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__playerc__proxies.html)
 they all follow the convention of being named after the interface they use.
-In the above case `Proxy_name` is the name you want to give to the
-proxy object, `client_name` is the name you gave the PlayerClient
+In the above case `proxy_name` is the name you want to give to the
+proxy object, `client_name` is the name you gave the playerc_client
 object earlier and `index` is the index that the device was given in
 your configuration file (probably 0).
 
@@ -197,48 +148,72 @@ driver
       model "bob1" 
 )
 ```
-To set up a PlayerClient and then connect to proxies on that server we can use principles discussed in this Section to develop the following code:
+To set up a playerc_client and then connect to proxies on that server we
+can use principles discussed in this section to develop the following code:
 ```
 #include <stdio.h>
-#include <libplayerc++/playerc++.h>
+#include <libplayerc/playerc.h>
 
 int main(int argc, char *argv[])
 {
-      /*need to do this line in c++ only*/
-      using namespace PlayerCc;
-	
-      PlayerClient    robot("localhost");
+  playerc_client_t *robot;
 
-      Position2dProxy p2dProxy(&robot,0);
-      RangerProxy      sonarProxy(&robot,0);
-      BlobfinderProxy blobProxy(&robot,0);
-      RangerProxy      laserProxy(&robot,1);
+  /* Create a client and connect it to the server. */
+  robot = playerc_client_create(NULL, "localhost", 6665);
+  if (0 != playerc_client_connect(robot)) return -1;
 
-      //some control code
-      return 0;
+  /* Create and subscribe to a position2d device. */
+  p2dProxy = playerc_position2d_create(robot, 0);
+  if (playerc_position2d_subscribe(p2dProxy, PLAYER_OPEN_MODE)) return -1;
+
+  /* Create and subscribe to a ranger (sonar) device. */
+  sonarProxy = playerc_ranger_create(robot, 0);
+  if (playerc_ranger_subscribe(sonarProxy, PLAYER_OPEN_MODE)) return -1;
+
+  /* Create and subscribe to a blobfinder device. */
+  BlobfinderProxy = playerc_blobfinder_create(robot, 0);
+  if (playerc_blobfinder_subscribe(BlobfinderProxy, PLAYER_OPEN_MODE)) return -1;
+
+  /* Create and subscribe to a ranger (laser) device. */
+  laserProxy = playerc_ranger_create(robot, 1);
+  if (playerc_ranger_subscribe(laserProxy, PLAYER_OPEN_MODE)) return -1;
+
+  /*some control code */
+  return 0;
 }
 ```
 
 ## <a name="sec_Coding_InteractingWithProxies"> Interacting with Proxies </a>
 
-As you may expect, each proxy is specialised towards controlling the device it connects to. This means that each proxy will have different commands depending on what it controls. 
-In Player version 3.0.2 there are 39 different proxies which you can choose
-to use, many of which are not applicable to Player/Stage. This manual will
-not attempt to explain them all, a full list of avaliable proxies and their
-functions is in the [Player manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html), although the returns, parameters and purpose of the proxy function is not always explained. 
+As you may expect, each proxy is specialised towards controlling the device
+it connects to. This means that each proxy will have different commands
+depending on what it controls.  In Player version 3.0.2 there are 39
+different proxies which you can choose to use, many of which are not
+applicable to Player/Stage. This manual will not attempt to explain them
+all, a full list of avaliable proxies and their
+functions is in the [Player manual](
+http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__playerc__proxies.html), although the returns, parameters and purpose of the proxy function is not always explained. 
 
-The following few proxies are probably the most useful to anyone using Player or Player/Stage.
+The following few proxies are probably the most useful to anyone using
+Player or Player/Stage.
 
-### Position2dProxy
-The Position2dProxy is the number one most useful proxy there is. It controls the robot's motors and keeps track of the robot's odometry (where the robot thinks it is based on how far its wheels have moved).
+### position2dproxy
+The position2dproxy is the number one most useful proxy there is. It
+controls the robot's motors and keeps track of the robot's odometry (where
+the robot thinks it is based on how far its wheels have moved).
 
-#### <a name="sec_Coding_InteractingWithProxies_GetSetSpeed"> Get/SetSpeed </a>
-The `SetSpeed` command is used to tell the robot's motors how fast to turn. There are two different `SetSpeed` commands that can be called, one is for robots that can move in any direction and the other is for robots with differential or car-like drives. 
+#### <a name="sec_Coding_InteractingWithProxies_SetSpeed"> SetSpeed </a>
+The `SetSpeed` command is used to tell the robot's motors how fast to turn.
+There are three different `SetSpeed` commands that can be called, one is
+for robots that can move in any direction (omnidirectional), one is for for
+robots with differential, and the last for car-like drives. 
 
-* `SetSpeed(double XSpeed, double YSpeed, double YawSpeed)`
-* `SetSpeed(double XSpeed, double YawSpeed)`
-* `SetCarlike(double XSpeed, double DriveAngle)`
-
+* `playerc_position2d_set_cmd_vel (playerc_position2d_t *device, double
+  XSpeed, double YSpeed, double YawSpeed, int state)`
+* `playerc_position2d_set_cmd_vel_head (playerc_position2d_t *device,
+  double XSpeed, double YSpeed, double YawHeading, int state)`
+* `playerc_position2d_set_cmd_car (playerc_position2d_t *device, double
+  XSpeed, *double SteerAngle)`
 
 <!--- Figure --->
 | |
@@ -246,15 +221,14 @@ The `SetSpeed` command is used to tell the robot's motors how fast to turn. Ther
 | <img src="pics/coding/bob_cartgrid.png" width="50%">     |
 | Figure 5.3: A robot on a cartesian grid. This shows what directions the X and Y speeds will cause the robot to move in. A positive yaw speed will turn the robot in the direction of the + arrow, a negative yaw speed is the direction of the - arrow. |
 
-
-
 Figure 5.3 
 shows which direction the x, y and yaw speeds are in relation to the robot.
 The x speed is the rate at which the robot moves forward and the y speed is
 the robot's speed sideways, both are to be given in metres per second. The
 y speed will only be useful if the robot you want to simulate or control is
-a ball, since robots with wheels cannot move sideways. The yaw speed
-controls how fast the robot is turning and is given in radians per second,
+onidirectional, since robots with standard wheels cannot move sideways. The
+yaw speed controls how fast the robot is turning and is given in radians
+per second.
 Player has an inbuilt global function called `dtor()` which converts a
 number in degrees into a number in radians which could be useful when
 setting the yaw speed. If you want to simulate or control a robot with a
@@ -263,29 +237,35 @@ speeds into a forward speed and a turning speed before sending it to the
 proxy. For car-like drives there is the `SetCarlike` which, again is
 the forward speed in m/s and the drive angle in radians.
 
-The `GetSpeed` commands are essentially the reverse of the SetSpeed
-command. Instead of setting a speed they return the current speed relative
-to the robot (so x is the forward speed, yaw is the turning speed and so
-on).  
+#### <a name="sec_Coding_InteractingWithProxies_GetSpeed"> GetSpeed </a>
+With playerc, there are no explicit GetSpeed comments - you just read from
+the relevant fields in the `playerc_position2d_t` strucure.
 
-* `GetXSpeed`: forward speed (metres/sec).
-* `GetYSpeed`: sideways (perpendicular) speed (metres/sec).
-* `GetYawSpeed`: turning speed (radians/sec).
+* `device->vx`: forward speed (metres/sec).
+* `device->vy`: sideways (perpendicular) speed (metres/sec).
+* `device->va`: turning speed (radians/sec).
 
 
 #### `Get_Pos ()`
-This function interacts with the robot's odometry. It allows you to monitor where the robot thinks it is. Coordinate values are given relative to its starting point, and yaws are relative to its starting yaw. 
+Again, in playerc these fields are read directly from the `playerc_position2d_t`
+strucure.
 
-* `GetXPos()`: gives current x coordinate relative to its x starting position.
-* `GetYPos()`: gives current y coordinate relative to its y starting position.
-* `GetYaw()`: gives current yaw relative to its starting yaw.
+This allows you to monitor where the robot thinks it is. Coordinate values
+are given relative to its starting point, and yaws are relative to its
+starting yaw. 
+
+* `device->px`: gives current x coordinate relative to its x starting position.
+* `device->py`: gives current y coordinate relative to its y starting position.
+* `device->pa`: gives current yaw relative to its starting yaw.
 
 
 > #### TRY IT OUT
 
->`> cd <source_code>/Ch5.2`
+>`> cd <source_code>/Ch6.2`
 
 >`> player bigbob7.cfg`
+
+>`> cat bigbob8.c`
 
 >`> make bigbob8`
 
@@ -302,19 +282,21 @@ around, these functions along with the perfect odometry (see
 [Robot Sensors](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors)) for how to give
 the robot perfect odometry.) setting can be used. 
 
-#### SetMotorEnable()
+#### playerc_position2d_enable(device, enable)
 This function takes a boolean input, telling Player whether to enable the
 motors or not. If the motors are disabled then the robot will not move no
 matter what commands are given to it, if the motors are enabled then the
 motors will always work, this is not so desirable if the robot is on a desk
 or something and is likely to get damaged. Hence the motors being enabled
-is optional. If you are using Player/Stage, then the motors will always be enabled
-and this command doesn't need to be run. However, if your code is ever
-likely to be moved onto a real robot and the motors are not explicitly
+is optional. If you are using Player/Stage, then the motors will always be
+enabled and this command doesn't need to be run. However, if your code is
+ever likely to be moved onto a real robot and the motors are not explicitly
 enabled in your code, then you may end up spending a long time trying to
 work out why your robot is not working.
 
-### <a name="sec_Coding_InteractingWithProxies_ranger">RangerProxy</a>
+TODO: EDIT HERE
+
+### <a name="sec_Coding_InteractingWithProxies_ranger">rangerproxy</a>
 
 A RangerProxy interfaces with any ranger sensor.  
 
