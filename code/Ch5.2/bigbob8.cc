@@ -16,10 +16,11 @@ int main(int argc, char *argv[]) {
   robot.Read();
 
   // for carlike robots
-  //p2dProxy.SetSpeed(0.1,0.1); // XSpeed (m/s), YawSpeed (rad/s)
-  p2dProxy.SetCarlike(0.2,dtor(3)); // XSpeed, Yaw (rad)
+  // p2dProxy.SetCarlike(0.2,dtor(3)); // XSpeed, Yaw (rad)
   // for holonomic robots
-  //p2dProxy.SetSpeed(0.1,0.1,0.1); // XSpeed (m/s), YawSpeed (rad/s)
+  // p2dProxy.SetSpeed(0.1,0.1,0.1); // XSpeed (m/s), YSpeed, YawSpeed (rad/s)
+  // for nonholonomic robots
+  p2dProxy.SetSpeed(0.1,0,0.1); // XSpeed (m/s), YawSpeed (rad/s)
 
   for(int i=0;i<10;i++) {
         robot.Read();

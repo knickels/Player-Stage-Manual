@@ -27,23 +27,22 @@ int main(int argc, char *argv[]) {
   // for holonomic robots (XSpeed (m/s), YSpeed (m/s), YawSpeed (rad/s), state)
   // *You* should check return values!!
   */
-  /* playerc_position2d_set_speed(p2dProxy,0,0,0.1) ?? */
-  playerc_position2d_set_cmd_vel(p2dProxy, 0, 0, DTOR(40.0), 1);
+  playerc_position2d_set_cmd_vel(p2dProxy, 0.1, 0.0, DTOR(40.0), 1);
 
   for(int i=0;i<10;i++) {
         playerc_client_read(robot);
         printf("Iter %d\n",i);
-        printf("XSpeed = %.2f m/s\t", robot->vx);
-        printf("YSpeed = %.2f m/s\t", robot->vy);
-        printf("YawSpeed = %.2f rad/s\n", robot->va);
-        printf("XPos = %.2f m/s\t", robot->vx);
-        printf("YPos = %.2f m/s\t", robot->vy);
-        printf("Yaw = %.2f rad/s\n", robot->va);
+        printf("XSpeed = %.2f m/s\t", p2dProxy->vx);
+        printf("YSpeed = %.2f m/s\t", p2dProxy->vy);
+        printf("YawSpeed = %.2f rad/s\n", p2dProxy->va);
+        printf("XPos = %.2f m\t", p2dProxy->px);
+        printf("YPos = %.2f m\t", p2dProxy->py);
+        printf("Yaw = %.2f rad\n", p2dProxy->pa);
     }
 
   /* Shutdown */
-  playerc_position2d_unsubscribe(p2dproxy);
-  playerc_position2d_destroy(p2dproxy);
+  playerc_position2d_unsubscribe(p2dProxy);
+  playerc_position2d_destroy(p2dProxy);
   playerc_client_disconnect(robot);
   playerc_client_destroy(robot);
 
