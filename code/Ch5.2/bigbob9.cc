@@ -34,16 +34,21 @@ int main(int argc, char *argv[]) {
     robot.Read();
 
     // Method 1
-    cout << sonarProxy.GetRangeCount() << " sonar ranges: ";
+    cout << sonarProxy.GetRangeCount() << " sonar ranges (meth1): ";
     for (int i=0;i<sonarProxy.GetRangeCount()-1;i++) 
         cout<< sonarProxy[i] << ", ";
     cout << sonarProxy[sonarProxy.GetRangeCount()-1] << endl;
 
     // Method 2, same
-    cout << sonarProxy.GetRangeCount() << " sonar ranges: ";
+    cout << sonarProxy.GetRangeCount() << " sonar ranges (meth2): ";
     for (int i=0;i<sonarProxy.GetRangeCount()-1;i++) 
         cout<< sonarProxy.GetRange(i) << ", ";
     cout << sonarProxy.GetRange(sonarProxy.GetRangeCount()-1) << endl;
+
+    cout << toothProxy.GetRangeCount() << " tooth ranges: ";
+    for (int i=0;i<toothProxy.GetRangeCount()-1;i++) 
+        cout<< toothProxy.GetRange(i) << ", ";
+    cout << toothProxy.GetRange(toothProxy.GetRangeCount()-1) << endl;
 
     cout << laserProxy.GetRangeCount() << " laser ranges"<<endl;
     for (int i=0;i<laserProxy.GetRangeCount()-1;i++) 

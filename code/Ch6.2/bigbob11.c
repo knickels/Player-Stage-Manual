@@ -1,15 +1,25 @@
+/*
 TODO - get this demo to work
 TODO - play with store/retrieve
+*/
  
-
-
-/* Simple C client example.
- * Based on simple.c from player distribution
+/* Example 'bigbob11.c' - show use of gripper
  * K. Nickels 6/8/14
  */
 
 #include <stdio.h>
+#include <unistd.h>
 #include <libplayerc/playerc.h>
+
+const char *gripper_state(int s) {
+    switch(s) {
+        case PLAYER_GRIPPER_STATE_OPEN: return "open"; break;
+        case PLAYER_GRIPPER_STATE_CLOSED: return "closed"; break;
+		case PLAYER_GRIPPER_STATE_MOVING: return "moving"; break;
+        case PLAYER_GRIPPER_STATE_ERROR: return "error"; break;
+        default: return "unknown"; break;
+    }
+}
 
 int main(int argc, char *argv[]) {
   playerc_client_t *robot;
@@ -30,14 +40,16 @@ int main(int argc, char *argv[]) {
   /* read from the proxies */
   playerc_gripper_get_geom(gp);
   playerc_client_read(robot);
+  playerc_gripper_printout(gp,"state of gripper");
+  printf("Capacity of gripper: %d items\n",gp->capacity);
 
   /* go forward */
   playerc_position2d_set_cmd_vel(pp, 0.1, 0.0, 0, 1);
 
-  /* keep going till you see something */
+  /* approach orange - keep going till it's in the breakbeam */
   while (gp->beams==0) {
   		playerc_client_read(robot);
-		playerc_gripper_printout(gp,"approach");
+		printf("Gripper is %s\n", gripper_state(gp->state));
   }
 
   /* stop and close gripper */
@@ -45,15 +57,20 @@ int main(int argc, char *argv[]) {
   playerc_gripper_close_cmd(gp);
   while (gp->state != PLAYER_GRIPPER_STATE_CLOSED) {
   		playerc_client_read(robot);
-		playerc_gripper_printout(gp,"grabbing");
+		printf("Gripper is %s\n", gripper_state(gp->state));
   }
+  /* Note - in stage there is a strange bug drawing the paddles on closing
+   * the first time.
+   */
 
-  /* back off, and give some time to move */
-  playerc_position2d_set_cmd_vel(pp, -0.1, 0.0, 0, 1);
-  for (int i=1;i<20;i++) {
-  		playerc_client_read(robot);
-		playerc_gripper_printout(gp,"dragging away");
-  }
+  /* drive around with your box for a while */
+  playerc_position2d_set_cmd_vel(pp, -0.1, 0.0, DTOR(30), 1);
+  sleep(2);
+
+  /* Now drop the box and speed up */
+  playerc_position2d_set_cmd_vel(pp, -0.5, 0.0, 0, 1);
+  playerc_gripper_open_cmd(gp);
+  sleep(2);
 
   /* Shutdown */
   playerc_gripper_unsubscribe(gp);

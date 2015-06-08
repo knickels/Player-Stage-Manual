@@ -14,10 +14,14 @@
 
 const char *gripper_state(int s) {
     switch(s) {
-        case 1: return "open"; break;
+        case PLAYER_GRIPPER_STATE_OPEN: return "open"; break;
+        case PLAYER_GRIPPER_STATE_CLOSED: return "closed"; break;
+		case PLAYER_GRIPPER_STATE_MOVING: return "moving"; break;
+        case PLAYER_GRIPPER_STATE_ERROR: return "error"; break;
+        /*case 1: return "open"; break;
         case 2: return "closed"; break;
         case 3: return "moving"; break;
-        case 4: return "error"; break;
+        case 4: return "error"; break;*/
         default: return "unknown"; break;
     }
 }
