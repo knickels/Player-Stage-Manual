@@ -362,12 +362,25 @@ Angles are given with reference to the laser's centre front (see Figure
 >`> ./bigbob9`
 
 
+TODO: EDIT HERE.
+
+
 ### 6.3.3 <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
-The blobfinder module analyses a camera image for areas of a desired colour and returns an array of the structure `playerc_blobfinder_blob_t`, this is the structure used to store blob data. First we will cover how to get this data from the blobfinder proxy, then we will discuss the data stored in the structure.
 
-* `GetCount`: Returns the number of blobs seen.
-* `blobProxy_name[blob_number]`: This returns the blob structure data for the blob with the index `blob_number`. Blobs are sorted by index in the order that they appear in the image from left to right. This can also be achieved with the BlobfinderProxy function `GetBlob(blob_number)`.
+The blobfinder module analyses a camera image for areas of a desired colour
+and returns a structure `playerc_blobfinder_t`.  This structure contains
+very few elements:
+* `width` - Width of image (pixels)
+* `height` - Height of image (pixels)
+* `blobs_count` - the number of blobs seen
+* `blobs` - a pointer to an array of `playerc_blobfinder_blob_t`
+  structures.
 
+So for a blobfinder proxy blobfinder, the blobs are given by 
+* `blobfinder->blobs[blob_number]`: This returns the blob structure data
+  for the blob with the index `blob_number`. Blobs are sorted by index in
+  the order that they appear in the image from left to right. This can also
+  be achieved with the BlobfinderProxy function `GetBlob(blob_number)`.
 
 Once we receive the blob structure from the proxy we can extract data we
 need. The `playerc_blobfinder_blob_t` structure contains the following fields:
@@ -406,18 +419,45 @@ need. The `playerc_blobfinder_blob_t` structure contains the following fields:
 
 >` > player bigbob7.cfg `
 
+>` > cat bigbob10.c `(and read through the code for understanding)
+
 >` > make bigbob10 `
 
 >` > ./bigbob10`
 
 
 ### 6.3.4 <a name="gripperproxy"> GripperProxy </a>
-The GripperProxy allows you to control the gripper, once the gripper is holding an item, the simulated robot will carry it around wherever it goes. Without a gripper you can only jostle an item in the simulation and you would have to manually tell the simulation what to do with an item. The GripperProxy can also tell you if an item is between the gripper teeth because the gripper model has inbuilt beams which can detect if they are broken. 
+The GripperProxy allows you to control the gripper, once the gripper is
+holding an item, the simulated robot will carry it around wherever it goes.
+Without a gripper you can only jostle an item in the simulation and you
+would have to manually tell the simulation what to do with an item. The
+GripperProxy can also tell you if an item is between the gripper teeth
+because the gripper model has inbuilt beams which can detect if they are
+broken. 
 
-* `GetBeams`: This command will tell you if there is an item inside the gripper. If it is a value above 0 then there is an item to grab.
-* `GetState`: This will tell you whether the gripper is opened or closed. If the command returns a 1 then the gripper is open, if it returns 2 then the gripper is closed, and 3 if the gripper is moving.
-* `Open`: Tells the gripper to open. This will cause any items that were being carried to be dropped.
-* `Close`: Tells the gripper to close. This will cause it to pick up anything between its teeth.
+
+* `playerc_gripper_open_cmd (playerc_gripper_t *device)`: 
+      Tells the gripper to open. This will cause any items that were being carried to be dropped.
+* `playerc_gripper_close_cmd (playerc_gripper_t *device)`: Command the gripper to close. 
+      Tells the gripper to close. This will cause it to pick up anything between its teeth.
+* `playerc_gripper_stop_cmd (playerc_gripper_t *device)`: Command the gripper to stop. If it is opening, it may not complete opening.  If it's closing, it may not complete closing.
+* `playerc_gripper_store_cmd (playerc_gripper_t *device)`: Command the gripper to store.   Any objects between the gripper's teeth is stored in a hypothetical sstorage, if there is still capacity (it dissapears from the world).
+* `playerc_gripper_retrieve_cmd (playerc_gripper_t *device)`: Command the gripper to retrieve.   If there is a stored object in the storage, it re-appears in the gripper.
+* `playerc_gripper_printout (playerc_gripper_t *device, const char *prefix)`: Print a human-readable version of the gripper state. 
+* `playerc_gripper_get_geom (playerc_gripper_t *device)`: Get the gripper
+  geometry.  This is placed in the `playerc_gripper_t` structure, which 
+  contains the following information:
+  * `num_beams`: The number of breakbeams the gripper has. 
+  * `capacity`: The capacity of the gripper's store - if 0, the gripper cannot
+      store. 
+  * `state`: The gripper's state: may be one of PLAYER_GRIPPER_STATE_OPEN,
+        PLAYER_GRIPPER_STATE_CLOSED, PLAYER_GRIPPER_STATE_MOVING or
+        PLAYER_GRIPPER_STATE_ERROR. 
+  * `beams`: The position of the object in the gripper. 
+             CHECK - This command will tell you if there is an item inside the
+             gripper. If it is a value above 0 then there is an item to grab.
+  * `stored`: The number of currently-stored objects. 
+
 
 
 > #### TRY IT OUT
@@ -425,6 +465,8 @@ The GripperProxy allows you to control the gripper, once the gripper is holding 
 > ` > cd <source_code>/Ch6.2 `
 
 >` > player bigbob11.cfg `
+
+>` > cat bigbob11.c `(and read through the code for understanding)
 
 >` > make bigbob11 `
 
@@ -440,15 +482,15 @@ The item's pose is a special case of the Get/SetProperty function, because
 it is so likely that someone would want to move an item in the world they
 created a special function to do it.
 
-`SetPose2d(char *item_name, double x, double y, double yaw)`
+`playerc_simulation_set_pose2d (playerc_simulation_t *device, char *item_name, double gx, double gy, double ga)`
 
-In this case `item_name` is as with Get/SetProperty, but we can directly
+In this case `item_name` is as with get/set_property, but we can directly
 specify its new coordinates and yaw (coordinates and yaws are given with
 reference to the map's origin).
 
-`GetPose2d(char *item_name, double &x, double &y, double &yaw)`
+`playerc_simulation_get_pose2d (playerc_simulation_t *device, char *identifier, double *x, double *y, double *a) `
 
-This is like SetPose2d only this time it writes the coordinates and yaw to
+This is like set_pose2d only this time it writes the coordinates and yaw to
 the given addresses in memory.
 
 > #### TRY IT OUT
@@ -457,26 +499,28 @@ the given addresses in memory.
 
 >` > player bigbob11.cfg `
 
+>` > cat bigbob12.c `(and read through the code for understanding)
+
 >` > make bigbob12 `
 
 >` > ./bigbob12`
 
 
 #### Get/Set Property
-In version 4.1.1 of Stage the Get/SetProperty simulation proxy functions
+In version 4.1.1 of Stage the get/set_property simulation proxy functions
 are only implemented for the property "color".  None of the other
 properties are supported.  Previous versions of Stage (before 3.2.2) had
 some code but it wasn't fully implemented, and it's been removed since.
 
 If you desperately need this functionality you can use an earlier release
 of Stage, and the first edition of this manual describes how to get and
-set a model's property in those distributions.  
+set a model`s property in those distributions.  
 
 In this edition of the manual I will describe the only functioning
-Get/SetProperty, which is "color".
+get/set_property, which is "color".
 
 To change a property of an item in the simulation we use the following function:
-`SetProperty(char *item_name, char *property, void *value, size_t value_len)`
+`playerc_simulation_set_property (playerc_simulation_t *device, char *item_name, char *property, void *value, size_t value_len)`
 
 * `item_name`: this is the name that you gave to the object in the
   worldfile, it could be *any* model that you have described in the
@@ -515,6 +559,8 @@ The `value` parameter is dependant on which `property` you want to set.
 
 >` > player bigbob11.cfg `
 
+>` > cat bigbob13.c `(and read through the code for understanding)
+
 >` > make bigbob13 `
 
 >` > ./bigbob13`
@@ -524,11 +570,27 @@ The `value` parameter is dependant on which `property` you want to set.
 ## 6.4 General Useful Commands
 
 #### Read()
-To make the proxies update with new sensor data we need to tell the player server to update, we can do this using the PlayerClient object which we used to connect to the server. All we have to do is run the command `playerClient_name.Read()` every time the data needs updating (where playerClient_name is the name you gave the PlayerClient object). Until this command is run, the proxies and any sensor information from them will be empty. 
-The devices on a typical robot are asynchronous and the devices in a Player/Stage simulation are also asynchronous, so running the `Read()` command won't always update everything at the same time, so it may take several calls before some large data structures (such as a camera image) gets updated.
+To make the proxies update with new sensor data we need to tell the player
+server to update, we can do this using the playerc_client object which we used
+to
+connect to the server. All we have to do is run the command
+`playerc_client_read(playerc_client_name)` every time the data needs updating
+(where playerc_client_name is the name you gave the player client object).
+Until this command is run, the proxies and any sensor information from them
+will be empty.  The devices on a typical robot are asynchronous and the devices
+in a Player/Stage simulation are also asynchronous, so running the `Read()`
+command
+won't always update everything at the same time, so it may take several calls
+before some large data structures (such as a camera image) gets updated.
 
 #### GetGeom()
-Most of the proxies have a function called `GetGeom` or `GetGeometry` or `RequestGeometry`, or words to that effect. What these functions do is tell the proxy retrieve information about the device, usually its size and pose (relative to the robot). The proxies don't know this by default since this information is specific to the robot or the Player/Stage robot model. If your code needs to know this kind of information about a device then the proxy must run this command first.
+Most of the proxies have a function called `get_geom` or `get_geometry` or
+`request_geometry`, or words to that effect. What these functions do is tell
+the proxy retrieve information about the device, usually its size and pose
+(relative to the robot). The proxies don't know this by default since this
+information is specific to the robot or the Player/Stage robot model. If your
+code needs to know this kind of information about a device then the proxy must
+run this command first.
 
 ## 6.5 <a name="sec_Coding_UsingProxiesExample"> Using Proxies: A Case Study </a>
 
@@ -952,6 +1014,8 @@ the [simulation world](code/Ch6.2/bigbob11.world), and
 >` > cd <source_code>/Ch6.2 `
 
 >` > player bigbob11.cfg `
+
+>` > cat bigbob13.c `(and read through the code for understanding)
 
 >` > make bigbob13 `
 
