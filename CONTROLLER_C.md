@@ -361,10 +361,6 @@ Angles are given with reference to the laser's centre front (see Figure
 
 >`> ./bigbob9`
 
-
-TODO: EDIT HERE.
-
-
 ### 6.3.3 <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
 
 The blobfinder module analyses a camera image for areas of a desired colour
@@ -435,6 +431,7 @@ GripperProxy can also tell you if an item is between the gripper teeth
 because the gripper model has inbuilt beams which can detect if they are
 broken. 
 
+TOTO - EDIT HERE
 
 * `playerc_gripper_open_cmd (playerc_gripper_t *device)`: 
       Tells the gripper to open. This will cause any items that were being carried to be dropped.
