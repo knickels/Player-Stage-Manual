@@ -5,7 +5,6 @@
 import math, sys, os
 sys.path.append('/usr/local/lib64/python2.7/site-packages/')
 from playercpp import *
-bfstr = '';
 
 # Make proxies for Client, blobfinder
 robot = PlayerClient("localhost");
@@ -19,8 +18,9 @@ robot.Read();
 for i in range(bf.GetCount()):
 	blob = bf.GetBlob(i);
 	print 'BLOB %d, ' % i
-	print 'color %d, ' % blob.color
-        # Can't seem to access .x .y .top .left .right .bottom from
-        # python.  They're stuck in the C structure playerc_blob_t
+        # Can't seem to access .color .x .y .top .left .right .bottom from
+        # python.  
+		# blob is a pointer to a C structure playerc_blob_t
+		# Probably a SWIG problem...
 
 	robot.Read()
