@@ -18,10 +18,9 @@ robot.Read();
 # Print stuff out for fun
 for i in range(bf.GetCount()):
 	blob = bf.GetBlob(i);
-	bfstr += 'BLOB %d, ' % i
-	bfstr += 'color %d, ' % blob.color
-	bfstr += 'x %f, ' % blob.x
-	bfstr += '\n'
-	print bfstr
+	print 'BLOB %d, ' % i
+	print 'color %d, ' % blob.color
+        # Can't seem to access .x .y .top .left .right .bottom from
+        # python.  They're stuck in the C structure playerc_blob_t
 
 	robot.Read()

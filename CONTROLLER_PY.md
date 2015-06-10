@@ -1,123 +1,54 @@
-# <a name="sec_Coding"> Chapter 5 - Getting Your Simulation to Run Your Code</a>
+# <a name="sec_Coding"> Chapter 7 - Controllers in Python </a>
 
-To learn how to write code for Player or Player/Stage it helps to
-understand the basic structure of how Player works. Player uses a
-Server/Client structure in order to pass data and instructions between your
-code and the robot's hardware. Player is a server, and a hardware device.
-Remember, a device is a piece of hardware that uses a driver which conforms
-to an interface. See [Interface Driver Devices](BASICS.md#sec_Basics_InterfaceDriverDevices).  On
-the robot is subscribed as a client to the server via a thing called a
-*proxy*. The .cfg file associated with your robot (or your simulation)
-takes care of telling the Player server which devices are attached to it,
-so when we run the command `player some_cfg.cfg` this starts up the Player
-server and connects all the necessary hardware devices to the server.
+In [Chapter 5](CONTROLLERS.md) only C++ was used with the `playercc` client
+library as an example.  [Chapter 6](CONTROLLER_C.md) showed the `playerc`
+interface.  This chapter will show you how to use the `playercpp.py` SWIG
+wrappers for [libplayerc++](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__player__clientlib__cplusplus.html)
+to control a robot with python.
 
-Figure 5.1 shows a basic block diagram of
-the structure of Player when implemented on a robot. In Player/Stage the
-same command will start the Player server and load up the worldfile in a
-simulation window, this runs on your computer and allows your code to
-interact with the simulation rather than hardware. Figure
-5.2 shows a basic block diagram of the
-Player/Stage structure.  Your code must also subscribe to the Player server
-so that it can access these proxies and hence control the robot. Player has
-functions and classes which will do all this for you, but you still need to
-actually call these functions with your code and know how to use them.
+First, I will review the same example given in [Chapter 5](CONTROLLERS.md)
+for C++, hilighting the differences in python.  Then, I will provide a new
+    version of the [Case Study](CONTROLLERS.md#sec_Coding_UsingProxiesExample) for python.
 
+## <a name="sec_Coding_C"> 7.1 - Coding in Python with `playercpp.py`
 
-<!--- Figure --->
-| |
-| :---------------:| 
-| <img src="pics/coding/ServerClient_robot.png" width="50%">     |
-| Figure 5.1: The server/client control structure of Player when used on a robot. There may be several proxies connected to the server at any time. |
-<!--- <a name="fig_Coding_ServerClientSim"></a> --->
+### Setting up `playercpp.py` interface
 
+The C++ bindings are NOT made by default in player.  You'll need to
+configure and compile player locally to make these - how to do this is well beyond the scope of this manual, but a step-by-step procedure can be found [here.](http://sites.udel.edu/robotics/setting-up-player-and-stage-for-ubuntu-10-04/)
 
-<!--- Figure --->
-| |
-| :---------------:| 
-| <img src="pics/coding/ServerClient_sim.png" width="50%">     |
-| Figure 5.2: The server/client control structure of Player/Stage when used as a simulator. There may be several proxies connected to the server at any time. |
-
-## 5.1 Types of controllers
-Player is compatable with C, C++ or Python player controllers.  
-
-There are also such things as "stage controllers" such as those distributed in
-the stage source code under `examples/ctrl`, but in this manual we'll only
-describe player controllers.
-Earlier versions of `simple.world` had a line `ctrl wander` that
-automatically started the simulated robot working with a stage controller.
-If you happen to encounter this `simple.world` file, just comment out that
-line to use the examples given here.  Player controllers can control a real or
-a simulated robot.
-
-We will start by using C++ since it's pretty general.
-There are also sections covering [C controllers](CONTROLLER_C.md) and
-[Python controllers](CONTROllER_PY.md).
-
-The process of writing Player code is mostly the same for each different
-language though. The Player and Player proxy functions have different names for
-each language, but work in more or less the same way, so even if you don't
-plan on using C++ or Stage this section will still contain helpful
-information.  
-
-Example controllers in various languages can be found in the Player source code
-under `examples/`.  These and more are documented at
-(http://playerstage.sourceforge.net/wiki/PlayerClientLibraries), and
-some matlab and python examples based on this manual are given at
-(http://turobotics.blogspot.com/2013/08/client-controllers-for-player-302-and.html).
-
-Before beginning a project it is highly recommended that for any programs
-other than basic examples you should always wrap your Player commands
-around your own functions and classes so that all your code's interactions
-with Player are kept together the same file. This isn't a requirement of
-Player, it's just good practice. For example, if you upgrade Player or if
-for some reason your robot breaks and a certain function no longer works
-you only have to change part of a file instead of searching through all
-your code for places where Player functions have been used.
-
-In order to compile your C++ program you use the following commands (in Linux):
+To see if the bindings are available, and to locate where they are, type
 ```
-g++ -o example0 `pkg-config --cflags playerc++` example0.cc `pkg-config --libs playerc++`
+locate playercpp.py
 ```
-
-That will compile a program to a file called `example0` from the C++ code file \`example0.cc`. 
-
-An even easier and more general way is to make a `Makefile` that
-explains how to compile your code for you.  The details of Makefiles are
-beyond the scope of this manual, but [an example](code/Ch5.1/Makefile) is
-given in the tutorial files that came with this manual.  If you have this
-`Makefile` in the same directory as your code, you can just type `make
-file` and if the make program finds `file.cc` it will just "do
-the right thing".
+and observe the path with `site-packages` in it's name.
 
 > #### TRY IT OUT
 
->` > cd <source_code>/Ch5.1` 
+> ` > cd <source_code>/Ch7.1` 
 
 >` > player simple.cfg` 
 
->` > cat example0.cc` (and read through the code for understanding)
+>` > gedit example0.py`  (update `/usr/local/lib/pyton2.7/site-packages` to wherever you found `playercpp.py`)
 
->` > make example0` 
+>` > python example0.py` 
 
->` > ./example0` 
+>
 
 
-## 5.2 <a name="sec_Coding_ConnectingToServer"> Connecting to the Server and Proxies With Your Code</a>
+## 7.2 <a name="sec_Coding_ConnectingToServer"> Connecting to the Server and Proxies With Your Code</a>
 
-The first thing to do within your code is to include the Player header
+The first thing to do within your code is to include the Player interface
 file. Assuming Player/Stage is installed correctly on your machine then
-this can be done with the line 
-```
-#include <libplayerc++/playerc++.h>
-```
+this can be done with the line `from playercpp import *`
 
-Next we need to establish a Player Client, which will interact with the Player server for you. To do this we use the line:
+Next we need to establish a Player Client, which will interact with the
+Player server for you. To do this we use the line:
 ```
-PlayerClient client_name(hostname, port); 
+robot = PlayerClient("localhost");
 ```
-What this line does is declare a new object which is a PlayerClient called
-`client_name` which connects to the Player server at the given address. The
+What this does is declare a new object which is a PlayerClient called
+`robot` which connects to the Player server at the given address. The
 hostname and port is like that discussed in [Device Address](CFGFILES.md#sec_ConfigurationFile_DeviceAddress). If your code is running on the
 same computer (or robot) as the Player server you wish to connect to then
 the hostname is "localhost" otherwise it will be the IP address of the
@@ -130,8 +61,8 @@ port 6665 and the second one 6666 (like in the example of
 PlayerClients, one connected to each robot, and you would do this with the
 following code: 
 ```
-PlayerClient robot1("localhost", 6665); 
-PlayerClient robot2("localhost", 6666); 
+robot1 = PlayerClient("localhost",6665);
+robot2 = PlayerClient("localhost",6666);
 ```
 If you are only using one robot and in your .cfg file you said that it
 would operate on port 6665 then the port parameter to the PlayerClient
@@ -162,10 +93,10 @@ Here we've told the Player server that our "robot" has devices which use the
 position2d, ranger, and blobfinder interfaces. In our code then, we should
 connect to the position2d, ranger, and blobfinder proxies like so:
 ```
-Position2dProxy  positionProxy_name(&client_name,index);
-RangerProxy      sonarProxy_name(&client_name,index);
-BlobfinderProxy  blobProxy_name(&client_name,index);
-RangerProxy      laserProxy_name(&client_name,index);
+positionProxy_name = Position2dProxy (client_name,index)
+sonarProxy_name    = RangerProxy     (client_name,index)
+blobProxy_name     = BlobfinderProxy (client_name,index)
+laserProxy_name    = RangerProxy     (client_name,index)
 ```
 A full list of which proxies Player supports can be found in the [Player
 manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/classPlayerCc_1_1ClientProxy.html).
@@ -176,7 +107,7 @@ proxy object, `client_name` is the name you gave the PlayerClient
 object earlier and `index` is the index that the device was given in
 your configuration file (probably 0).
 
-### 5.2.1 <a name="sec_Coding_ConnectingToServer_Example"> Setting Up Connections: an Example. </a>
+### 7.2.1 <a name="sec_Coding_ConnectingToServer_Example"> Setting Up Connections: an Example. </a>
 
 For an example of how to connect to the Player sever and device proxies we
 will use the example configuration file developed in [Finishing
@@ -207,26 +138,19 @@ driver
 To set up a PlayerClient and then connect to proxies on that server we can
 use principles discussed in this section to develop the following code:
 ```
-#include <stdio.h>
-#include <libplayerc++/playerc++.h>
+from playercpp import *
 
-int main(int argc, char *argv[])
-{
-      using namespace PlayerCc; /*need to do this line in c++ only*/
-	
-      PlayerClient    robot("localhost");
+robot = PlayerClient("localhost");
+p2dProxy = Position2dProxy(robot,0);
+sonarProxy = RangerProxy(robot,0);
+blobProxy = BlobfinderProxy(robot,0);
+laserProxy = RangerProxy(robot,1);
 
-      Position2dProxy  p2dProxy(&robot,0);
-      RangerProxy      sonarProxy(&robot,0);
-      BlobfinderProxy  blobProxy(&robot,0);
-      RangerProxy      laserProxy(&robot,1);
-
-      //some control code
-      return 0;
-}
+# some control code
+return 0;
 ```
 
-## 5.3 <a name="sec_Coding_InteractingWithProxies"> Interacting with Proxies </a>
+## 7.3 <a name="sec_Coding_InteractingWithProxies"> Interacting with Proxies </a>
 
 As you may expect, each proxy is specialised towards controlling the device
 it connects to. This means that each proxy will have different commands
@@ -243,7 +167,7 @@ always explained.
 The following few proxies are probably the most useful to anyone using
 Player or Player/Stage.
 
-### 5.3.1 Position2dProxy
+### 7.3.1 Position2dProxy
 The Position2dProxy is the number one most useful proxy there is. It
 controls the robot's motors and keeps track of the robot's odometry (where
 the robot thinks it is based on how far its wheels have moved).
@@ -254,27 +178,27 @@ There are two different `SetSpeed` commands that can be called, one is for
 robots that can move in any direction and the other is for robots with
 differential or car-like drives. 
 
-* `SetSpeed(double XSpeed, double YSpeed, double YawSpeed)`
-* `SetSpeed(double XSpeed, double YawSpeed)`
-* `SetCarlike(double XSpeed, double DriveAngle)`
+* `SetSpeed(XSpeed, YSpeed, YawSpeed)`
+* `SetSpeed(XSpeed, YawSpeed)`
+* `SetCarlike(XSpeed, DriveAngle)`
 
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/bob_cartgrid.png" width="50%">     |
-| Figure 5.3: A robot on a cartesian grid. This shows what directions the X and Y speeds will cause the robot to move in. A positive yaw speed will turn the robot in the direction of the + arrow, a negative yaw speed is the direction of the - arrow. |
+| Figure 7.3: A robot on a cartesian grid. This shows what directions the X and Y speeds will cause the robot to move in. A positive yaw speed will turn the robot in the direction of the + arrow, a negative yaw speed is the direction of the - arrow. |
 
 
-Figure 5.3 shows which direction the x, y and yaw speeds are in relation to
+Figure 7.3 shows which direction the x, y and yaw speeds are in relation to
 the robot.  The x speed is the rate at which the robot moves forward and
 the y speed is the robot's speed sideways, both are to be given in metres
 per second. The y speed will only be useful if the robot you want to
 simulate or control is a ball, since robots with wheels cannot move
 sideways. The yaw speed controls how fast the robot is turning and is given
-in radians per second, Player has an inbuilt global function called
-`dtor()` which converts a number in degrees into a number in radians which
-could be useful when setting the yaw speed. 
+in radians per second, Python has an inbuilt global function called
+`math.radians()` which converts a number in degrees into a number in
+radians which could be useful when setting the yaw speed. 
 
 If you want to simulate or control a robot with a differential drive system
 then you'll need to convert left and right wheel speeds into a forward
@@ -305,15 +229,13 @@ starting point, and yaws are relative to its starting yaw.
 
 > #### TRY IT OUT
 
->`> cd <source_code>/Ch5.2`
+>`> cd <source_code>/Ch7.2`
 
 >`> player bigbob7.cfg`
 
->`> cat bigbob8.cc`(and read through the code for understanding)
+>`> cat bigbob8.py`(and read through the code for understanding)
 
->`> make bigbob8`
-
->`> ./bigbob8`
+>`> python bigbob8.py`
 
 In [The Position Model](WORLDFILES.md#sec_BuildingAWorld_BuildingRobot_RobotSensors_Position), we
 specified whether player would record odometry by measuring how much the
@@ -337,7 +259,7 @@ ever likely to be moved onto a real robot and the motors are not explicitly
 enabled in your code, then you may end up spending a long time trying to
 work out why your robot is not working.
 
-### 5.3.2 <a name="sec_Coding_InteractingWithProxies_ranger">RangerProxy</a>
+### 7.3.2 <a name="sec_Coding_InteractingWithProxies_ranger">RangerProxy</a>
 
 A RangerProxy interfaces with any ranger sensor.  
 
@@ -352,7 +274,7 @@ set to 1).  To minimize confusion with the depreciated sonar and IR
 interfaces, I'll refer to these as multiple-sensor devices.
 
 Angles are given with reference to the laser's centre front (see Figure
-5.4).
+7.4).
 
 * `GetRangeCount()`: The number of ranger measurements that
   the sensor suite measures.  In the case of a single-sensor
@@ -374,13 +296,13 @@ Angles are given with reference to the laser's centre front (see Figure
 * `GetMaxAngle()`: gives the maximum angle covered by a
   ranger sensor.  Only makes sense for a single-sensor device.
 * `GetAngularRes()`: gives the angular resolution
-   (&Theta; in Figure 5.4)
+   (&Theta; in Figure 7.4)
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner2.png" width="50%">     |
-| Figure 5.4: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
+| Figure 7.4: How laser angles are referenced. In this diagram the laser is pointing to the right along the dotted line, the angle &theta; is the angle of a laser scan point, in this example &theta; is negative. |
 
 
 
@@ -388,24 +310,22 @@ Angles are given with reference to the laser's centre front (see Figure
 | |
 | :---------------:| 
 | <img src="pics/coding/laserscanner.png" width="50%">     |
-| Figure 5.5: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
+| Figure 7.5: A laser scanner. The minimum angle is the angle of the rightmost laser scan, the maximum angle is the leftmost laser scan.  &theta; is the scan resolution of the laser, it is the angle between each laser scan, given in radians. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Laser_Proxy" </a> --->
 
 
 > #### TRY IT OUT
 
->`> cd <source_code>/Ch5.2`
+>`> cd <source_code>/Ch7.2`
 
 >`> player bigbob7.cfg`
 
->`> cat bigbob9.cc`(and read through the code for understanding)
+>`> cat bigbob9.py`(and read through the code for understanding)
 
->`> make bigbob9`
-
->`> ./bigbob9`
+>`> python bigbob9.py`
 
 
-### 5.3.3 <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
+### 7.3.3 <a name="sec_Coding_InteractingWithProxies_Blobfinder"> BlobfinderProxy </a>
 The blobfinder module analyses a camera image for areas of a desired colour
 and returns an array of the structure [`playerc_blobfinder_blob_t`](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/structplayer__blobfinder__blob.html), this is
 the structure used to store blob data. First we will cover how to get this
@@ -422,6 +342,13 @@ Once we receive the blob structure from the proxy we can extract data we
 need. The `playerc_blobfinder_blob_t` structure, documented in the [Player
 manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/structplayer__blobfinder__blob.html) contains the following fields:
 
+**BUG ALERT**
+
+> Unfortunately, the C to Python interface doesn't do a good job at
+> accessing data buried in C structures from python.  So you can't get at the
+> properties of the blob.  If anyone knows how to get around this, please email
+> knickels@trinity.edu and let me know!
+
 * `color`: The colour of the blob it detected. This is given as a hexadecimal value.
 * `area`: The area of the blob's bounding box. (In
     Stage 4.1.1, there is a bug with respect to the area.  It is
@@ -430,41 +357,45 @@ manual](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/structplayer_
     (http://sourceforge.net/p/playerstage/bugs/362/) and/or
     (https://github.com/rtv/Stage/issues/41) for the details.)
 * `x`: The horizontal coordinate of the geometric centre of the
-  blob's bounding box (see Figure 5.6).
+  blob's bounding box (see Figure 7.6).
 * `y`: The vertical coordinate of the geometric centre of the
-  blob's bounding box (see Figure 5.6). 
+  blob's bounding box (see Figure 7.6). 
 * `left`: The horizontal coordinate of the left hand side of the
-  blob's bounding box (see Figure 5.6).
+  blob's bounding box (see Figure 7.6).
 * `right`: The horizontal coordinate of the right hand side of the
-  blob's bounding box (see Figure 5.6).
+  blob's bounding box (see Figure 7.6).
 * `top`: The vertical coordinate of the top side of the blob's
-  bounding box (see Figure 5.6).
+  bounding box (see Figure 7.6).
 * `bottom`: The vertical coordinate of the bottom side of the
-  blob's bounding box (see Figure 5.6).
+  blob's bounding box (see Figure 7.6).
 
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/blobfinder_image.png" width="50%">     |
-| Figure 5.6: What the fields in `playerc_blobfinder_blob_t` mean. The blob on the left has a geometric centre at *(x,y)*, the blob on the right has a bounding box with the top left corner at *(left, top)* pixels, and a lower right coordinate at *(right, bottom)* pixels. Coordinates are given with reference to the top left corner of the image. |
+| Figure 7.6: What the fields in `playerc_blobfinder_blob_t` mean. The blob on the left has a geometric centre at *(x,y)*, the blob on the right has a bounding box with the top left corner at *(left, top)* pixels, and a lower right coordinate at *(right, bottom)* pixels. Coordinates are given with reference to the top left corner of the image. |
 <!--- <a name="fig_Coding_InteractingWithProxies_Blobfinder_BlobImage" </a> ---> 
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 `
+> ` > cd <source_code>/Ch7.2 `
 
 >` > player bigbob7.cfg `
 
->` > cat bigbob10.cc `(and read through the code for understanding)
+>` > cat bigbob10.py` (and read through the code for understanding)
 
->` > make bigbob10 `
-
->` > ./bigbob10`
+>` > python bigbob10.py`
 
 
-### 5.3.4 <a name="gripperproxy"> GripperProxy </a>
-The GripperProxy allows you to control the gripper.  Once the gripper is holding an item, the simulated robot will carry it around wherever it goes. Without a gripper you can only jostle an item in the simulation and you would have to manually tell the simulation what to do with an item. The GripperProxy can also tell you if an item is between the gripper teeth because the gripper model has inbuilt beams which can detect if they are broken. 
+### 7.3.4 <a name="gripperproxy"> GripperProxy </a>
+The GripperProxy allows you to control the gripper.  Once the gripper is
+holding an item, the simulated robot will carry it around wherever it goes.
+Without a gripper you can only jostle an item in the simulation and you
+would have to manually tell the simulation what to do with an item. The
+GripperProxy can also tell you if an item is between the gripper teeth
+because the gripper model has inbuilt beams which can detect if they are
+broken. 
 
 * `GetBeams()`: This command will tell you if there is an item inside the gripper. If it is a value above 0 then there is an item to grab.
 * `GetState()`: This will tell you whether the gripper is opened or closed. If the command returns a 1 then the gripper is open, if it returns 2 then the gripper is closed, and 3 if the gripper is moving.
@@ -474,19 +405,18 @@ The GripperProxy allows you to control the gripper.  Once the gripper is holding
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 `
+> ` > cd <source_code>/Ch7.2`
 
->` > player bigbob11.cfg `
+>` > player bigbob11.cfg`
 
->` > cat bigbob11.cc `(and read through the code for understanding)
+>` > cat bigbob11.py` (and read through the code for understanding)
 
->` > make bigbob11 `
-
->` > ./bigbob11`
+>` > python bigbob11.py`
 
 
+<!--- CODE DEVELOPMENT STOPPED HERE -->
 
-### 5.3.5 SimulationProxy
+### 7.3.5 SimulationProxy
 The simulation proxy allows your code to interact with and change aspects of the simulation, such as an item's pose or its colour. 
 
 #### Get/Set Pose
@@ -507,15 +437,14 @@ the given addresses in memory.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 `
+> ` > cd <source_code>/Ch7.2 `
 
 >` > player bigbob11.cfg `
 
->` > cat bigbob12.cc`(and read through the code for understanding)
+>` > cat bigbob12.py`(and read through the code for understanding)
 
->` > make bigbob12 `
+>` > python bigbob12.py `
 
->` > ./bigbob12`
 
 
 #### Get/Set Property
@@ -568,28 +497,38 @@ The `value` parameter is dependant on which `property` you want to set.
 
 > #### TRY IT OUT
 
-> ` > cd <source_code>/Ch5.2 `
+> ` > cd <source_code>/Ch7.2 `
 
 >` > player bigbob11.cfg `
 
->` > cat bigbob13.cc `(and read through the code for understanding)
+>` > cat bigbob13.py `(and read through the code for understanding)
 
->` > make bigbob13 `
+>` > python bigbob13.py `
 
->` > ./bigbob13`
 
 
 		
-## 5.4 General Useful Commands
+## 7.4 General Useful Commands
 
 #### Read()
-To make the proxies update with new sensor data we need to tell the player server to update, we can do this using the PlayerClient object which we used to connect to the server. All we have to do is run the command `playerClient_name.Read()` every time the data needs updating (where playerClient_name is the name you gave the PlayerClient object). Until this command is run, the proxies and any sensor information from them will be empty. 
-The devices on a typical robot are asynchronous and the devices in a Player/Stage simulation are also asynchronous, so running the `Read()` command won't always update everything at the same time, so it may take several calls before some large data structures (such as a camera image) gets updated.
+To make the proxies update with new sensor data we need to tell the player
+server to update, we can do this using the PlayerClient object which we
+used to connect to the server. All we have to do is run the command
+`playerClient_name.Read()` every time the data needs updating (where
+playerClient_name is the name you gave the PlayerClient object).
+Until this command is run, the proxies and any sensor information from them
+will be empty. 
+
+The devices on a typical robot are asynchronous and the devices in a
+Player/Stage simulation are also asynchronous, so running the `Read()`
+command won't always update everything at the same time, so it may take
+several calls before some large data structures (such as a camera image)
+    gets updated.
 
 #### GetGeom()
 Most of the proxies have a function called `GetGeom` or `GetGeometry` or `RequestGeometry`, or words to that effect. What these functions do is tell the proxy retrieve information about the device, usually its size and pose (relative to the robot). The proxies don't know this by default since this information is specific to the robot or the Player/Stage robot model. If your code needs to know this kind of information about a device then the proxy must run this command first.
 
-## 5.5 <a name="sec_Coding_UsingProxiesExample"> Using Proxies: Case Study 1: using C++ for a Trash-Zapping Robot</a>
+## 7.5 <a name="sec_Coding_UsingProxiesExample"> Using Proxies: Case Study 1: using C++ for a Trash-Zapping Robot</a>
 
 To demonstrate how to write code to control a Player device or Player/Stage
 simulation we will use the example robot "Bigbob" developed in [Building a
@@ -601,7 +540,7 @@ have developed the Stage model for this robot and its environment and the
 configuration file to control it. Now we can begin to put everything
 together to create a working simulation of this robot.
 
-### 5.5.1 <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
+### 7.5.1 <a name="sec_Coding_UsingProxiesExample_ControlArch"> The Control Architecture </a>
 To collect rubbish we have three basic behaviours: 
 
 * **Wander**: to search for rubbish. 
@@ -610,17 +549,17 @@ To collect rubbish we have three basic behaviours:
 
 The robot will also avoid obstacles but once this is done it will switch
 back to its previous behaviour. The control will follow the state
-transitions shown in Figure 5.7.
+transitions shown in Figure 7.7.
 
 <!--- Figure --->
 | |
 | :---------------:| 
 | <img src="pics/coding/arch_structureOA.png" width="50%">     |
-| Figure 5.7: The state transitions that the Bigbob rubbish collecting robot will follow. |
+| Figure 7.7: The state transitions that the Bigbob rubbish collecting robot will follow. |
 <!--- <a name="fig_Coding_UsingProxiesExample_ControlArch_Structure" </a> --->
 
 
-### 5.5.2 <a name="sec_Coding_UsingProxiesExample_BeginningCode"> Beginning the Code </a>
+### 7.5.2 <a name="sec_Coding_UsingProxiesExample_BeginningCode"> Beginning the Code </a>
 
 In [Connecting to Server](#sec_Coding_ConnectingToServer_Example) we discussed how to connect to the Player server and proxies attached to the server, and developed the following code:
 ```
@@ -667,7 +606,7 @@ while(true)
 }
 ```
 
-### 5.5.3 Wander
+### 7.5.3 Wander
 
 First we will initialise a couple of variables which will be the forward
 speed and the turning speed of the robot.  We'll put this with the proxy
@@ -768,7 +707,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-### 5.5.4 Obstacle Avoidance
+### 7.5.4 Obstacle Avoidance
 Now we need to write a subfunction that checks the sonars for any obstacles and amends the motor speeds accordingly.
 ```
 void AvoidObstacles(double *forwardSpeed, double *turnSpeed, 
@@ -826,7 +765,7 @@ while(true)
 }
 ```
 
-### 5.4.5 Move To Item
+### 7.4.5 Move To Item
 For this state we want the robot to move towards a blob that it has spotted. There may be several blobs in its view at once, so we'll tell the robot to move to the largest one because it's probably the closest to the robot. The following subfunction finds the largest blob and turns the robot so that the blob's centre is near the centre of the image. The robot will then move towards the blob.
 ```
 void MoveToItem(double *forwardSpeed, double *turnSpeed, 
@@ -906,7 +845,7 @@ else
 }
 ```
 
-### 5.5.6 <a name="sec_Coding_UsingProxiesExample_CollectItem"> Collect Item </a>
+### 7.5.6 <a name="sec_Coding_UsingProxiesExample_CollectItem"> Collect Item </a>
 This behaviour will be the most difficult to code because Stage doesn't
 support pushable objects (the required physics is far too complex), what
 happens instead is that the robot runs over the object and just jostles it
@@ -961,7 +900,7 @@ Here we are making a string of the item names, for example orange1 and storing t
 
 Next we can begin the "Collect Item" behaviour, which will be triggered
 by something breaking the laser beam. When this happens we will check the
-area around Bigbob's teeth, as indicated by Figure 5.8.   We know the
+area around Bigbob's teeth, as indicated by Figure 7.8.   We know the
 distance from the centre of this search circle to Bigbob's origin (0.625m)
 and the radius of the search circle (0.375m), we can get the robot's exact
 pose with the following code.  
@@ -985,7 +924,7 @@ example.)
 | |
 | :---------------:| 
 | <img src="pics/coding/bigbob_radius.png" width="50%">     |
-| Figure 5.8: Where to look for items which may have passed through Bigbob's laser. |
+| Figure 7.8: Where to look for items which may have passed through Bigbob's laser. |
 <!--- <a name="fig_Coding_UsingProxiesExample_CollectItem_BigbobLaserRadius" </a> --->
 
 Now that we can find the item to destroy it's fairly simple to trigger our subfunction when the laser is broken so we can find and destroy an item.
@@ -1008,25 +947,23 @@ if(laserProxy[90] < 0.25)
 The laser has 180 samples, so sample number 90 is the one which is perpendicular to Bigbob's teeth. This point returns a maximum of 0.25, so if its range was to fall below this then something has passed through the laser beam. We then find the item closest to the robot's teeth and move that item to coordinate *(-10, -10)* so it is no longer visible or accessible.
 
 Finally we have a working simulation of a rubbish collecting robot! 
-The code comprises [the source](code/Ch5.2/bigbob13.cc), 
-the [simulation world](code/Ch5.2/bigbob11.world), and 
-[configuration files](code/Ch5.2/bigbob11.cfg).
+The code comprises [the source](code/Ch7.2/bigbob13.py), 
+the [simulation world](code/Ch7.2/bigbob11.world), and 
+[configuration files](code/Ch7.2/bigbob11.cfg).
 
 > #### TRY IT OUT
 
->` > cd <source_code>/Ch5.2 `
+>` > cd <source_code>/Ch7.2 `
 
 >` > player bigbob11.cfg `
 
->` > cat bigbob13.cc `(and read through the code for understanding)
+>` > cat bigbob13.py `(and read through the code for understanding)
 
->` > make bigbob13 `
-
->` > ./bigbob13`
+>` > python bigbob13.py `
 
 
 
-## 5.6 <a name="simulating_Multiple_Robots">Case Study 2: Simulating Multiple Robots</a>
+## 7.6 <a name="simulating_Multiple_Robots">Case Study 2: Simulating Multiple Robots</a>
 Our robot simulation case study only shows how to simulate a single robot in a Player/Stage environment. It's highly likely that a simulation might want more than one robot in it. In this situation you will need to build a model of every robot you need in the worldfile, and then its associated driver in the configuration file. Let's take a look at our worldfile for the case study, we'll add a new model of a new Bigbob robot called "bob2":
 ```
 bigbob

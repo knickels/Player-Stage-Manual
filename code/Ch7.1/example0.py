@@ -8,7 +8,7 @@ def dtor (deg):
 # Make proxies for Client, Sonar, Position2d
 robot = PlayerClient("localhost");
 sp = RangerProxy(robot,0);
-pp = Position2dProxy(roboty,0);
+pp = Position2dProxy(robot,0);
 
 # Read from proxies
 robot.Read()

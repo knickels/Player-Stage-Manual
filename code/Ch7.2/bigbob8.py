@@ -9,26 +9,22 @@ from playercpp import *
 ppstr= '';
 ppdstr= '';
 
-def dtor (deg):
-	return deg*math.pi/180.0;
-
 # read from the proxies
 robot = PlayerClient("localhost");
 pp = Position2dProxy(robot,0);
 # for carlike robots
 # p2dProxy.SetSpeed(0.1,0.1); # XSpeed (m/s), YawSpeed (rad/s)
-pp.SetCarlike(0.2,dtor(3)); # XSpeed, Yaw (rad)
+pp.SetCarlike(0.2,math.radians(3.0)); # XSpeed, Yaw (rad)
 # for holonomic robots
 # pp.SetSpeed(0.1,0.1,0.1); # XSpeed (m/s), YawSpeed (rad/s)
 
-robot.Read()
-
 for i in range(10):
-	ppstr += '%.3f m/s, ' % pp.GetXSpeed()
-	ppstr += '%.3f m/s, ' % pp.GetYSpeed()
-	ppstr += '%.3f rad/s ' % pp.GetYawSpeed()
-	print ppstr
-	ppdstr+= '%.3f m, ' % pp.GetXPos()
-	ppdstr+= '%.3f m, ' % pp.GetYPos()
-	ppdstr+= '%.3f rad' % pp.GetYaw()
-	print ppdstr
+        robot.Read()
+	print '%.3f m/s, ' % pp.GetXSpeed(),
+	print '%.3f m/s, ' % pp.GetYSpeed(),
+	print '%.3f rad/s ' % pp.GetYawSpeed()
+	print '%.3f m, ' % pp.GetXPos(),
+	print '%.3f m, ' % pp.GetYPos(),
+	print '%.3f rad' % pp.GetYaw()
+
+# Destructors called automatically on exit.
