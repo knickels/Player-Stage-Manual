@@ -4,11 +4,13 @@
 
 import math, sys, os
 sys.path.append('/usr/local/lib64/python2.7/site-packages/')
-from playercpp import *
+from playerc import *
 
 # Make proxies for Client, blobfinder
-robot = PlayerClient("localhost");
-bf = BlobfinderProxy(robot,0);
+robot = playerc_client(None, 'localhost', 6665)
+bf = playerc_blobfinder(robot,0);
+if bf.subscribe(PLAYERC_OPEN_MODE):
+	raise playerc_error_str()
 
 for i in range(bf.GetCount()):
 	robot.Read()
