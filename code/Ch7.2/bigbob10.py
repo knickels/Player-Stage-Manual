@@ -10,12 +10,15 @@ from playercpp import *
 robot = PlayerClient("localhost");
 bf = BlobfinderProxy(robot,0);
 
+robot.Read() # fills up bf the first time
+
 for i in range(bf.GetCount()):
-	robot.Read()
 	blob = bf.GetBlob(i);
 	print 'BLOB %d, ' % i
         # Can't seem to access .color .x .y .top .left .right .bottom from
         # python.  
 		# blob is a pointer to a C structure playerc_blob_t
 		# Probably a SWIG problem...
+
+	robot.Read()
 
