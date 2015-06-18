@@ -1,0 +1,15 @@
+site_name: Player-Stage Manual
+repo_url: https://github.com/NickelsLab/Player-Stage-Manual
+
+pages:
+- Home: README.md
+- Introduction: INTRO.md
+- Building a World: WORLDFILES.md
+- Writing a Configuration (.cfg) File: CFGFILES.md
+- Controllers (C++): CONTROLLERS.md
+- Controllers (C): CONTROLLER_C.md
+- Controllers (Python/playercpp): CONTROLLER_PYCPP.md
+- Controllers (Python/playerc): CONTROLLER_PYC.md
+
+markdown_extensions:
+- toc:
