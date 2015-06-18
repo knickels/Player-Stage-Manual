@@ -1,8 +1,8 @@
 # How to Use Player/Stage
-### 5th Edition
-### Using Player 3.0.2 and Stage 4.1.1
-### Kevin Nickels and Jennifer Owen
-### 17 June 2015
+5th Edition
+Using Player 3.0.2 and Stage 4.1.1
+Kevin Nickels and Jennifer Owen
+17 June 2015
 
 A user manual for the Player/Stage robot simulator.
 
@@ -26,7 +26,9 @@ previous edition of this manual is now out of date.
 2. [The Basics](BASICS.md)
 3. [Building a World](WORLDFILES.md)
 4. [Writing a Configuration (.cfg) File](CFGFILES.md)
-5. [Getting Your Simulation to Run Your Code](CONTROLLERS.md)
+5. [Getting Your Simulation to Run Your Code (CPP)](CONTROLLERS.md)
+5. [Getting Your Simulation to Run Your Code (C)](CONTROLLER_C.md)
+5. [Getting Your Simulation to Run Your Code (Py)](CONTROLLER_PY.md)
 
 ### Change Log
 * 17 June 2015 considering where to publish
