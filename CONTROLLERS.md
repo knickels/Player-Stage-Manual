@@ -52,7 +52,7 @@ a simulated robot.
 
 We will start by using C++ since it's pretty general.
 There are also sections covering [C controllers](CONTROLLER_C.md) and
-[Python controllers](CONTROllER_PY.md).
+[Python controllers](CONTROLLER_PY.md).
 
 The process of writing Player code is mostly the same for each different
 language though. The Player and Player proxy functions have different names for
